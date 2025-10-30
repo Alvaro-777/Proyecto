@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar sesión - Oretan-IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <!-- CABECERA REUTILIZADA -->
+  <header>
+    <div class="logo">
+      <img src="../imagenes/Copia de Logo.png" alt="Logo Oretan-IA">
+    </div>
+    <h1 class="titulo">Oretan-IA</h1>
+    <div class="modo">
+      <button id="modo-toggle">🌞 / 🌙</button>
+      <div class="menu">
+        <button class="menu-btn">☰</button>
+        <div class="menu-content">
+          <a href="../index.html">Inicio</a>
+          <a href="../paginas/registro.html">Registrarse</a>
+          <a href="../paginas/perfil.html">Perfil</a>
+          <a href="#">Salir</a>
+          <a href="#" class="plan">Plan $X</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="login-container">
+    <section class="form-login">
+      <h2>Iniciar sesión</h2>
+      <p>Accede a tu cuenta para continuar explorando Oretan-IA</p>
+      <form action="#" method="post">
+        <div class="campo">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="campo">
+          <label for="password">Contraseña</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-login">Entrar</button>
+          <p class="registro-link">¿No tienes cuenta? <a href="../paginas/registro.html">Regístrate aquí</a></p>
+          <p class="olvide-link"><a href="#">¿Olvidaste tu contraseña?</a></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- PIE DE PÁGINA REUTILIZADO -->
+  <footer>
+    <p>Información básica: contacto | Tel | Redes sociales | Participantes...</p>
+  </footer>
+
+  <script>
+    // Toggle modo claro/oscuro
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("oscuro");
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pago - Oretan-IA</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    
+  <header>
+    <div class="logo">
+      <img src="../imagenes/Copia de Logo.png" alt="Logo Oretan-IA">
+    </div>
+    <h1 class="titulo">Oretan-IA</h1>
+    <div class="modo">
+      <button id="modo-toggle">🌞 / 🌙</button>
+      <div class="menu">
+        <button class="menu-btn">☰</button>
+        <div class="menu-content">
+          <a href="../index.html">Inicio</a>
+          <a href="registro.html">Registrarse</a>
+          <a href="login.html">Login</a>
+          <a href="planes.html">Planes</a>
+          <a href="perfil.html">Perfil</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pago-container">
+    <section class="pago-box">
+      <h2>Suscripción Premium</h2>
+      <p>Accede sin límites a todas las herramientas de Oretan-IA.</p>
+
+      <div class="detalle-plan">
+        <h3>Plan Premium</h3>
+        <p class="precio">50 € / mes</p>
+        <ul>
+          <li>✔ Uso ilimitado de IA</li>
+          <li>✔ Sin límites de tokens</li>
+          <li>✔ Prioridad máxima en servidores</li>
+          <li>✔ Modelos de IA avanzados</li>
+        </ul>
+      </div>
+
+      <form action="#" method="post" class="form-pago">
+        <h4>Datos de pago</h4>
+
+        <div class="campo">
+          <label for="nombre">Nombre en la tarjeta</label>
+          <input type="text" id="nombre" name="nombre" required>
+        </div>
+
+        <div class="campo">
+          <label for="numero">Número de tarjeta</label>
+          <input type="text" id="numero" name="numero" maxlength="16" placeholder="XXXX XXXX XXXX XXXX" required>
+        </div>
+
+        <div class="campo-doble">
+          <div class="campo">
+            <label for="fecha">Fecha de expiración</label>
+            <input type="text" id="fecha" name="fecha" placeholder="MM/AA" required>
+          </div>
+          <div class="campo">
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" maxlength="3" required>
+          </div>
+        </div>
+
+        <div class="acciones">
+          <button type="submit" class="btn-pagar">Pagar 50 €</button>
+          <p class="volver-link"><a href="planes.html">← Volver a los planes</a></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Información básica: contacto | Tel | Redes sociales | Participantes...</p>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("oscuro");
+    });
+
+    const form = document.querySelector(".form-pago");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      alert("Pago procesado correctamente. ¡Gracias por suscribirte a Oretan-IA Premium!");
+      window.location.href = "paginas/perfil.html";
+    });
+  </script>
+</body>
+</html>
