@@ -1,0 +1,34 @@
+# Documentacion a Entregar
+
+- [x] 1. Portada y datos generales
+- - [x]        a. Titulo del proyecto
+- - [x]        b. Estudiantes (equipo de desarrollo)
+- - [x]        c. Centro educativo
+- - [x]        d. Fecha de entrega
+- - [x]        e. Firma digital
+- [x]  2. Introducción
+- - [x]         a. Breve descripción del proyecto
+- - [x]         b. Objetivos generales
+- [x] 3. Identificación de las necesidades del sector y viabilidad
+- - [x]        a. Se han caracterizado las empresas del sector productivo en la proximidad geográfica del centro educativo
+- - [x]        b. Necesidades más demandadas y oportunidades de negocio
+- - [x]        c. Tipo de proyecto, mercado objetivo y características del producto
+- - [x]        d. Justificación de la innovación, el emprendimiento y el impacto socioambiental
+- - [x]        e. Obligaciones, ayudas y subvenciones aplicables
+- - [x]        f. Guion de trabajo inicial
+- [ ]  4. Diseño del proyecto
+- - [ ]         a. Alcance. Objetivos específicos
+- - [ ]         b. Diseño de la aplicación
+- - - [x]                  i. Diagramas UML: casos de uso, diagramas de clases, etc.
+- - - [ ]                 ii. Guía de estilo
+- - - [ ]                iii. Mockups y prototipos de interfaz
+- - - [x]                iv. Modelo de dominio (diagrama E/R, etc.)
+- - - [x]                 v. Arquitectura de la aplicación
+- - [ ]        c. Control de calidad
+- - - [ ]                  i. Plan de seguridad
+- - - [ ]                 ii. Plan de accesibilidad y usabilidad
+- - - [ ]                iii. Gestión de codigo fuente y control de versiones
+- - [ ]        d. Tecnologías seleccionadas
+- - - [ ]                  i. Lenguajes de programación y Frameworks seleccionados.
+- - - [ ]                 ii. Justificación técnica de la selección
+- - [ ]        e. Estimación de costes
