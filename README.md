@@ -31,4 +31,4 @@
 - - [ ]        d. Tecnologías seleccionadas
 - - - [ ]                  i. Lenguajes de programación y Frameworks seleccionados.
 - - - [ ]                 ii. Justificación técnica de la selección
-- - [ ]        e. Estimación de costes
+- - [x]        e. Estimación de costes
