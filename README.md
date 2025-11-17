@@ -17,18 +17,18 @@
 - - [x]        e. Obligaciones, ayudas y subvenciones aplicables
 - - [x]        f. Guion de trabajo inicial
 - [ ]  4. Diseño del proyecto
-- - [ ]         a. Alcance. Objetivos específicos (Alejandro)
-- - [ ]         b. Diseño de la aplicación (Colmenero)
+- - [ ]         a. Alcance. Objetivos específicos ***(Alejandro)***
+- - [ ]         b. Diseño de la aplicación ***(Colmenero)***
 - - - [x]                  i. Diagramas UML: casos de uso, diagramas de clases, etc.
 - - - [ ]                 ii. Guía de estilo 
 - - - [ ]                iii. Mockups y prototipos de interfaz
 - - - [x]                iv. Modelo de dominio (diagrama E/R, etc.)
 - - - [x]                 v. Arquitectura de la aplicación
-- - [ ]        c. Control de calidad (Curro)
+- - [ ]        c. Control de calidad ***(Curro)***
 - - - [ ]                  i. Plan de seguridad
 - - - [ ]                 ii. Plan de accesibilidad y usabilidad
 - - - [ ]                iii. Gestión de codigo fuente y control de versiones
-- - [ ]        d. Tecnologías seleccionadas (Lumbre)
+- - [ ]        d. Tecnologías seleccionadas ***(Lumbre)***
 - - - [ ]                  i. Lenguajes de programación y Frameworks seleccionados.
 - - - [ ]                 ii. Justificación técnica de la selección
 - - [x]        e. Estimación de costes
