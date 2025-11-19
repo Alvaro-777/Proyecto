@@ -28,7 +28,7 @@
 - - - [ ]                  i. Plan de seguridad
 - - - [ ]                 ii. Plan de accesibilidad y usabilidad
 - - - [ ]                iii. Gestión de codigo fuente y control de versiones
-- - [ ]        d. Tecnologías seleccionadas ***(Lumbre)***
-- - - [ ]                  i. Lenguajes de programación y Frameworks seleccionados.
-- - - [ ]                 ii. Justificación técnica de la selección
+- - [x]        d. Tecnologías seleccionadas ***(Lumbre)***
+- - - [x]                  i. Lenguajes de programación y Frameworks seleccionados.
+- - - [x]                 ii. Justificación técnica de la selección
 - - [x]        e. Estimación de costes
