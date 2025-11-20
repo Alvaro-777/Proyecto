@@ -18,10 +18,10 @@
 - - [x]        f. Guion de trabajo inicial
 - [ ]  4. Diseño del proyecto
 - - [ ]         a. Alcance. Objetivos específicos ***(Alejandro)***
-- - [ ]         b. Diseño de la aplicación ***(Colmenero)***
+- - [x ]         b. Diseño de la aplicación ***(Colmenero)***
 - - - [x]                  i. Diagramas UML: casos de uso, diagramas de clases, etc.
-- - - [ ]                 ii. Guía de estilo 
-- - - [ ]                iii. Mockups y prototipos de interfaz
+- - - [x ]                 ii. Guía de estilo 
+- - - [x ]                iii. Mockups y prototipos de interfaz
 - - - [x]                iv. Modelo de dominio (diagrama E/R, etc.)
 - - - [x]                 v. Arquitectura de la aplicación
 - - [ ]        c. Control de calidad ***(Curro)***
