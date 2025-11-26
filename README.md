@@ -1,34 +1,8 @@
 # Documentacion a Entregar
 
-- [x] 1. Portada y datos generales
-- - [x]        a. Titulo del proyecto
-- - [x]        b. Estudiantes (equipo de desarrollo)
-- - [x]        c. Centro educativo
-- - [x]        d. Fecha de entrega
-- - [x]        e. Firma digital
-- [x]  2. Introducción
-- - [x]         a. Breve descripción del proyecto
-- - [x]         b. Objetivos generales
-- [x] 3. Identificación de las necesidades del sector y viabilidad
-- - [x]        a. Se han caracterizado las empresas del sector productivo en la proximidad geográfica del centro educativo
-- - [x]        b. Necesidades más demandadas y oportunidades de negocio
-- - [x]        c. Tipo de proyecto, mercado objetivo y características del producto
-- - [x]        d. Justificación de la innovación, el emprendimiento y el impacto socioambiental
-- - [x]        e. Obligaciones, ayudas y subvenciones aplicables
-- - [x]        f. Guion de trabajo inicial
-- [ ]  4. Diseño del proyecto
-- - [ ]         a. Alcance. Objetivos específicos ***(Alejandro)***
-- - [x]         b. Diseño de la aplicación ***(Colmenero)***
-- - - [x]                  i. Diagramas UML: casos de uso, diagramas de clases, etc.
-- - - [x]                 ii. Guía de estilo 
-- - - [x]                iii. Mockups y prototipos de interfaz
-- - - [x]                iv. Modelo de dominio (diagrama E/R, etc.)
-- - - [x]                 v. Arquitectura de la aplicación
-- - [ ]        c. Control de calidad ***(Curro)***
-- - - [ ]                  i. Plan de seguridad
-- - - [ ]                 ii. Plan de accesibilidad y usabilidad
-- - - [ ]                iii. Gestión de codigo fuente y control de versiones
-- - [x]        d. Tecnologías seleccionadas ***(Lumbre)***
-- - - [x]                  i. Lenguajes de programación y Frameworks seleccionados.
-- - - [x]                 ii. Justificación técnica de la selección
-- - [x]        e. Estimación de costes
+- [] 5.Planificación y gestión de la ejecución del proyecto.
+- - [] a. Descripción de la metodología ágil o tradicional empleada (Scrum, Kanban, etc.)
+- - [] b. Secuenciación detallada de actividades y cronograma.
+- - [] c. Determinación de recursos materiales y humanos.
+- - [] d. Plan de prevención de riesgos.
+- - [] e. Requisitos previos de despliegue (hosting, dominios, licencias, etc.).
