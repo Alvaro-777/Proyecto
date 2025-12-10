@@ -80,8 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $audio_generado = trim($salida);
-    $audio_ruta_abs = __DIR__ . DIRECTORY_SEPARATOR . $audio_generado;
-
+    $audio_ruta_abs = dirname(__DIR__) . DIRECTORY_SEPARATOR . str_replace('/', DIRECTORY_SEPARATOR, $audio_generado);
     if (!file_exists($audio_ruta_abs)) {
         abort_with_message("El archivo de audio no se encontró. Salida del script: " . htmlspecialchars($salida));
     }
