@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             abort_with_message('Tipo de archivo no permitido. Solo se aceptan .txt, .pdf, .docx');
         }
 
-        $dir_subida = __DIR__ . '../uploads/';
+        $dir_subida = dirname(__DIR__) . '/uploads/';
         if (!file_exists($dir_subida)) {
             mkdir($dir_subida, 0777, true);
         }
@@ -64,8 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // === Etapa 2: Ejecutar Python (todavía sin salida al navegador) ===
     $python_bin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'py -3' : 'python3';
-    $ruta_script = __DIR__ . '../py/procesar_audio.py';
-    $dir_audios = __DIR__ . '../audios/';
+    $ruta_script = dirname(__DIR__) . '/py/procesar_audio.py';
+    $dir_audios = dirname(__DIR__) . '/audios/';
 
     if (!file_exists($dir_audios)) {
         mkdir($dir_audios, 0777, true);

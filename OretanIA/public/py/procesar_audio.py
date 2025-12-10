@@ -1,15 +1,12 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import sys
 import os
 import time
 from gtts import gTTS
 from PyPDF2 import PdfReader
 from docx import Document
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)  # Carpeta padre del script
-
-DOCUMENTS_DIR = os.path.join(PROJECT_ROOT, "documentos")
-AUDIOS_DIR = os.path.join(PROJECT_ROOT, "audios")
 
 def extraer_texto_de_archivo(ruta_archivo):
     """
@@ -44,52 +41,51 @@ def extraer_texto_de_archivo(ruta_archivo):
 
 # --- PROGRAMA PRINCIPAL ---
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Uso: python procesar_audio.py <nombre_archivo_o_texto>", file=sys.stderr)
-        print("  - Si es un archivo: debe estar en la carpeta '../documentos/'")
-        print("  - Si es texto directo: se procesará tal cual.")
+    if len(sys.argv) != 3:
+        print("Uso: python procesar_audio.py <ruta_archivo_o_texto> <directorio_salida_audios>", file=sys.stderr)
+        print("Ejemplo:")
+        print("  python procesar_audio.py \"Hola mundo\" \"C:/proyecto/audios\"")
+        print("  python procesar_audio.py \"C:/proyecto/uploads/archivo.pdf\" \"C:/proyecto/audios\"")
         sys.exit(1)
 
     input_data = sys.argv[1]
+    audios_dir = sys.argv[2]  # ← ¡Ahora sí lo usamos!
 
-    # Determinar si input_data es un archivo o texto directo
-    ruta_posible = os.path.join(DOCUMENTS_DIR, input_data)
-        if os.path.isfile(ruta_posible):
-            # Es un archivo dentro de ../documentos/
-            texto_final = extraer_texto_de_archivo(ruta_posible)
-            if texto_final is None:
-                sys.exit(1)
-        else:
-            # Asumimos que es texto directo (p. ej. "Hola mundo")
-            texto_final = input_data
-
-        if not texto_final or not texto_final.strip():
-            print("Error: El texto a procesar está vacío.", file=sys.stderr)
+    # Determinar si input_data es un archivo existente o texto plano
+    if os.path.isfile(input_data):
+        # Es una ruta válida a un archivo
+        texto_final = extraer_texto_de_archivo(input_data)
+        if texto_final is None:
             sys.exit(1)
-        # Asegurar que la carpeta ../audios/ exista
-        os.makedirs(AUDIOS_DIR, exist_ok=True)
+    else:
+        # Asumimos que es texto directo (p. ej. "Hola mundo")
+        texto_final = input_data
 
+    if not texto_final or not texto_final.strip():
+        print("Error: El texto a procesar está vacío.", file=sys.stderr)
+        sys.exit(1)
+
+    # Asegurar que la carpeta de salida exista
+    os.makedirs(audios_dir, exist_ok=True)
 
     # Generar nombre único
     timestamp = int(time.time())
     nombre_archivo_audio = f"audio_{timestamp}.mp3"
-    ruta_audio = os.path.join(output_dir, nombre_archivo_audio)
-    ruta_audio = os.path.normpath(ruta_audio)  # Normaliza la ruta (evita ./ o ../)
+    ruta_audio = os.path.join(audios_dir, nombre_archivo_audio)
 
     try:
-        tts = gTTS(text=texto_final, lang='es', tld='es')  # Acento neutro/esp: 'es', 'com.mx', etc.
+        tts = gTTS(text=texto_final, lang='es', tld='es')  # Acento neutro
         tts.save(ruta_audio)
 
         if os.path.exists(ruta_audio):
-            # ¡IMPORTANTE! Devolver RUTA RELATIVA desde la raíz del proyecto
-            # Por ejemplo: audios/audio_123456.mp3
-            # Suponemos que output_dir es algo como "/proyecto/audios/"
-            # Pero queremos devolver solo "audios/audio_xxx.mp3"
-            # Buscamos el nombre de la carpeta base (audios) y construimos ruta relativa
-            nombre_carpeta_salida = os.path.basename(os.path.normpath(output_dir))
-            ruta_relativa = os.path.join(nombre_carpeta_salida, nombre_archivo_audio)
-            ruta_relativa = os.path.normpath(ruta_relativa)
-            print(ruta_relativa)
+            # ✅ Devolver RUTA RELATIVA desde la raíz del proyecto
+            # Ej: si audios_dir = "C:/proyecto/audios", queremos devolver "audios/audio_123.mp3"
+            # Extraemos el nombre de la carpeta (último segmento)
+            nombre_carpeta = os.path.basename(os.path.normpath(audios_dir))
+            ruta_relativa = os.path.join(nombre_carpeta, nombre_archivo_audio)
+            # Normalizamos barras para que sean /
+            ruta_relativa = ruta_relativa.replace("\\", "/")
+            print(ruta_relativa)  # ← ¡SOLO ESTO! Nada más.
         else:
             print(f"ERROR: El archivo no se creó en {ruta_audio}", file=sys.stderr)
             sys.exit(1)
