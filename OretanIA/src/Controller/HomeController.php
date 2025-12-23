@@ -13,4 +13,10 @@ class HomeController extends AbstractController
     {
         return $this->render('index.html.twig');
     }
+
+    #[Route('/audio', name: 'audio')]
+    public function audio(): Response
+    {
+        return $this->render('audio.html.twig');
+    }
 }

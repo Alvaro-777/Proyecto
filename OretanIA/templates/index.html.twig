@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% block title %}Oretan-IA{% endblock %}
 {% block body %}
     <section class="hero">
         <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Imagen de cabecera">
@@ -11,7 +12,7 @@
     <main>
         <section class="tarjetas">
             <div class="tarjeta">
-                <img src="{{ asset('imagenes/audio-ia.jpg') }}">
+                <a href="{{ path('audio') }}"><img src="{{ asset('imagenes/audio-ia.jpg') }}"></a>
                 <div class="info">
                     <h3>Audio-IA</h3>
                     <p>Esta inteligencia artificial convierte texto en audio, permitiendo generar voces de manera automática a partir de lo que se escribe. Es útil para crear narraciones, explicaciones, audiolibros o contenido accesible de forma rápida y sencilla, sin necesidad de grabar la voz manualmente.</p>
