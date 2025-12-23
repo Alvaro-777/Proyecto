@@ -101,11 +101,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de Audio</title>
+    <title>Audio-IA</title>
+     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
-
-<h1>Generador de Audio Automático</h1>
+<header>
+    <div class="logo">
+      <img src="../imagenes/Logo.png" alt="Logo Dreteam-IA">
+    </div>
+    <h1 class="titulo">Generador de Audio Automático</h1>
+    <div class="modo">
+      <button id="modo-toggle">🌞 / 🌙</button>
+      <div class="menu">
+        <button class="menu-btn">☰</button>
+        <div class="menu-content">
+          <a href="./paginas/registro.html">Registrarse</a>
+          <a href="./paginas/login.html">Login</a>
+          <a href="./paginas/perfil.html">Perfil</a>
+          <a href="./paginas/planes.html" class="plan">Plan $X</a>
+        </div>
+      </div>
+    </div>
+  </header>
 
 <?php if (!empty($mensaje)) echo $mensaje; ?>
 
@@ -124,7 +141,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <input type="submit" value="Generar y Descargar Audio">
     <p class="note">Archivos grandes o textos largos pueden tardar hasta 5 minutos. No cierres la página.</p>
 </form>
+<footer>
+      <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
+  </footer>
 
+  <script>
+      // Toggle modo claro/oscuro
+      const toggle = document.getElementById("modo-toggle");
+      toggle.addEventListener("click", () => {
+          document.body.classList.toggle("oscuro");
+      });
+  </script>
 </body>
 </html>
 
