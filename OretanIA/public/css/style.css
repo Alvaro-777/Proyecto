@@ -1,0 +1,785 @@
+/* --- AJUSTE GENERAL PARA QUE EL FOOTER SE PEGUE ABAJO --- */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+  transition: background 0.3s, color 0.3s;
+}
+
+main {
+  flex: 1; /* ocupa todo el espacio restante */
+}
+
+/* --- MODO OSCURO --- */
+body.oscuro {
+  background: #1e1e1e;
+  color: #f8f8f8;
+}
+
+/* --- ENCABEZADO --- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #000000;
+  color: white;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 60px;
+  width: auto;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.titulo {
+  flex: 1;
+  text-align: center;
+  font-size: 1.6em;
+}
+
+.modo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- MENÚ DESPLEGABLE --- */
+.menu {
+  position: relative;
+}
+
+.menu-btn {
+  background: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 5px 8px;
+}
+
+.menu-content {
+  display: none;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background: white;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 150px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.menu-content a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.menu-content a:hover {
+  background: #eee;
+}
+
+.menu:hover .menu-content {
+  display: block;
+}
+
+.plan {
+  font-weight: bold;
+  color: #6200ea;
+}
+
+/* --- HERO (CABECERA CON IMAGEN) --- */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hero-texto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 20px 30px;
+  border-radius: 10px;
+}
+
+.hero-texto h2 {
+  margin: 0;
+  font-size: 2em;
+}
+
+.hero-texto p {
+  margin-top: 10px;
+  font-size: 1.1em;
+}
+
+/* --- TARJETAS --- */
+.tarjetas {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.tarjeta {
+  position: relative;
+  width: 220px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+}
+
+.tarjeta img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+/* Oculta info hasta hover */
+.tarjeta .info {
+  opacity: 0;
+  height: 0;
+  overflow: hidden;
+  text-align: center;
+  transition: opacity 1s ease, height 1s ease;
+}
+
+.tarjeta:hover .info {
+  opacity: 1;
+  height: auto;
+  padding: 10px;
+}
+
+/* --- PIE DE PÁGINA --- */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9em;
+  margin-top: auto; /* mantiene el footer al final */
+}
+
+/* --- PERFIL DE USUARIO (versión mejorada según boceto) --- */
+
+.perfil-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Sección de datos del usuario más destacada */
+.perfil-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px 20px;
+  gap: 30px;
+  border-bottom: 2px solid #ddd;
+}
+
+.foto-perfil {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #000000;
+}
+
+.perfil-info .datos {
+  flex: 1;
+}
+
+.perfil-info .datos h2 {
+  font-size: 1.8em;
+  margin: 0 0 10px 0;
+  color: #000000;
+}
+
+.perfil-info .datos p {
+  margin: 6px 0;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+/* Historial separado visualmente, sin estar dentro del mismo cuadro */
+.perfil-historial {
+  margin-top: 40px;
+}
+
+.filtros {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.filtros label {
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.tabla-historial {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.tabla-historial th, .tabla-historial td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.tabla-historial th {
+  background: #000000;
+  color: white;
+  text-transform: uppercase;
+}
+
+.tabla-historial tr:hover {
+  background: #f9f9f9;
+}
+
+.tabla-historial button {
+  background: #070707;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.tabla-historial button:hover {
+  background: #000000;
+}
+
+/* --- FORMULARIO DE REGISTRO --- */
+.registro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+}
+
+.form-registro {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-registro h2 {
+  margin-bottom: 10px;
+  font-size: 1.8em;
+  color: #000000;
+}
+
+.form-registro p {
+  margin-bottom: 25px;
+  color: #666;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.campo label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.campo input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.campo input:focus {
+  border-color: #000000;
+  outline: none;
+}
+
+.acciones {
+  margin-top: 20px;
+}
+
+.btn-registrar {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.btn-registrar:hover {
+  background: #333333;
+}
+
+.login-link {
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+.login-link a {
+  color: #6200ea;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Versión modo oscuro */
+body.oscuro .form-registro {
+  background: #2c2c2c;
+  color: #f1f1f1;
+}
+
+body.oscuro .campo input {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+body.oscuro .btn-registrar {
+  background: #f1f1f1;
+  color: #000;
+}
+
+body.oscuro .btn-registrar:hover {
+  background: #ddd;
+}
+
+/* --- FORMULARIO DE LOGIN --- */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+}
+
+.form-login {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.form-login h2 {
+  margin-bottom: 10px;
+  font-size: 1.8em;
+  color: #000000;
+}
+
+.form-login p {
+  margin-bottom: 25px;
+  color: #666;
+}
+
+.form-login .campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-login label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-login input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.form-login input:focus {
+  border-color: #000000;
+  outline: none;
+}
+
+.btn-login {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.btn-login:hover {
+  background: #333333;
+}
+
+.registro-link, .olvide-link {
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+.registro-link a, .olvide-link a {
+  color: #6200ea;
+  text-decoration: none;
+}
+
+.registro-link a:hover,
+.olvide-link a:hover {
+  text-decoration: underline;
+}
+
+/* --- MODO OSCURO --- */
+body.oscuro .form-login {
+  background: #2c2c2c;
+  color: #f1f1f1;
+}
+
+body.oscuro .form-login input {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+body.oscuro .btn-login {
+  background: #f1f1f1;
+  color: #000;
+}
+
+body.oscuro .btn-login:hover {
+  background: #ddd;
+}
+
+/* --- PLANES --- */
+.planes-container {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.planes-container h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.planes-intro {
+  color: #555;
+  margin-bottom: 40px;
+  font-size: 1.1em;
+}
+
+.planes-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.plan-card h3 {
+  margin-bottom: 10px;
+  font-size: 1.6em;
+  color: #000;
+}
+
+.plan-card .precio {
+  font-size: 1.3em;
+  color: #6200ea;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.plan-card ul {
+  list-style: none;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 25px;
+}
+
+.plan-card ul li {
+  margin-bottom: 8px;
+  font-size: 0.95em;
+}
+
+.btn-plan {
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-plan:hover:not([disabled]) {
+  background: #333;
+}
+
+.btn-plan[disabled] {
+  background: #aaa;
+  cursor: default;
+}
+
+/* Diferencia visual entre planes */
+.plan-card.gratis {
+  border-top: 6px solid #6200ea;
+}
+
+.plan-card.premium {
+  border-top: 6px solid gold;
+}
+
+/* --- MODO OSCURO --- */
+body.oscuro .plan-card {
+  background: #2c2c2c;
+  color: #f1f1f1;
+}
+
+body.oscuro .btn-plan {
+  background: #f1f1f1;
+  color: #000;
+}
+
+body.oscuro .btn-plan:hover:not([disabled]) {
+  background: #ddd;
+}
+
+/* --- PÁGINA DE PAGO --- */
+.pago-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 20px;
+}
+
+.pago-box {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+
+.pago-box h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.pago-box p {
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.detalle-plan {
+  text-align: left;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.detalle-plan h3 {
+  margin: 0;
+  color: #000;
+}
+
+.detalle-plan .precio {
+  font-weight: bold;
+  color: #6200ea;
+  margin-bottom: 10px;
+}
+
+.detalle-plan ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.detalle-plan ul li {
+  margin-bottom: 6px;
+}
+
+/* --- FORMULARIO --- */
+.form-pago {
+  text-align: left;
+}
+
+.form-pago h4 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #000;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.campo label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.campo input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1em;
+  transition: border-color 0.3s ease;
+}
+
+.campo input:focus {
+  border-color: #000;
+  outline: none;
+}
+
+.campo-doble {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-pagar {
+  width: 100%;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-pagar:hover {
+  background: #333;
+}
+
+.volver-link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.volver-link a {
+  color: #6200ea;
+  text-decoration: none;
+}
+
+.volver-link a:hover {
+  text-decoration: underline;
+}
+
+/* --- MODO OSCURO --- */
+body.oscuro .pago-box {
+  background: #2c2c2c;
+  color: #f1f1f1;
+}
+
+body.oscuro .detalle-plan {
+  background: #3a3a3a;
+}
+
+body.oscuro .campo input {
+  background: #444;
+  color: #fff;
+  border: 1px solid #666;
+}
+
+body.oscuro .btn-pagar {
+  background: #f1f1f1;
+  color: #000;
+}
+
+body.oscuro .btn-pagar:hover {
+  background: #ddd;
+}
+
+/* --- TARJETAS EN MODO OSCURO --- */
+body.oscuro .tarjeta {
+  background: #2c2c2c;
+  color: #f1f1f1;
+  box-shadow: 0 2px 6px rgba(255,255,255,0.1);
+}
+
+body.oscuro .tarjeta .info {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+body.oscuro .tarjeta:hover .info {
+  background: #444;
+}
+
+body.oscuro .tarjeta img {
+  opacity: 0.9;
+}
+.imagen{
+    background-color: #2c2c2c;
+}
