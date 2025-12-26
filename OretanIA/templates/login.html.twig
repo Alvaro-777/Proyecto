@@ -1,23 +1,30 @@
 {% extends 'base.html.twig' %}
+{% block head %}
+    <?php
+        if(isset($_POST['login-email'])){
+            $email = $_POST['login-email'];
+            $pass = $_POST['login-pswd'];
+        }
+    ?>
+{% endblock %}
 {% block title %}Iniciar Sesión - Oretan-IA{% endblock %}
 {% block body %}
-
     <main>
         <header id="login-header">
             <h1>Iniciar Sesión</h1>
             <p>Accede a tu cuenta para continuar explorando Oretan-IA</p>
         </header>
-        <form action="{{  }}" method="post" id="login-form">
+        <form action="{{ asset('php/login.php') }}" method="post" id="login-form">
             <label for="login-email">Correo electrónico</label><br>
             <input type="email" id="login-email" name="login-email" required><br>
-            <label for="login-pswd">Correo electrónico</label><br>
+            <label for="login-pswd">Contraseña</label><br>
             <input type="password" id="login-pswd" name="login-pswd" required><br>
             <button type="submit" id="login-submit">Entrar</button>
         </form>
         <section>
-            <span>¿No tienes cuenta?</span> <a href="{{  }}">Regístrate aquí</a>
+            <span>¿No tienes cuenta?</span> <a href="./registro">Regístrate aquí</a>
             <br>
-            <a href="{{  }}">¿Olvidaste tu cuenta?</a>
+            <a href="./recover-account">¿Olvidaste tu cuenta?</a>
         </section>
     </main>
 

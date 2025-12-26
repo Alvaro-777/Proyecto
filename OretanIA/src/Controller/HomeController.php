@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
@@ -18,5 +18,17 @@ class HomeController extends AbstractController
     public function audio(): Response
     {
         return $this->render('audio.html.twig');
+    }
+
+    #[Route('/login', name: 'login')]
+    public function login(): Response
+    {
+        return $this->render('login.html.twig');
+    }
+
+    #[Route('/registro', name: 'registro')]
+    public function registro(): Response
+    {
+        return $this->render('registro.html.twig');
     }
 }

@@ -1,26 +1,37 @@
 {% extends 'base.html.twig' %}
+{% block head %}
+    <?php
+        if(isset($_POST['error'])){
+
+        }
+    ?>
+{% endblock %}
 {% block title %}Registrarse - Oretan-IA{% endblock %}
 {% block body %}
-
     <main>
-        <header id="signin-header">
+        <header id="signup-header">
             <h1>Crear una cuenta</h1>
-            <p>Registrate para acceder a todas las funcionalidades de Oretan-IA</p>
+            <p>Regístrate para acceder a todas las funcionalidades de Oretan-IA</p>
         </header>
-        <form action="{{  }}" method="post" id="signin-form">
-            <label for="signin-fullname">Nombre Completo</label><br>
-            <input type="text" id="signin-fullname" name="signin-fullname" required><br>
-            <label for="signin-email">Correo electrónico</label><br>
-            <input type="email" id="signin-email" name="signin-email" required><br>
-            <label for="signin-pswd">Contraseña</label><br>
-            <input type="password" id="signin-pswd" name="signin-pswd" required><br>
-            <label for="signin-confirm">Confirmar contraseña</label><br>
-            <input type="password" id="signin-confirm" name="signin-confirm" required><br>
-            <button type="submit" id="signin-submit">Entrar</button>
+        <form action="{{ asset('php/registro.php') }}" method="post" id="signup-form">
+            <label for="signup-fullname">Nombre Completo</label><br>
+            <input type="text" id="signup-fullname" name="signup-fullname" required><br>
+
+            <label for="signup-email">Correo electrónico</label><br>
+            <input type="email" id="signup-email" name="signup-email" required><br>
+
+            <label for="signup-pswd">Contraseña</label><br>
+            <input type="password" id="signup-pswd" name="signup-pswd" required><br>
+
+            <label for="signup-confirm">Confirmar contraseña</label><br>
+            <input type="password" id="signup-confirm" name="signup-confirm" required><br>
+
+            <button type="submit" id="signup-submit">Entrar</button>
         </form>
         <section>
-            <span>¿Ya tienes cuenta?</span> <a href="{{  }}">Inicia sesión aquí</a>
+            <span>¿Ya tienes cuenta?</span> <a href="./login">Inicia sesión aquí</a>
         </section>
+        <script src="{{ asset('script/signup-validator.js') }}"></script>
     </main>
 
 {% endblock %}
