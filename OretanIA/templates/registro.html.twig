@@ -1,10 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block head %}
-    <?php
-        if(isset($_POST['error'])){
-
-        }
-    ?>
 {% endblock %}
 {% block title %}Registrarse - Oretan-IA{% endblock %}
 {% block body %}
@@ -15,10 +10,10 @@
         </header>
         <form action="{{ asset('php/registro.php') }}" method="post" id="signup-form">
             <label for="signup-fullname">Nombre Completo</label><br>
-            <input type="text" id="signup-fullname" name="signup-fullname" required><br>
+            <input type="text" id="signup-fullname" name="signup-fullname" required placeholder="Apellidos, Nombre"><br>
 
             <label for="signup-email">Correo electrónico</label><br>
-            <input type="email" id="signup-email" name="signup-email" required><br>
+            <input type="email" id="signup-email" name="signup-email" required placeholder="correo@mail.com"><br>
 
             <label for="signup-pswd">Contraseña</label><br>
             <input type="password" id="signup-pswd" name="signup-pswd" required><br>

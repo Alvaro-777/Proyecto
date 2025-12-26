@@ -12,10 +12,11 @@ document.getElementById('signup-form')
 
 function validate() {
     //Comprobar si los datos son validos en el cliente
+    let nombre = document.getElementById('signup-fullname').value;
     let password = document.getElementById('signup-pswd').value;
     let confirm = document.getElementById('signup-confirm').value;
 
-    if(password !== confirm)
+    if(password !== confirm || !nombre.includes(','))
         return false;
 
     return true;
