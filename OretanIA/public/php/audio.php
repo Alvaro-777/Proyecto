@@ -17,10 +17,10 @@ $mostrar_adjunto = true;
 function abort_with_message($msg)
 {
     safe_ob_clean();
-    echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Error</title></head><body>";
-    echo "<div style='padding:20px; background:#ffe6e6; color:#c00; border:1px solid #f00; max-width:600px; margin:20px auto;'>";
-    echo "<h2>⚠️ Error</h2><p>" . htmlspecialchars($msg) . "</p>";
-    echo "<a href='javascript:history.back()'>&larr; Volver</a>";
+    echo "<!DOCTYPE html><html><head><link rel='stylesheet' href='../css/style.css'><link rel='shortcut icon' href='../imagenes/logo.ico'><meta charset='UTF-8'><title>Error</title></head><body style='background-color: #1e1e1e'>";
+    echo "<div class='error'>";
+    echo "<h1>⚠️ Error</h1><p>" . htmlspecialchars($msg) . "</p>";
+    echo "<p><a href='javascript:history.back()'><button id='volver'>Volver</button></a></p>";
     echo "</div></body></html>";
     exit;
 }
@@ -111,7 +111,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <header class="header">
     <div class="logo">
-        <img src="../imagenes/Logo.png" alt="Logo Dreteam-IA">
+        <a href="/" title="Inicio">
+            <img src="../imagenes/Logo.png" alt="Logo Dreteam-IA">
+        </a>
     </div>
     <h1 class="titulo">Generador de Audio Automático</h1>
     <div class="modo">
@@ -132,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-<form class="audio" action="ia.php" method="post" enctype="multipart/form-data">
+<form class="audio" action="audio.php" method="post" enctype="multipart/form-data">
     <label class="titulo" for="texto_usuario">Escribe tu texto:</label><br>
     <textarea id="texto_usuario" name="texto_usuario"
               placeholder="Escribe aquí el texto que deseas convertir a voz..."><?php echo htmlspecialchars($_POST['texto_usuario'] ?? ''); ?></textarea>

@@ -825,9 +825,9 @@ body.oscuro .tarjeta img {
     box-sizing: border-box;  /* asegura que el width: 100% incluya padding y borde */
 }
 /* --- Botones en formulario de audio --- */
-.audio input[type="submit"], .audio input[type="file"] {
-    background: #000000;          /* fondo negro */
-    color: white;                 /* texto blanco */
+.audio input[type="submit"], .audio input[type="file"], #volver {
+    background: #000000;
+    color: white;
     border: none;
     border-radius: 8px;
     padding: 12px 25px;
@@ -838,7 +838,7 @@ body.oscuro .tarjeta img {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-.audio input[type="submit"]:hover, .audio input[type="file"]:hover {
+.audio input[type="submit"]:hover, .audio input[type="file"]:hover, #volver:hover {
     background: #333333;          /* negro más claro al pasar el ratón */
     transform: translateY(-2px);  /* pequeño salto suave */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -853,3 +853,17 @@ body.oscuro .audio input[type="submit"],body.oscuro .audio input[type="file"] {
 body.oscuro .audio input[type="submit"]:hover,body.oscuro .audio input[type="file"]:hover  {
     background: #ddd;
 }
+/* --- Error Audio --- */
+
+.error {
+
+    text-align: center;
+    padding: 30px;
+    color: #c00;
+    border: 1px solid #f00;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #f8f8f8;
+    border-radius: 10px;
+}
+
