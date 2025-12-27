@@ -357,6 +357,7 @@
     </service>
     <service id="App\Controller\HomeController" class="App\Controller\HomeController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
+      <tag name="routing.controller"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.TJNRSaV.App\Controller\HomeController"/>
@@ -3546,7 +3547,9 @@
     </service>
     <service id="routing.loader.attribute.services" class="Symfony\Component\Routing\Loader\AttributeServicesLoader">
       <tag name="routing.loader" priority="-10"/>
-      <argument type="collection"/>
+      <argument type="collection">
+        <argument>App\Controller\HomeController</argument>
+      </argument>
     </service>
     <service id="routing.loader.attribute.directory" class="Symfony\Component\Routing\Loader\AttributeDirectoryLoader">
       <tag name="routing.loader" priority="-10"/>
@@ -7567,6 +7570,7 @@
     </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Controller\HomeController.0.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\HomeController" class="App\Controller\HomeController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.ryAvHi4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>

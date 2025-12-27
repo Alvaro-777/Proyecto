@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-  <header>
+  <header class="header">
     <div class="logo">
       <img src="{{ asset('imagenes/Logo.png') }}" alt="Logo Dreteam-IA">
     </div>
@@ -26,12 +26,13 @@
       </div>
     </div>
   </header>
-
-        {% block body %}
-        {% endblock %}
   <footer>
       <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
   </footer>
+<main>
+    {% block body %}
+    {% endblock %}
+</main>
 
   <script>
       // Toggle modo claro/oscuro

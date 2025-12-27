@@ -126,8 +126,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-<form action="ia.php" method="post" enctype="multipart/form-data">
-    <label for="texto_usuario">Escribe tu texto:</label><br>
+<form class="header" action="ia.php" method="post" enctype="multipart/form-data">
+    <label class="titulo" for="texto_usuario">Escribe tu texto:</label><br>
     <textarea id="texto_usuario" name="texto_usuario" placeholder="Escribe aquí el texto que deseas convertir a voz..."><?php echo htmlspecialchars($_POST['texto_usuario'] ?? ''); ?></textarea>
 
     <?php if ($mostrar_adjunto): ?>
