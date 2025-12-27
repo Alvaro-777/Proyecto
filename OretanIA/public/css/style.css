@@ -867,3 +867,10 @@ body.oscuro .audio input[type="submit"]:hover,body.oscuro .audio input[type="fil
     border-radius: 10px;
 }
 
+.sesion{
+    color: #2c2c2c;
+}
+
+body.oscuro .sesion {
+    color: #ddd;
+}
