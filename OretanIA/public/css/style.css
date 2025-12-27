@@ -804,3 +804,52 @@ body.oscuro .tarjeta img {
 .imagen {
     background-color: #2c2c2c;
 }
+/*-- IA DE AUDIO --*/
+
+.audio {
+    text-align: center;
+    padding: 10px 30px;
+}
+.note {
+    margin-top: 10px;
+    font-size: 1.1em;
+}
+.audio textarea {
+    width: 100%;
+    min-height: 200px;       /* altura mínima grande */
+    padding: 15px;
+    font-size: 1.1em;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: vertical;        /* permite al usuario agrandarlo aún más si quiere */
+    box-sizing: border-box;  /* asegura que el width: 100% incluya padding y borde */
+}
+/* --- Botones en formulario de audio --- */
+.audio input[type="submit"], .audio input[type="file"] {
+    background: #000000;          /* fondo negro */
+    color: white;                 /* texto blanco */
+    border: none;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.audio input[type="submit"]:hover, .audio input[type="file"]:hover {
+    background: #333333;          /* negro más claro al pasar el ratón */
+    transform: translateY(-2px);  /* pequeño salto suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Modo oscuro: invertir colores (blanco de fondo, negro de texto) --- */
+body.oscuro .audio input[type="submit"],body.oscuro .audio input[type="file"] {
+    background: #f1f1f1;
+    color: #000000;
+}
+
+body.oscuro .audio input[type="submit"]:hover,body.oscuro .audio input[type="file"]:hover  {
+    background: #ddd;
+}

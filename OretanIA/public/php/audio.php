@@ -6,13 +6,16 @@ set_time_limit(320); // 5 minutos – ajusta si necesitas más
 ini_set('max_execution_time', 300);
 
 // Evitar buffering agresivo (para mostrar mensajes en tiempo real)
-function safe_ob_clean() {
+function safe_ob_clean()
+{
     if (ob_get_level()) {
         ob_end_clean();
     }
 }
+
 $mostrar_adjunto = true;
-function abort_with_message($msg) {
+function abort_with_message($msg)
+{
     safe_ob_clean();
     echo "<!DOCTYPE html><html><head><meta charset='UTF-8'><title>Error</title></head><body>";
     echo "<div style='padding:20px; background:#ffe6e6; color:#c00; border:1px solid #f00; max-width:600px; margin:20px auto;'>";
@@ -56,8 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             abort_with_message('Error al subir el archivo.');
         }
         $texto_a_procesar = $ruta_archivo_final;
-    }
-    // --- Caso: texto directo ---
+    } // --- Caso: texto directo ---
     else {
         $texto_a_procesar = trim($_POST['texto_usuario']);
     }
@@ -102,56 +104,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Audio-IA</title>
-     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="shortcut icon" href="../imagenes/logo.ico">
+
 </head>
 <body>
-<header>
+<header class="header">
     <div class="logo">
-      <img src="../imagenes/Logo.png" alt="Logo Dreteam-IA">
+        <img src="../imagenes/Logo.png" alt="Logo Dreteam-IA">
     </div>
     <h1 class="titulo">Generador de Audio Automático</h1>
     <div class="modo">
-      <button id="modo-toggle">🌞 / 🌙</button>
-      <div class="menu">
-        <button class="menu-btn">☰</button>
-        <div class="menu-content">
-          <a href="./paginas/registro.html">Registrarse</a>
-          <a href="./paginas/login.html">Login</a>
-          <a href="./paginas/perfil.html">Perfil</a>
-          <a href="./paginas/planes.html" class="plan">Plan $X</a>
+        <button id="modo-toggle">🌞 / 🌙</button>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="./registro">Registrarse</a>
+                <a href="./login">Login</a>
+                <a href="./perfil">Perfil</a>
+                <a href="./planes" class="plan">Plan $X</a>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
+
+
+</header>
 
 <?php if (!empty($mensaje)) echo $mensaje; ?>
 
-<form class="header" action="ia.php" method="post" enctype="multipart/form-data">
+<form class="audio" action="ia.php" method="post" enctype="multipart/form-data">
     <label class="titulo" for="texto_usuario">Escribe tu texto:</label><br>
-    <textarea id="texto_usuario" name="texto_usuario" placeholder="Escribe aquí el texto que deseas convertir a voz..."><?php echo htmlspecialchars($_POST['texto_usuario'] ?? ''); ?></textarea>
+    <textarea id="texto_usuario" name="texto_usuario"
+              placeholder="Escribe aquí el texto que deseas convertir a voz..."><?php echo htmlspecialchars($_POST['texto_usuario'] ?? ''); ?></textarea>
 
     <?php if ($mostrar_adjunto): ?>
         <div>
-            <label for="archivo_adjunto">O sube un archivo (.txt, .pdf, .docx):</label><br>
+            <p><label for="archivo_adjunto">O sube un archivo (.txt, .pdf, .docx):</label></p>
             <input type="file" name="archivo_adjunto" id="archivo_adjunto" accept=".txt,.pdf,.docx">
         </div>
     <?php endif; ?>
 
     <br>
-    <input type="submit" value="Generar y Descargar Audio">
+    <p><input type="submit" value="Generar y Descargar Audio"></p>
     <p class="note">Archivos grandes o textos largos pueden tardar hasta 5 minutos. No cierres la página.</p>
 </form>
 <footer>
-      <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
-  </footer>
+    <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
+</footer>
 
-  <script>
-      // Toggle modo claro/oscuro
-      const toggle = document.getElementById("modo-toggle");
-      toggle.addEventListener("click", () => {
-          document.body.classList.toggle("oscuro");
-      });
-  </script>
+<script>
+    // Toggle modo claro/oscuro
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("oscuro");
+    });
+</script>
 </body>
 </html>
 

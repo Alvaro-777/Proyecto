@@ -2,44 +2,45 @@
 <html lang="es">
 <head>
     {% block head %}{% endblock %}
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="shortcut icon" href="imagenes/logo.ico">
 </head>
 <body>
-  <header class="header">
+<header class="header">
     <div class="logo">
-      <img src="{{ asset('imagenes/Logo.png') }}" alt="Logo Dreteam-IA">
+        <img src="{{ asset('imagenes/Logo.png') }}" alt="Logo Dreteam-IA">
     </div>
     <h1 class="titulo">Oretan-IA</h1>
     <div class="modo">
-      <button id="modo-toggle">🌞 / 🌙</button>
-      <div class="menu">
-        <button class="menu-btn">☰</button>
-        <div class="menu-content">
-          <a href="./registro">Registrarse</a>
-          <a href="./login">Login</a>
-          <a href="./perfil">Perfil</a>
-          <a href="./planes" class="plan">Plan $X</a>
+        <button id="modo-toggle">🌞 / 🌙</button>
+        <div class="menu">
+            <button class="menu-btn">☰</button>
+            <div class="menu-content">
+                <a href="./registro">Registrarse</a>
+                <a href="./login">Login</a>
+                <a href="./perfil">Perfil</a>
+                <a href="./planes" class="plan">Plan $X</a>
+            </div>
         </div>
-      </div>
     </div>
-  </header>
-  <footer>
-      <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
-  </footer>
+</header>
+<footer>
+    <p>Información básica: contacto | Tel | Redes sociales | Participantes.</p>
+</footer>
 <main>
     {% block body %}
     {% endblock %}
 </main>
 
-  <script>
-      // Toggle modo claro/oscuro
-      const toggle = document.getElementById("modo-toggle");
-      toggle.addEventListener("click", () => {
-          document.body.classList.toggle("oscuro");
-      });
-  </script>
+<script>
+    // Toggle modo claro/oscuro
+    const toggle = document.getElementById("modo-toggle");
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("oscuro");
+    });
+</script>
 </body>
 </html>
