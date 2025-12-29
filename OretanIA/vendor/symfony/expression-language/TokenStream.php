@@ -18,15 +18,17 @@ namespace Symfony\Component\ExpressionLanguage;
  */
 class TokenStream
 {
-    public Token $current;
+    public $current;
 
+    private array $tokens;
     private int $position = 0;
+    private string $expression;
 
-    public function __construct(
-        private array $tokens,
-        private string $expression = '',
-    ) {
+    public function __construct(array $tokens, string $expression = '')
+    {
+        $this->tokens = $tokens;
         $this->current = $tokens[0];
+        $this->expression = $expression;
     }
 
     /**
@@ -39,8 +41,10 @@ class TokenStream
 
     /**
      * Sets the pointer to the next token and returns the old one.
+     *
+     * @return void
      */
-    public function next(): void
+    public function next()
     {
         ++$this->position;
 
@@ -53,8 +57,10 @@ class TokenStream
 
     /**
      * @param string|null $message The syntax error message
+     *
+     * @return void
      */
-    public function expect(string $type, ?string $value = null, ?string $message = null): void
+    public function expect(string $type, ?string $value = null, ?string $message = null)
     {
         $token = $this->current;
         if (!$token->test($type, $value)) {

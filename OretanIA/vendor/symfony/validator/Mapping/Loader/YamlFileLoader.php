@@ -24,7 +24,12 @@ use Symfony\Component\Yaml\Yaml;
  */
 class YamlFileLoader extends FileLoader
 {
-    protected array $classes;
+    /**
+     * An array of YAML class descriptions.
+     *
+     * @var array
+     */
+    protected $classes;
 
     public function __construct(string $file)
     {
@@ -56,7 +61,7 @@ class YamlFileLoader extends FileLoader
     /**
      * Return the names of the classes mapped in this file.
      *
-     * @return class-string[]
+     * @return string[]
      */
     public function getMappedClasses(): array
     {
@@ -84,6 +89,12 @@ class YamlFileLoader extends FileLoader
 
                 if (\is_array($options)) {
                     $options = $this->parseNodes($options);
+                }
+
+                if (null !== $options && (!\is_array($options) || array_is_list($options))) {
+                    $options = [
+                        'value' => $options,
+                    ];
                 }
 
                 $values[] = $this->newConstraint(key($childNodes), $options);

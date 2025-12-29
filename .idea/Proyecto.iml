@@ -98,7 +98,6 @@
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/polyfill-intl-idn" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/polyfill-intl-normalizer" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/polyfill-mbstring" />
-      <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/polyfill-php85" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/property-access" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/property-info" />
@@ -117,7 +116,6 @@
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/twig-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/twig-bundle" />
-      <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/type-info" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/ux-turbo" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/validator" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/symfony/var-dumper" />
@@ -129,6 +127,9 @@
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/twig/extra-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/twig/twig" />
       <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/masterminds/html5" />
+      <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/sebastian/code-unit" />
+      <excludeFolder url="file://$MODULE_DIR$/OretanIA/vendor/sebastian/code-unit-reverse-lookup" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

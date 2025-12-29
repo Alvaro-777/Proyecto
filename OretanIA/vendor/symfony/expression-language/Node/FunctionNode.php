@@ -50,7 +50,10 @@ class FunctionNode extends Node
         return $functions[$this->attributes['name']]['evaluator'](...$arguments);
     }
 
-    public function toArray(): array
+    /**
+     * @return array
+     */
+    public function toArray()
     {
         $array = [];
         $array[] = $this->attributes['name'];

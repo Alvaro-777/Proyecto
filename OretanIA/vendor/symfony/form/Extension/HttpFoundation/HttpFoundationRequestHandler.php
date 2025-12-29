@@ -36,7 +36,10 @@ class HttpFoundationRequestHandler implements RequestHandlerInterface
         $this->serverParams = $serverParams ?? new ServerParams();
     }
 
-    public function handleRequest(FormInterface $form, mixed $request = null): void
+    /**
+     * @return void
+     */
+    public function handleRequest(FormInterface $form, mixed $request = null)
     {
         if (!$request instanceof Request) {
             throw new UnexpectedTypeException($request, Request::class);

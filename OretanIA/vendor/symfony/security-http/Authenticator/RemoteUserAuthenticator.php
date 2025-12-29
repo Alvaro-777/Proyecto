@@ -24,18 +24,19 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Maxime Douailin <maxime.douailin@gmail.com>
  *
- * @internal
+ * @final
+ *
+ * @internal in Symfony 5.1
  */
-final class RemoteUserAuthenticator extends AbstractPreAuthenticatedAuthenticator
+class RemoteUserAuthenticator extends AbstractPreAuthenticatedAuthenticator
 {
-    public function __construct(
-        UserProviderInterface $userProvider,
-        TokenStorageInterface $tokenStorage,
-        string $firewallName,
-        private string $userKey = 'REMOTE_USER',
-        ?LoggerInterface $logger = null,
-    ) {
+    private string $userKey;
+
+    public function __construct(UserProviderInterface $userProvider, TokenStorageInterface $tokenStorage, string $firewallName, string $userKey = 'REMOTE_USER', ?LoggerInterface $logger = null)
+    {
         parent::__construct($userProvider, $tokenStorage, $firewallName, $logger);
+
+        $this->userKey = $userKey;
     }
 
     protected function extractUsername(Request $request): ?string

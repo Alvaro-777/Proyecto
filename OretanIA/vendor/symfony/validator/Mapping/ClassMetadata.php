@@ -31,36 +31,67 @@ use Symfony\Component\Validator\GroupSequenceProviderInterface;
  */
 class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
 {
-    private string $name;
-    private string $defaultGroup;
+    /**
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getClassName()} instead.
+     */
+    public string $name;
+
+    /**
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getDefaultGroup()} instead.
+     */
+    public string $defaultGroup;
 
     /**
      * @var MemberMetadata[][]
+     *
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getPropertyMetadata()} instead.
      */
-    private array $members = [];
+    public array $members = [];
 
     /**
      * @var PropertyMetadata[]
+     *
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getPropertyMetadata()} instead.
      */
-    private array $properties = [];
+    public array $properties = [];
 
     /**
      * @var GetterMetadata[]
+     *
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getPropertyMetadata()} instead.
      */
-    private array $getters = [];
-
-    private ?GroupSequence $groupSequence = null;
-    private bool $groupSequenceProvider = false;
-    private ?string $groupProvider = null;
+    public array $getters = [];
 
     /**
-     * The strategy for cascading objects.
-     *
-     * By default, objects are not cascaded.
-     *
-     * @var CascadingStrategy::*
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getGroupSequence()} instead.
      */
-    private int $cascadingStrategy = CascadingStrategy::NONE;
+    public ?GroupSequence $groupSequence = null;
+
+    /**
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link isGroupSequenceProvider()} instead.
+     */
+    public bool $groupSequenceProvider = false;
+
+    /**
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getGroupProvider()} instead.
+     */
+    public ?string $groupProvider = null;
 
     /**
      * The strategy for traversing traversable objects.
@@ -68,8 +99,12 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
      * By default, only instances of {@link \Traversable} are traversed.
      *
      * @var TraversalStrategy::*
+     *
+     * @internal This property is public in order to reduce the size of the
+     *           class' serialized representation. Do not access it. Use
+     *           {@link getTraversalStrategy()} instead.
      */
-    private int $traversalStrategy = TraversalStrategy::IMPLICIT;
+    public int $traversalStrategy = TraversalStrategy::IMPLICIT;
 
     private \ReflectionClass $reflClass;
 
@@ -84,20 +119,22 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         }
     }
 
-    public function __serialize(): array
+    public function __sleep(): array
     {
-        return array_filter([
-            'cascadingStrategy' => CascadingStrategy::NONE !== $this->cascadingStrategy ? $this->cascadingStrategy : null,
-            'traversalStrategy' => TraversalStrategy::IMPLICIT !== $this->traversalStrategy ? $this->traversalStrategy : null,
-        ] + parent::__serialize() + [
-            'getters' => $this->getters,
-            'groupSequence' => $this->groupSequence,
-            'groupSequenceProvider' => $this->groupSequenceProvider,
-            'groupProvider' => $this->groupProvider,
-            'members' => $this->members,
-            'name' => $this->name,
-            'properties' => $this->properties,
-            'defaultGroup' => $this->defaultGroup,
+        $parentProperties = parent::__sleep();
+
+        // Don't store the cascading strategy. Classes never cascade.
+        unset($parentProperties[array_search('cascadingStrategy', $parentProperties)]);
+
+        return array_merge($parentProperties, [
+            'getters',
+            'groupSequence',
+            'groupSequenceProvider',
+            'groupProvider',
+            'members',
+            'name',
+            'properties',
+            'defaultGroup',
         ]);
     }
 
@@ -141,7 +178,13 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         $this->checkConstraint($constraint);
 
         if ($constraint instanceof Traverse) {
-            $this->traversalStrategy = $constraint->traverse ? TraversalStrategy::TRAVERSE : TraversalStrategy::NONE;
+            if ($constraint->traverse) {
+                // If traverse is true, traversal should be explicitly enabled
+                $this->traversalStrategy = TraversalStrategy::TRAVERSE;
+            } else {
+                // If traverse is false, traversal should be explicitly disabled
+                $this->traversalStrategy = TraversalStrategy::NONE;
+            }
 
             // The constraint is not added
             return $this;
@@ -165,14 +208,6 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
         }
 
         $constraint->addImplicitGroupName($this->getDefaultGroup());
-
-        if ($constraint instanceof Valid && null === $constraint->groups) {
-            $this->cascadingStrategy = CascadingStrategy::CASCADE;
-            $this->traversalStrategy = $constraint->traverse ? TraversalStrategy::IMPLICIT : TraversalStrategy::NONE;
-
-            // The constraint is not added
-            return $this;
-        }
 
         parent::addConstraint($constraint);
 
@@ -286,8 +321,10 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
 
     /**
      * Merges the constraints of the given metadata into this object.
+     *
+     * @return void
      */
-    public function mergeConstraints(self $source): void
+    public function mergeConstraints(self $source)
     {
         if ($source->isGroupSequenceProvider()) {
             $this->setGroupProvider($source->getGroupProvider());
@@ -303,8 +340,11 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
                 $member = clone $member;
 
                 foreach ($member->getConstraints() as $constraint) {
+                    if (\in_array($constraint::DEFAULT_GROUP, $constraint->groups, true)) {
+                        $member->constraintsByGroup[$this->getDefaultGroup()][] = $constraint;
+                    }
+
                     $constraint->addImplicitGroupName($this->getDefaultGroup());
-                    $member->addConstraint($constraint);
                 }
 
                 if ($member instanceof MemberMetadata && !$member->isPrivate($this->name)) {
@@ -391,9 +431,11 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
     /**
      * Sets whether a group sequence provider should be used.
      *
+     * @return void
+     *
      * @throws GroupDefinitionException
      */
-    public function setGroupSequenceProvider(bool $active): void
+    public function setGroupSequenceProvider(bool $active)
     {
         if ($this->hasGroupSequence()) {
             throw new GroupDefinitionException('Defining a group sequence provider is not allowed with a static group sequence.');
@@ -424,11 +466,6 @@ class ClassMetadata extends GenericMetadata implements ClassMetadataInterface
     public function getCascadingStrategy(): int
     {
         return $this->cascadingStrategy;
-    }
-
-    public function getTraversalStrategy(): int
-    {
-        return $this->traversalStrategy;
     }
 
     private function addPropertyMetadata(PropertyMetadataInterface $metadata): void

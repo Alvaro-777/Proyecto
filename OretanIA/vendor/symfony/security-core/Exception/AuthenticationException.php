@@ -30,7 +30,10 @@ class AuthenticationException extends RuntimeException
         return $this->token;
     }
 
-    public function setToken(TokenInterface $token): void
+    /**
+     * @return void
+     */
+    public function setToken(TokenInterface $token)
     {
         $this->token = $token;
     }
@@ -78,8 +81,10 @@ class AuthenticationException extends RuntimeException
 
     /**
      * Message key to be used by the translation component.
+     *
+     * @return string
      */
-    public function getMessageKey(): string
+    public function getMessageKey()
     {
         return 'An authentication exception occurred.';
     }

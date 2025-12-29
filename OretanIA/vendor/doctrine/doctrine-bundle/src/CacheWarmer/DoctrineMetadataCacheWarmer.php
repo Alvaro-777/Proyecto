@@ -11,8 +11,8 @@ use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
 use function is_file;
 
-/** @internal */
-final class DoctrineMetadataCacheWarmer extends AbstractPhpFileCacheWarmer
+/** @final since 2.11 */
+class DoctrineMetadataCacheWarmer extends AbstractPhpFileCacheWarmer
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -21,9 +21,12 @@ final class DoctrineMetadataCacheWarmer extends AbstractPhpFileCacheWarmer
         parent::__construct($phpArrayFile);
     }
 
+    /**
+     * It must not be optional because it should be called before ProxyCacheWarmer which is not optional.
+     */
     public function isOptional(): bool
     {
-        return true;
+        return false;
     }
 
     protected function doWarmUp(string $cacheDir, ArrayAdapter $arrayAdapter, string|null $buildDir = null): bool

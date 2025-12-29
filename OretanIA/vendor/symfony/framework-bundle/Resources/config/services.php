@@ -13,6 +13,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Psr\Clock\ClockInterface as PsrClockInterface;
 use Psr\EventDispatcher\EventDispatcherInterface as PsrEventDispatcherInterface;
+use Symfony\Bundle\FrameworkBundle\CacheWarmer\ConfigBuilderCacheWarmer;
 use Symfony\Bundle\FrameworkBundle\HttpCache\HttpCache;
 use Symfony\Component\Clock\Clock;
 use Symfony\Component\Clock\ClockInterface;
@@ -22,7 +23,6 @@ use Symfony\Component\Config\ResourceCheckerConfigCacheFactory;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\DependencyInjection\Config\ContainerParametersResourceChecker;
 use Symfony\Component\DependencyInjection\EnvVarProcessor;
-use Symfony\Component\DependencyInjection\Parameter;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBag;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -41,7 +41,6 @@ use Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer;
 use Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate;
 use Symfony\Component\HttpKernel\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetter;
-use Symfony\Component\HttpKernel\DependencyInjection\ServicesResetterInterface;
 use Symfony\Component\HttpKernel\EventListener\LocaleAwareListener;
 use Symfony\Component\HttpKernel\HttpCache\Store;
 use Symfony\Component\HttpKernel\HttpCache\StoreInterface;
@@ -49,6 +48,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpKernel\UriSigner as HttpKernelUriSigner;
 use Symfony\Component\Runtime\Runner\Symfony\HttpKernelRunner;
 use Symfony\Component\Runtime\Runner\Symfony\ResponseRunner;
 use Symfony\Component\Runtime\SymfonyRuntime;
@@ -115,7 +115,7 @@ return static function (ContainerConfigurator $container) {
 
         ->set('http_cache.store', Store::class)
             ->args([
-                param('kernel.share_dir').'/http_cache',
+                param('kernel.cache_dir').'/http_cache',
             ])
         ->alias(StoreInterface::class, 'http_cache.store')
 
@@ -156,13 +156,11 @@ return static function (ContainerConfigurator $container) {
 
         ->set('uri_signer', UriSigner::class)
             ->args([
-                new Parameter('kernel.secret'),
-                '_hash',
-                '_expiration',
-                service('clock')->nullOnInvalid(),
+                param('kernel.secret'),
             ])
-            ->lazy()
         ->alias(UriSigner::class, 'uri_signer')
+        ->alias(HttpKernelUriSigner::class, 'uri_signer')
+            ->deprecate('symfony/framework-bundle', '6.4', 'The "%alias_id%" alias is deprecated, use "'.UriSigner::class.'" instead.')
 
         ->set('config_cache_factory', ResourceCheckerConfigCacheFactory::class)
             ->args([
@@ -180,7 +178,6 @@ return static function (ContainerConfigurator $container) {
 
         ->set('services_resetter', ServicesResetter::class)
             ->public()
-        ->alias(ServicesResetterInterface::class, 'services_resetter')
 
         ->set('reverse_container', ReverseContainer::class)
             ->args([
@@ -202,7 +199,6 @@ return static function (ContainerConfigurator $container) {
                 tagged_iterator('container.env_var_loader'),
             ])
             ->tag('container.env_var_processor')
-            ->tag('kernel.reset', ['method' => 'reset'])
 
         ->set('slugger', AsciiSlugger::class)
             ->args([
@@ -233,6 +229,9 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service('container.getenv'),
             ])
+        ->set('config_builder.warmer', ConfigBuilderCacheWarmer::class)
+            ->args([service(KernelInterface::class), service('logger')->nullOnInvalid()])
+            ->tag('kernel.cache_warmer')
 
         ->set('clock', Clock::class)
         ->alias(ClockInterface::class, 'clock')

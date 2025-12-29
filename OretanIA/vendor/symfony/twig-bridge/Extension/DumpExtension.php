@@ -26,10 +26,13 @@ use Twig\TwigFunction;
  */
 final class DumpExtension extends AbstractExtension
 {
-    public function __construct(
-        private ClonerInterface $cloner,
-        private ?HtmlDumper $dumper = null,
-    ) {
+    private ClonerInterface $cloner;
+    private ?HtmlDumper $dumper;
+
+    public function __construct(ClonerInterface $cloner, ?HtmlDumper $dumper = null)
+    {
+        $this->cloner = $cloner;
+        $this->dumper = $dumper;
     }
 
     public function getFunctions(): array

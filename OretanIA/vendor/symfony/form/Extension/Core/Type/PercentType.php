@@ -20,7 +20,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PercentType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options): void
+    /**
+     * @return void
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->addViewTransformer(new PercentToLocalizedStringTransformer(
             $options['scale'],
@@ -30,7 +33,10 @@ class PercentType extends AbstractType
         ));
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
+    /**
+     * @return void
+     */
+    public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['symbol'] = $options['symbol'];
 
@@ -39,7 +45,10 @@ class PercentType extends AbstractType
         }
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    /**
+     * @return void
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'scale' => 0,

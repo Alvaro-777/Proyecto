@@ -103,7 +103,6 @@
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/property-info" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/notifier" />
-      <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/polyfill-php85" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/routing" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/password-hasher" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/process" />
@@ -114,7 +113,6 @@
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/http-kernel" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/debug-bundle" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/polyfill-intl-grapheme" />
-      <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/type-info" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/polyfill-intl-normalizer" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/yaml" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/symfony/translation" />
@@ -137,6 +135,9 @@
       <path value="$PROJECT_DIR$/OretanIA/vendor/phpdocumentor/reflection-common" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/OretanIA/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/OretanIA/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/OretanIA/vendor/sebastian/code-unit-reverse-lookup" />
+      <path value="$PROJECT_DIR$/OretanIA/vendor/sebastian/code-unit" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.4" />

@@ -29,12 +29,18 @@ class YamlReferenceDumper
 {
     private ?string $reference = null;
 
-    public function dump(ConfigurationInterface $configuration): string
+    /**
+     * @return string
+     */
+    public function dump(ConfigurationInterface $configuration)
     {
         return $this->dumpNode($configuration->getConfigTreeBuilder()->buildTree());
     }
 
-    public function dumpAtPath(ConfigurationInterface $configuration, string $path): string
+    /**
+     * @return string
+     */
+    public function dumpAtPath(ConfigurationInterface $configuration, string $path)
     {
         $rootNode = $node = $configuration->getConfigTreeBuilder()->buildTree();
 
@@ -60,7 +66,10 @@ class YamlReferenceDumper
         return $this->dumpNode($node);
     }
 
-    public function dumpNode(NodeInterface $node): string
+    /**
+     * @return string
+     */
+    public function dumpNode(NodeInterface $node)
     {
         $this->reference = '';
         $this->writeNode($node);
@@ -89,8 +98,8 @@ class YamlReferenceDumper
                 $children = $this->getPrototypeChildren($node);
             }
 
-            if (!$children && !($node->hasDefaultValue() && $defaultArray = $node->getDefaultValue())) {
-                $default = $node->hasDefaultValue() && null === $defaultArray ? '~' : '[]';
+            if (!$children && !($node->hasDefaultValue() && \count($defaultArray = $node->getDefaultValue()))) {
+                $default = '[]';
             }
         } elseif ($node instanceof EnumNode) {
             $comments[] = 'One of '.$node->getPermissibleValues('; ');
@@ -120,7 +129,8 @@ class YamlReferenceDumper
 
         // deprecated?
         if ($node instanceof BaseNode && $node->isDeprecated()) {
-            $comments[] = \sprintf('Deprecated (%s)', $node->getDeprecationMessage($parentNode));
+            $deprecation = $node->getDeprecation($node->getName(), $parentNode ? $parentNode->getPath() : $node->getPath());
+            $comments[] = \sprintf('Deprecated (%s)', ($deprecation['package'] || $deprecation['version'] ? "Since {$deprecation['package']} {$deprecation['version']}: " : '').$deprecation['message']);
         }
 
         // example

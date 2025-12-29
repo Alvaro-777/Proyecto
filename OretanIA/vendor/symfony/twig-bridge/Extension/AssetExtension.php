@@ -22,9 +22,11 @@ use Twig\TwigFunction;
  */
 final class AssetExtension extends AbstractExtension
 {
-    public function __construct(
-        private Packages $packages,
-    ) {
+    private Packages $packages;
+
+    public function __construct(Packages $packages)
+    {
+        $this->packages = $packages;
     }
 
     public function getFunctions(): array

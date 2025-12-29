@@ -105,12 +105,4 @@ final class SignalRegistry
             }
         }
     }
-
-    /**
-     * @internal
-     */
-    public function scheduleAlarm(int $seconds): void
-    {
-        pcntl_alarm($seconds);
-    }
 }

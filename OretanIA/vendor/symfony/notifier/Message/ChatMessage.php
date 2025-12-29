@@ -19,12 +19,14 @@ use Symfony\Component\Notifier\Notification\Notification;
 class ChatMessage implements MessageInterface, FromNotificationInterface
 {
     private ?string $transport = null;
+    private string $subject;
+    private ?MessageOptionsInterface $options;
     private ?Notification $notification = null;
 
-    public function __construct(
-        private string $subject,
-        private ?MessageOptionsInterface $options = null,
-    ) {
+    public function __construct(string $subject, ?MessageOptionsInterface $options = null)
+    {
+        $this->subject = $subject;
+        $this->options = $options;
     }
 
     public static function fromNotification(Notification $notification): self
