@@ -9,8 +9,8 @@
             <p>Regístrate para acceder a todas las funcionalidades de Oretan-IA</p>
         </header>
         <form action="{{ asset('php/registro.php') }}" method="post" id="signup-form">
-            <label for="signup-fullname">Nombre Completo</label><br>
-            <input type="text" id="signup-fullname" name="signup-fullname" required placeholder="Apellidos, Nombre"><br>
+            <label for="signup-fullname">Nombre Completo (Apellidos, Nombre)</label><br>
+            <input type="text" id="signup-fullname" name="signup-fullname" pattern=".+,.+" required placeholder="Apellidos, Nombre"><br>
 
             <label for="signup-email">Correo electrónico</label><br>
             <input type="email" id="signup-email" name="signup-email" required placeholder="correo@mail.com"><br>
