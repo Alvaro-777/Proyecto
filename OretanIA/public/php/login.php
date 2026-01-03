@@ -18,7 +18,7 @@
             $password = $_POST["login-pswd"];
 
             // Validar usuario
-            $stmt = $pdo->prepare('SELECT * FROM Usuario WHERE correo = :mail AND contrasea = :pswd');
+            $stmt = $pdo->prepare('SELECT * FROM Usuario WHERE correo = :mail AND pswd = :pswd');
             $stmt->execute([
                 ":mail" => $email,
                 ":pswd" => $password
