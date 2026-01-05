@@ -4,6 +4,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 set_time_limit(320); // 5 minutos – ajusta si necesitas más
 ini_set('max_execution_time', 300);
+session_start();
+
+$host = '127.0.0.1';
+$port = 33100;
+$dbname = 'oretan-ia';
+$user = 'root';
+$pass = 'root';
 
 // Evitar buffering agresivo (para mostrar mensajes en tiempo real)
 function safe_ob_clean()
@@ -12,8 +19,22 @@ function safe_ob_clean()
         ob_end_clean();
     }
 }
+function generar_nombre_unico($directorio, $nombre_original) {
+    $nombre_base = pathinfo($nombre_original, PATHINFO_FILENAME);
+    $extension = pathinfo($nombre_original, PATHINFO_EXTENSION);
+    $nombre_completo = $nombre_original;
+    $contador = 1;
 
-$mostrar_adjunto = true;
+    // Mientras exista un archivo con ese nombre, incrementamos el contador
+    while (file_exists($directorio . $nombre_completo)) {
+        $nombre_completo = $nombre_base . '(' . $contador . ')' . ($extension ? '.' . $extension : '');
+        $contador++;
+    }
+
+    return $nombre_completo;
+}
+
+$mostrar_adjunto = !empty($_COOKIE['current_user_id']);
 function abort_with_message($msg)
 {
     safe_ob_clean();
@@ -54,11 +75,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!file_exists($dir_subida)) {
             mkdir($dir_subida, 0777, true);
         }
-        $ruta_archivo_final = $dir_subida . basename($nombre_archivo);
+        $nombre_unico = generar_nombre_unico($dir_subida, basename($nombre_archivo));
+        $ruta_archivo_final = $dir_subida . $nombre_unico;
         if (!move_uploaded_file($tmp_archivo, $ruta_archivo_final)) {
             abort_with_message('Error al subir el archivo.');
         }
         $texto_a_procesar = $ruta_archivo_final;
+        try {
+            $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES => false
+            ]);
+
+            $stmt = $pdo->prepare('INSERT INTO Archivo(usuario_id, nombre, peso, tipo)
+                                    VALUES (:usuario, :name, :tam, :type)');
+            $resultado = $stmt->execute([
+                ":usuario" => $_COOKIE['current_user_id'],
+                ":name" =>  $nombre_unico,
+                ":tam" => $_FILES['archivo_adjunto']['size'],
+                ":type" => strtolower(pathinfo($_FILES['archivo_adjunto']['name'], PATHINFO_EXTENSION))
+            ]);
+
+        } catch (PDOException $e) {
+            exit;
+        }
     } // --- Caso: texto directo ---
     else {
         $texto_a_procesar = trim($_POST['texto_usuario']);
@@ -163,7 +203,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </script>
 </body>
 </html>
+<?php
 
+?>
 <!--pip install gtts PyPDF2 python-docx-->
 <!--python -c "from docx import Document; print('python-docx OK')"-->
 <!--python -c "from gtts import gTTS; print('gTTS OK')"-->
