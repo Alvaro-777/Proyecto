@@ -1,17 +1,8 @@
 <?php
 session_start();
-
-$host = '127.0.0.1';
-$port = 33100;
-$dbname = 'oretan-ia';
-$user = 'root';
-$pass = 'root';
-
+require_once 'conexion.php';
 try {
-    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_EMULATE_PREPARES => false
-    ]);
+    $pdo = conectarDB();
     if (!isset($_POST["signup-nombre"], $_POST["signup-apellidos"], $_POST["signup-email"], $_POST["signup-pswd"])) {
         throw new Exception("Faltan datos del formulario.");
     }
