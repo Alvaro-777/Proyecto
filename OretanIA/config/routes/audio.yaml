@@ -1,4 +1,0 @@
-# config/routes/audio.yaml
-audio:
-    path: /audio
-    controller: App\Controller\HomeController::audio

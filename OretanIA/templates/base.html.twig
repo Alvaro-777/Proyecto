@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/style.css') }}">
     <link rel="shortcut icon" href="imagenes/logo.ico">
 </head>
 <body>
 <header class="header">
     <div class="logo">
-        <a href="{{ path('home') }}" title="Inicio"><img src="{{ asset('imagenes/Logo.png') }}" alt="Logo Dreteam-IA"></a>
+        <a href="{{ path('home') }}" title="Inicio"><img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Dreteam-IA"></a>
     </div>
     <h1 class="titulo">Oretan-IA</h1>
     <div class="modo">

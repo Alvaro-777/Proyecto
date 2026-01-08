@@ -4,8 +4,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 set_time_limit(320); // 5 minutos – ajusta si necesitas más
 ini_set('max_execution_time', 300);
-session_start();
-require_once 'conexion.php';
+
 // Evitar buffering agresivo (para mostrar mensajes en tiempo real)
 function safe_ob_clean()
 {
@@ -14,24 +13,7 @@ function safe_ob_clean()
     }
 }
 
-function generar_nombre_unico($directorio, $nombre_original)
-{
-    $nombre_base = pathinfo($nombre_original, PATHINFO_FILENAME);
-    $extension = pathinfo($nombre_original, PATHINFO_EXTENSION);
-    $nombre_completo = $nombre_original;
-    $contador = 1;
-
-    // Mientras exista un archivo con ese nombre, incrementamos el contador
-    while (file_exists($directorio . $nombre_completo)) {
-        $nombre_completo = $nombre_base . '(' . $contador . ')' . ($extension ? '.' . $extension : '');
-        $contador++;
-    }
-
-    return $nombre_completo;
-}
-
-$mostrar_adjunto = !empty($_COOKIE['current_user_id']);
-
+$mostrar_adjunto = true;
 function abort_with_message($msg)
 {
     safe_ob_clean();
@@ -56,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $texto_a_procesar = '';
+
     // --- Caso: archivo adjunto ---
     if ($hay_archivo) {
         $nombre_archivo = $_FILES['archivo_adjunto']['name'];
@@ -71,23 +54,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (!file_exists($dir_subida)) {
             mkdir($dir_subida, 0777, true);
         }
-        $nombre_unico = generar_nombre_unico($dir_subida, basename($nombre_archivo));
-        $ruta_archivo_final = $dir_subida . $nombre_unico;
+        $ruta_archivo_final = $dir_subida . basename($nombre_archivo);
         if (!move_uploaded_file($tmp_archivo, $ruta_archivo_final)) {
             abort_with_message('Error al subir el archivo.');
         }
         $texto_a_procesar = $ruta_archivo_final;
-
-        gestionArchivos($_COOKIE['current_user_id'], $nombre_unico,$_FILES['archivo_adjunto']['size'], strtolower(pathinfo($_FILES['archivo_adjunto']['name'], PATHINFO_EXTENSION)), $ruta_archivo_final);
-
     } // --- Caso: texto directo ---
     else {
         $texto_a_procesar = trim($_POST['texto_usuario']);
-        $archivo_id = null;
-        $texto_input_historial = $texto_a_procesar;
     }
-
-    historial($texto_input_historial, 1, $archivo_id, (int)$_COOKIE['current_user_id']);
 
     // === Etapa 2: Ejecutar Python (todavía sin salida al navegador) ===
     $python_bin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'py -3' : 'python3';
@@ -99,6 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $comando = "$python_bin " . escapeshellarg($ruta_script) . " " . escapeshellarg($texto_a_procesar) . " " . escapeshellarg($dir_audios) . " 2>&1";
+
     $salida = shell_exec($comando);
 
     if (!$salida) {
@@ -187,9 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </script>
 </body>
 </html>
-<?php
 
-?>
 <!--pip install gtts PyPDF2 python-docx-->
 <!--python -c "from docx import Document; print('python-docx OK')"-->
 <!--python -c "from gtts import gTTS; print('gTTS OK')"-->

@@ -1,4 +1,0 @@
-# Enable stateless CSRF protection for forms and logins/logouts
-turbo:
-    broadcast:
-        enabled: true

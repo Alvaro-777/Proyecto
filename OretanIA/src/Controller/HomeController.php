@@ -29,6 +29,7 @@ class HomeController extends AbstractController
     #[Route('/registro', name: 'registro')]
     public function registro(): Response
     {
-        return $this->render('registro.html.twig');
+        $error=['', '', '', '', ''];
+        return $this->render('registro.html.twig', ['error' => $error]);
     }
 }

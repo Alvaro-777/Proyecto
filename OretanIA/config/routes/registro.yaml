@@ -1,3 +1,0 @@
-registro:
-    path: /registro
-    controller: App\Controller\HomeController::registro
