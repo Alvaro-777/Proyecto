@@ -15,14 +15,14 @@ class HistorialUsoIA
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Usuario $usuarioId = null;
+    private ?Usuario $usuario = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?IA $iaId = null;
+    private ?IA $ia = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Archivo $archivoId = null;
+    private ?Archivo $archivo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $textoInput = null;
@@ -43,38 +43,38 @@ class HistorialUsoIA
         return $this->id;
     }
 
-    public function getUsuarioId(): ?Usuario
+    public function getUsuario(): ?Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
-    public function setUsuarioId(?Usuario $usuarioId): static
+    public function setUsuario(?Usuario $usuario): static
     {
-        $this->usuarioId = $usuarioId;
+        $this->usuario = $usuario;
 
         return $this;
     }
 
-    public function getIaId(): ?IA
+    public function getIa(): ?IA
     {
-        return $this->iaId;
+        return $this->ia;
     }
 
-    public function setIaId(?IA $iaId): static
+    public function setIa(?IA $ia): static
     {
-        $this->iaId = $iaId;
+        $this->ia = $ia;
 
         return $this;
     }
 
-    public function getArchivoId(): ?Archivo
+    public function getArchivo(): ?Archivo
     {
-        return $this->archivoId;
+        return $this->archivo;
     }
 
-    public function setArchivoId(?Archivo $archivoId): static
+    public function setArchivo(?Archivo $archivo): static
     {
-        $this->archivoId = $archivoId;
+        $this->archivo = $archivo;
 
         return $this;
     }

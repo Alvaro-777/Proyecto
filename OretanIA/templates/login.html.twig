@@ -15,10 +15,16 @@
             <p>Accede a tu cuenta para continuar explorando Oretan-IA</p>
         </header>
         <form action="./verify-login" method="post" id="login-form">
+            <p id="login-general-error" style="color: red; display: inline">{{ error[0] }}</p><br>
+
             <label for="login-email">Correo electrónico</label><br>
             <input type="email" id="login-email" name="login-email" required><br>
+            <p id="login-email-error" style="color: red; display: inline">{{ error[1] }}</p><br>
+
             <label for="login-pswd">Contraseña</label><br>
             <input type="password" id="login-pswd" name="login-pswd" required><br>
+            <p id="login-pswd-error" style="color: red; display: inline">{{ error[2] }}</p><br>
+
             <button type="submit" id="login-submit">Entrar</button>
         </form>
         <section>

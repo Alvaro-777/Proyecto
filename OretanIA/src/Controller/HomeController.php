@@ -23,13 +23,32 @@ class HomeController extends AbstractController
     #[Route('/login', name: 'login')]
     public function login(): Response
     {
+        session_name("oretan-ia");
+        session_start();
+
+        $error=['', '', ''];
+
+        if(isset($_SESSION['error'])){
+            $error[$_SESSION['error'][0]] = $_SESSION['error'][1];
+            unset($_SESSION['error']);
+        }
+
         return $this->render('login.html.twig');
     }
 
     #[Route('/registro', name: 'registro')]
     public function registro(): Response
     {
-        $error=['', '', '', '', ''];
+        session_name("oretan-ia");
+        session_start();
+
+        $error=['', '', '', '', '', ''];
+
+        if(isset($_SESSION['error'])){
+            $error[$_SESSION['error'][0]] = $_SESSION['error'][1];
+            unset($_SESSION['error']);
+        }
+
         return $this->render('registro.html.twig', ['error' => $error]);
     }
 }

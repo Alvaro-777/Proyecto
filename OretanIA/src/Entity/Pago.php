@@ -16,7 +16,7 @@ class Pago
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Usuario $usuarioId = null;
+    private ?Usuario $usuario = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $cantidad = null;
@@ -43,14 +43,14 @@ class Pago
         return $this->id;
     }
 
-    public function getUsuarioId(): ?Usuario
+    public function getUsuario(): ?Usuario
     {
-        return $this->usuarioId;
+        return $this->usuario;
     }
 
-    public function setUsuarioId(?Usuario $usuarioId): static
+    public function setUsuario(?Usuario $usuario): static
     {
-        $this->usuarioId = $usuarioId;
+        $this->usuario = $usuario;
 
         return $this;
     }
