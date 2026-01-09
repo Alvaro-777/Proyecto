@@ -17,7 +17,7 @@ class Usuario
     private ?string $correo = null;
 
     #[ORM\Column(length: 100)]
-    private ?string $contraseña = null;
+    private ?string $pswd = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nombre = null;
@@ -53,14 +53,14 @@ class Usuario
         return $this;
     }
 
-    public function getContraseña(): ?string
+    public function getPswd(): ?string
     {
-        return $this->contraseña;
+        return $this->pswd;
     }
 
-    public function setContraseña(string $contraseña): static
+    public function setPswd(string $pswd): static
     {
-        $this->contraseña = $contraseña;
+        $this->pswd = $pswd;
 
         return $this;
     }
