@@ -34,7 +34,7 @@ class UsuarioController extends AbstractController
         $usuario->setCorreo($email);
         $usuario->setNombre($nombre);
         $usuario->setApellido($apellido);
-        $usuario->setPswd($password);
+        $usuario->setPswd(password_hash($password, PASSWORD_DEFAULT));
         $usuario->setCreditos(50);
         $usuario->setFechaRegistro(new \DateTime());
 
@@ -42,10 +42,10 @@ class UsuarioController extends AbstractController
 
         $entityManager->flush();
 
-        $user = $repository->findOneBy(['correo', $email]);
+        //$user = $repository->findOneBy(['correo', $email]);
 
         //setcookie("current_user_id", strval($user->getId()), time() + (86400 * 30));
-        $_SESSION["id"] = $user->getId();
+        $_SESSION["user-id"] = $usuario->getId();
 
         return $this->redirectToRoute('home');
     }
@@ -63,13 +63,18 @@ class UsuarioController extends AbstractController
 
         $user = $repository->findOneBy(array('correo' => $email));
 
-        if($user->getPswd() !== $password){
+        if(!$user){
+            $_SESSION['error'] = [1, "El correo no esta registrado"];
+            return $this->redirectToRoute('login');
+        }
+
+        if(!password_verify($password, $user->getPswd())){
             $_SESSION['error'] = [2, "Contraseña incorrecta"];
             return $this->redirectToRoute('login');
         }
 
         //setcookie("current_user_id", strval($user->getId()), time() + (86400 * 30));
-        $_SESSION["id"] = $user->getId();
+        $_SESSION['user-id'] = $user->getId();
 
         return $this->redirectToRoute('home');
     }
