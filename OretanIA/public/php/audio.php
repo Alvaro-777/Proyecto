@@ -4,8 +4,10 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 set_time_limit(320); // 5 minutos – ajusta si necesitas más
 ini_set('max_execution_time', 300);
+
+session_name("oretan-ia");
 session_start();
-require_once 'conexion.php';
+
 // Evitar buffering agresivo (para mostrar mensajes en tiempo real)
 function safe_ob_clean()
 {
@@ -30,7 +32,7 @@ function generar_nombre_unico($directorio, $nombre_original)
     return $nombre_completo;
 }
 
-$mostrar_adjunto = !empty($_COOKIE['current_user_id']);
+$mostrar_adjunto = !empty($_SESSION['user-id']);
 
 function abort_with_message($msg)
 {
@@ -50,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $hay_archivo = !empty($_FILES['archivo_adjunto']['name']);
 
     if ($hay_texto && $hay_archivo) {
-        abort_with_message('Por favor, escribe un texto O adjunta un archivo, pero no ambos.');
+        abort_with_message('Por favor, escribe un texto o adjunta un archivo, pero no ambos.');
     } elseif (!$hay_texto && !$hay_archivo) {
         abort_with_message('No has escrito nada ni adjuntado ningún archivo.');
     }
@@ -78,7 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $texto_a_procesar = $ruta_archivo_final;
 
-        gestionArchivos($_COOKIE['current_user_id'], $nombre_unico,$_FILES['archivo_adjunto']['size'], strtolower(pathinfo($_FILES['archivo_adjunto']['name'], PATHINFO_EXTENSION)), $ruta_archivo_final);
+        /* Esto hay que hacerlo con el repositorio de Archivo */
+        gestionArchivos($_SESSION['user-id'], $nombre_unico,$_FILES['archivo_adjunto']['size'], strtolower(pathinfo($_FILES['archivo_adjunto']['name'], PATHINFO_EXTENSION)), $ruta_archivo_final);
 
     } // --- Caso: texto directo ---
     else {
@@ -87,7 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $texto_input_historial = $texto_a_procesar;
     }
 
-    historial($texto_input_historial, 1, $archivo_id, (int)$_COOKIE['current_user_id']);
+    /* Esto hay que hacerlo con el repositorio de HistorialUsoIA */
+    historial($texto_input_historial, 1, $archivo_id, (int)$_SESSION['user-id']);
 
     // === Etapa 2: Ejecutar Python (todavía sin salida al navegador) ===
     $python_bin = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') ? 'py -3' : 'python3';
