@@ -1,8 +1,7 @@
 {% extends 'base.html.twig' %}
-{% block head %}
-
-{% endblock %}
-{% block title %}Registrarse - Oretan-IA{% endblock %}
+{% block head %}{% endblock %}
+{% block title %}Registro - Oretan-IA{% endblock %}
+{% block cabecera %}Registro - Oretan-IA{% endblock %}
 {% block body %}
     <main>
         <header id="signup-header">
@@ -35,7 +34,7 @@
             <button type="submit" id="signup-submit">Entrar</button>
         </form>
         <section>
-            <span>¿Ya tienes cuenta?</span> <a href="./login" class="sesion">Inicia sesión aquí</a>
+            <span>¿Ya tienes cuenta?</span> <a href={{ path('login') }} class="sesion">Inicia sesión aquí</a>
         </section>
         <script src="{{ asset('script/signup.js') }}"></script>
     </main>

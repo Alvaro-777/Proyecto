@@ -7,8 +7,8 @@ use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioController extends AbstractController
@@ -18,23 +18,33 @@ class UsuarioController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         UsuarioRepository $usuarioRepository,
-        UserPasswordHasherInterface $passwordHasher
-    ): RedirectResponse {
+    ): Response {
         $nombre = $request->request->get('signup-name');
         $apellido = $request->request->get('signup-surname');
         $email = $request->request->get('signup-email');
         $password = $request->request->get('signup-pswd');
+        $confirm = $request->request->get('signup-confirm');
 
         // Validar campos obligatorios
-        if (!$email || !$password) {
-            $this->addFlash('error', 'Todos los campos son obligatorios.');
-            return $this->redirectToRoute('registro');
+        if (empty($email) || empty($password)) {
+            $errores = [null, null, null, 'Email obligatorio.', null, 'Contraseña obligatoria.'];
+            return $this->render('registro.html.twig', [
+                'error' => $errores,
+                'form_data' => compact('nombre', 'apellido', 'email')
+            ]);
         }
 
         // Verificar si el correo ya existe
         if ($usuarioRepository->existsByCorreo($email)) {
-            $this->addFlash('error', 'El correo ya está registrado.');
-            return $this->redirectToRoute('registro');
+            $errores = [null, null, null, 'Este email ya está registrado.', null, null];
+            return $this->render('registro.html.twig', [
+                'error' => $errores,
+                'form_data' => [
+                    'nombre' => $nombre,
+                    'apellido' => $apellido,
+                    'email' => $email
+                ]
+            ]);
         }
 
         $usuario = new Usuario();
@@ -49,9 +59,10 @@ class UsuarioController extends AbstractController
         $entityManager->flush();
 
         // Guardar ID en sesión (mejor: usar Security)
-        $this->getSession()->set('user-id', $usuario->getId());
+        $session = $request->getSession();
+        $session->set('user-id', $usuario->getId());
 
-        $this->addFlash('success', '¡Registro exitoso!');
+        $request->getSession()->set('user-id', $usuario->getId());
         return $this->redirectToRoute('home');
     }
 
@@ -59,7 +70,7 @@ class UsuarioController extends AbstractController
     public function verifyLogin(
         Request $request,
         UsuarioRepository $usuarioRepository
-    ): RedirectResponse {
+    ): Response {
         $email = $request->request->get('login-email');
         $password = $request->request->get('login-pswd');
 
@@ -70,13 +81,9 @@ class UsuarioController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        $this->getSession()->set('user-id', $user->getId());
-        return $this->redirectToRoute('home');
-    }
+        $request->getSession()->set('user-id', $user->getId());
 
-    private function getSession()
-    {
-        return $this->container->get('session');
+        return $this->redirectToRoute('home');
     }
 
     #[Route('/logout', name: 'logout')]
