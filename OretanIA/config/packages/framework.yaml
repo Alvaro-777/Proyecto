@@ -1,31 +1,25 @@
-# config/packages/framework.yaml
+# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
-    #default_locale: en
-    #csrf_protection: true
-    #http_method_override: true
+    annotations: false
+    http_method_override: false
+    handle_all_throwables: true
 
-    # Enables session support
+    # Enables session support. Note that the session will ONLY be started if you read or write from it.
+    # Remove or comment this section to explicitly disable session support.
     session:
+        name: oretan-ia
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
-
-    # Enables the validator
-    validation:
-        email_validation_mode: html5
 
     #esi: true
     #fragments: true
     php_errors:
         log: true
 
-    # Assets versioning
-    assets:
-        # json_manifest_path: '%kernel.project_dir%/public/build/manifest.json'
-
-    # Translator (descomenta si usas traducciones)
-    #translator:
-    #    default_path: '%kernel.project_dir%/translations'
-    #    fallbacks:
-    #        - en
+when@test:
+    framework:
+        test: true
+        session:
+            storage_factory_id: session.storage.factory.mock_file

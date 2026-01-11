@@ -1,34 +1,42 @@
 {% extends 'base.html.twig' %}
-{% block head %}
-{% endblock %}
-{% block title %}Registrarse - Oretan-IA{% endblock %}
+{% block head %}{% endblock %}
+{% block title %}Registro - Oretan-IA{% endblock %}
+{% block cabecera %}Registro - Oretan-IA{% endblock %}
 {% block body %}
     <main>
         <header id="signup-header">
             <h1>Crear una cuenta</h1>
             <p>Regístrate para acceder a todas las funcionalidades de Oretan-IA</p>
         </header>
-        <form action="{{ asset('php/registro.php') }}" method="post" id="signup-form">
-            <label for="signup-fullname">Nombre</label><br>
-            <input type="text" id="signup-nombre" name="signup-nombre" required placeholder="Nombre"><br>
-            <label for="signup-fullname">Apellidos</label><br>
-            <input type="text" id="signup-apellidos" name="signup-apellidos" required placeholder="Apellidos"><br>
+        <form action="./usuario/new" method="post" id="signup-form">
+            <p id="signup-general-error" style="color: red; display: inline">{{ error[0] }}</p><br>
+
+            <label for="signup-name">Nombre</label><br>
+            <input type="text" id="signup-name" name="signup-name" required placeholder="Nombre">
+            <p id="signup-name-error" style="color: red; display: inline">{{ error[1] }}</p><br>
+
+            <label for="signup-surname">Nombre Completo</label><br>
+            <input type="text" id="signup-surname" name="signup-surname" required placeholder="Apellidos">
+            <p id="signup-surname-error" style="color: red; display: inline">{{ error[2] }}</p><br>
 
             <label for="signup-email">Correo electrónico</label><br>
-            <input type="email" id="signup-email" name="signup-email" required placeholder="correo@mail.com"><br>
+            <input type="email" id="signup-email" name="signup-email" required placeholder="correo@mail.com">
+            <p id="signup-email-error" style="color: red; display: inline">{{ error[3] }}</p><br>
 
             <label for="signup-pswd">Contraseña</label><br>
-            <input type="password" id="signup-pswd" name="signup-pswd" required><br>
+            <input type="password" id="signup-pswd" name="signup-pswd" required>
+            <p id="signup-pswd-error" style="color: red; display: inline">{{ error[4] }}</p><br>
 
             <label for="signup-confirm">Confirmar contraseña</label><br>
-            <input type="password" id="signup-confirm" name="signup-confirm" required><br>
+            <input type="password" id="signup-confirm" name="signup-confirm" required>
+            <p id="signup-confirm-error" style="color: red; display: inline">{{ error[5] }}</p><br>
 
             <button type="submit" id="signup-submit">Entrar</button>
         </form>
         <section>
-            <span>¿Ya tienes cuenta?</span> <a href="./login" class="sesion">Inicia sesión aquí</a>
+            <span>¿Ya tienes cuenta?</span> <a href={{ path('login') }} class="sesion">Inicia sesión aquí</a>
         </section>
-        <script src="{{ asset('script/signup-validator.js') }}"></script>
+        <script src="{{ asset('script/signup.js') }}"></script>
     </main>
 
 {% endblock %}
