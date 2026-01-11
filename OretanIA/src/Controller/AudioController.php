@@ -23,89 +23,71 @@ class AudioController extends AbstractController
     #[Route('/audio', name: 'audio_index', methods: ['GET'])]
     public function index(SessionInterface $session): Response
     {
-        $mostrarAdjunto = !empty($session->get('user-id'));
         return $this->render('audio.html.twig', [
-            'mostrar_adjunto' => $mostrarAdjunto,
+            'mostrar_adjunto' => !empty($session->get('user-id')),
         ]);
     }
 
     #[Route('/audio/procesar', name: 'audio_procesar', methods: ['POST'])]
     public function procesar(
-        Request $request,
-        SessionInterface $session,
+        Request                $request,
+        SessionInterface       $session,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         // Validaciones iniciales
         $textoUsuario = trim($request->request->get('texto_usuario', ''));
         $archivoAdjunto = $request->files->get('archivo_adjunto');
 
         $hayTexto = !empty($textoUsuario);
-        $hayArchivo = $archivoAdjunto && $archivoAdjunto->isValid();
+        $hayArchivo = $archivoAdjunto && $archivoAdjunto->getClientOriginalName() !== '';
 
         if ($hayTexto && $hayArchivo) {
             throw new BadRequestHttpException('Por favor, escribe un texto o adjunta un archivo, pero no ambos.');
         }
         if (!$hayTexto && !$hayArchivo) {
-            throw new BadRequestHttpException('No has escrito nada ni adjuntado ningún archivo.');
+            throw new BadRequestHttpException('No hay datos para crear el audio.');
         }
 
         $userId = $session->get('user-id');
         $esUsuarioLogueado = !empty($userId);
-        $hayArchivo = $archivoAdjunto && $archivoAdjunto->getClientOriginalName() !== '';
-        if (!$userId && $hayArchivo) {
-            throw new BadRequestHttpException('Solo los usuarios registrados pueden subir archivos.');
-        }
-        $archivoId = null;
-        $textoInputHistorial = null;
 
         // --- Caso: archivo adjunto ---
         if ($hayArchivo) {
+            if (!$esUsuarioLogueado) {
+                throw new BadRequestHttpException('Solo los usuarios registrados pueden subir archivos.');
+            }
+
             $extension = strtolower($archivoAdjunto->getClientOriginalExtension());
             if (!in_array($extension, self::ALLOWED_EXTENSIONS)) {
                 throw new BadRequestHttpException('Tipo de archivo no permitido. Solo se aceptan .txt, .pdf, .docx');
             }
 
-            if (!is_dir(self::UPLOAD_DIR)) {
-                mkdir(self::UPLOAD_DIR, 0777, true);
+            $rutaUsuario = self::UPLOAD_DIR . $userId . '/';
+            if (!is_dir($rutaUsuario)) {
+                mkdir($rutaUsuario, 0777, true);
             }
 
             $nombreBase = pathinfo($archivoAdjunto->getClientOriginalName(), PATHINFO_FILENAME);
-            $nombreUnico = $this->generarNombreUnico(self::UPLOAD_DIR, $nombreBase, $extension);
+            $nombreUnico = $this->generarNombreUnico($rutaUsuario, $nombreBase, $extension);
+            $archivoAdjunto->move($rutaUsuario, $nombreUnico);
+            $rutaProcesar = $rutaUsuario . $nombreUnico;
+            $textoInputHistorial = "Información introducida por archivo ".$nombreBase;
 
-            // Guardar en base de datos (antes de mover el archivo)
-            if ($esUsuarioLogueado) {
-                $archivoEntity = new Archivo();
-                $archivoEntity->setUsuarioId($userId);
-                $archivoEntity->setNombre($nombreUnico);
-                $archivoEntity->setPeso($archivoAdjunto->getSize());
-                $archivoEntity->setTipo($extension);
-                $archivoEntity->setFechaSubida(new \DateTime());
-                $entityManager->persist($archivoEntity);
-                $entityManager->flush();
-                $archivoId = $archivoEntity->getId();
-            }
-
-
-            // Mover archivo físico
-            $archivoAdjunto->move(self::UPLOAD_DIR, $nombreUnico);
-            $rutaProcesar = self::UPLOAD_DIR . $nombreUnico;
-        }
-        // --- Caso: texto directo ---
-        else {
-            $rutaProcesar = $textoUsuario;
-            $textoInputHistorial = $textoUsuario;
-        }
-
-        // Guardar en historial
-        if ($esUsuarioLogueado) {
-            $historial = new HistorialUsoIA();
-            $historial->setUsuarioId($userId);
-            $historial->setIaId(1); // ID del servicio de texto-audio
-            $historial->setArchivoId($archivoId);
-            $historial->setTextoInput($textoInputHistorial);
-            $historial->setFecha(new \DateTime());
-            $entityManager->persist($historial);
+            // Gestiones si el usuario está logueado
+            $archivoEntity = new Archivo();
+            $archivoEntity->setUsuario($userId);
+            $archivoEntity->setNombre($nombreUnico);
+            $archivoEntity->setPeso($archivoAdjunto->getSize());
+            $archivoEntity->setTipo($extension);
+            $archivoEntity->setFechaSubida(new \DateTime());
+            $entityManager->persist($archivoEntity);
             $entityManager->flush();
+            $archivoId = $archivoEntity->getId();
+        } else {
+            $rutaProcesar = $textoUsuario;
+            $textoInputHistorial=$textoUsuario;
+            $archivoId = null;
         }
 
         // Ejecutar script de Python
@@ -132,6 +114,16 @@ class AudioController extends AbstractController
         if (!$audioRutaAbs || !file_exists($audioRutaAbs)) {
             throw new \RuntimeException("El archivo de audio no se encontró. Salida: " . $salida);
         }
+        if ($esUsuarioLogueado){
+            $historial = new HistorialUsoIA();
+            $historial->setUsuario($userId);
+            $historial->setIa(1);
+            $historial->setArchivo($archivoId);
+            $historial->setTextoInput($textoInputHistorial);
+            $historial->setFecha(new \DateTime());
+            $entityManager->persist($historial);
+            $entityManager->flush();
+        }
 
         return new BinaryFileResponse($audioRutaAbs, 200, [
             'Content-Type' => 'audio/mpeg',
@@ -139,12 +131,12 @@ class AudioController extends AbstractController
         ]);
     }
 
-    private function generarNombreUnico(string $directorio, string $nombreBase, string $extension): string
+    private function generarNombreUnico(string $rutaUsuario, string $nombreBase, string $extension): string
     {
         $nombreCompleto = $nombreBase . '.' . $extension;
         $contador = 1;
 
-        while (file_exists($directorio . $nombreCompleto)) {
+        while (file_exists($rutaUsuario . $nombreCompleto)) {
             $nombreCompleto = $nombreBase . '(' . $contador . ')' . '.' . $extension;
             $contador++;
         }
