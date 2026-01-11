@@ -14,6 +14,11 @@
             <h1>Iniciar Sesión</h1>
             <p>Accede a tu cuenta para continuar explorando Oretan-IA</p>
         </header>
+        {% for message in app.flashes('error') %}
+            <div style="color: red; margin-bottom: 10px;">
+                {{ message }}
+            </div>
+        {% endfor %}
         <form action="./verify-login" method="post" id="login-form">
             <p id="login-general-error" style="color: red; display: inline">{{ error[0] }}</p><br>
 

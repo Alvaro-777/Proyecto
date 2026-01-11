@@ -358,7 +358,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.OLc8nG."/>
+      <argument type="service" id=".service_locator.cmDWJ0W"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1004,7 +1004,7 @@
       <argument type="service" id="console.messenger.application"/>
     </service>
     <service id="cache.app" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable="1"/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.app.recorder_inner"/>
     </service>
@@ -1013,27 +1013,27 @@
       <argument type="service" id="cache.app"/>
     </service>
     <service id="cache.system" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.system.recorder_inner"/>
     </service>
     <service id="cache.validator" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.validator.recorder_inner"/>
     </service>
     <service id="cache.serializer" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.serializer.recorder_inner"/>
     </service>
     <service id="cache.annotations" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.annotations.recorder_inner"/>
     </service>
     <service id="cache.property_info" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.property_info.recorder_inner"/>
     </service>
@@ -1686,7 +1686,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.OLc8nG."/>
+      <argument type="service" id=".service_locator.cmDWJ0W"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -2898,11 +2898,11 @@
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
     <service id="cache.doctrine.orm.default.result" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <argument type="service" id="cache.doctrine.orm.default.result.recorder_inner"/>
     </service>
     <service id="cache.doctrine.orm.default.query" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <argument type="service" id="cache.doctrine.orm.default.query.recorder_inner"/>
     </service>
     <service id="doctrine.orm.default_entity_listener_resolver" class="Doctrine\Bundle\DoctrineBundle\Mapping\ContainerEntityListenerResolver">
@@ -3708,7 +3708,7 @@
       <argument type="service" id="security.password_hasher_factory"/>
     </service>
     <service id="cache.security_expression_language" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.security_expression_language.recorder_inner"/>
     </service>
@@ -3719,7 +3719,7 @@
       <argument>null</argument>
     </service>
     <service id="cache.security_is_granted_attribute_expression_language" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
-      <tag name="cache.pool"/>
+      <tag name="cache.pool" pruneable=""/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="cache.security_is_granted_attribute_expression_language.recorder_inner"/>
     </service>
@@ -4634,10 +4634,12 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
-    <service id=".service_locator.CsMkqUa" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.K2Hsb7c" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="iaRepository" type="service_closure" id="App\Repository\IARepository"/>
+        <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
     <service id=".service_locator.Fjia12_" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -4653,17 +4655,17 @@
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.OLc8nG." class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.cmDWJ0W" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="App\Controller\AudioController::procesar" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\AudioController::procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\UsuarioController::createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
         <argument key="App\Controller\UsuarioController::verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
-        <argument key="App\Controller\AudioController:procesar" type="service_closure" id=".service_locator.CsMkqUa"/>
+        <argument key="App\Controller\AudioController:procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\UsuarioController:createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
         <argument key="App\Controller\UsuarioController:verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -6091,7 +6093,7 @@
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.OLc8nG."/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.cmDWJ0W"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id=".Psr\Log\LoggerInterface $request.logger" alias="monolog.logger.request"/>
@@ -6117,7 +6119,8 @@
     <service id=".Psr\Log\LoggerInterface $deprecation.logger" alias="monolog.logger.deprecation"/>
     <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
-    <service id=".service_locator.XCntiXn" alias=".service_locator.OLc8nG."/>
+    <service id=".service_locator.d_NN1dC" alias=".service_locator.K2Hsb7c"/>
+    <service id=".service_locator.xJbNWj6" alias=".service_locator.cmDWJ0W"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
@@ -6131,7 +6134,7 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id="security.event_dispatcher.main" alias="debug.security.event_dispatcher.main"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
-    <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
+    <service id=".service_locator.pAaBFs9" alias=".service_locator.K2Hsb7c"/>
     <service id=".service_locator.QnKPdIE" alias=".service_locator.Fjia12_"/>
     <service id=".service_locator.VcxCm2U" alias=".service_locator.1.181F_"/>
     <service id=".service_locator._fzSvpg" alias=".service_locator.O2p6Lk7"/>

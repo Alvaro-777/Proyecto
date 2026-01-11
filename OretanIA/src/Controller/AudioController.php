@@ -12,6 +12,8 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use App\Repository\UsuarioRepository;
+use App\Repository\IARepository;
 
 class AudioController extends AbstractController
 {
@@ -32,12 +34,15 @@ class AudioController extends AbstractController
     public function procesar(
         Request                $request,
         SessionInterface       $session,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        UsuarioRepository      $usuarioRepository,
+        IARepository           $iaRepository,
     ): Response
     {
         // Validaciones iniciales
         $textoUsuario = trim($request->request->get('texto_usuario', ''));
         $archivoAdjunto = $request->files->get('archivo_adjunto');
+        set_time_limit(350);//Aumentar el limite de tiempo antes del fallo
 
         $hayTexto = !empty($textoUsuario);
         $hayArchivo = $archivoAdjunto && $archivoAdjunto->getClientOriginalName() !== '';
@@ -62,6 +67,11 @@ class AudioController extends AbstractController
             if (!in_array($extension, self::ALLOWED_EXTENSIONS)) {
                 throw new BadRequestHttpException('Tipo de archivo no permitido. Solo se aceptan .txt, .pdf, .docx');
             }
+            $tamanoArchivo = $archivoAdjunto->getSize();
+            $usuario = $usuarioRepository->find($userId);
+            if (!$usuario) {
+                throw new \RuntimeException('Usuario no encontrado.');
+            }
 
             $rutaUsuario = self::UPLOAD_DIR . $userId . '/';
             if (!is_dir($rutaUsuario)) {
@@ -70,21 +80,24 @@ class AudioController extends AbstractController
 
             $nombreBase = pathinfo($archivoAdjunto->getClientOriginalName(), PATHINFO_FILENAME);
             $nombreUnico = $this->generarNombreUnico($rutaUsuario, $nombreBase, $extension);
-            $archivoAdjunto->move($rutaUsuario, $nombreUnico);
-            $rutaProcesar = $rutaUsuario . $nombreUnico;
             $textoInputHistorial = "Información introducida por archivo ".$nombreBase;
 
             // Gestiones si el usuario está logueado
             $archivoEntity = new Archivo();
-            $archivoEntity->setUsuario($userId);
+            $archivoEntity->setUsuario($usuario);
             $archivoEntity->setNombre($nombreUnico);
-            $archivoEntity->setPeso($archivoAdjunto->getSize());
+            $archivoEntity->setPeso($tamanoArchivo);
             $archivoEntity->setTipo($extension);
             $archivoEntity->setFechaSubida(new \DateTime());
             $entityManager->persist($archivoEntity);
             $entityManager->flush();
+
             $archivoId = $archivoEntity->getId();
+            $archivoAdjunto->move($rutaUsuario, $nombreUnico);
+            $rutaProcesar = $rutaUsuario . $nombreUnico;
+
         } else {
+            $usuario = $usuarioRepository->find($userId);
             $rutaProcesar = $textoUsuario;
             $textoInputHistorial=$textoUsuario;
             $archivoId = null;
@@ -115,10 +128,11 @@ class AudioController extends AbstractController
             throw new \RuntimeException("El archivo de audio no se encontró. Salida: " . $salida);
         }
         if ($esUsuarioLogueado){
+            $ia = $iaRepository->find(1);
             $historial = new HistorialUsoIA();
-            $historial->setUsuario($userId);
-            $historial->setIa(1);
-            $historial->setArchivo($archivoId);
+            $historial->setUsuario($usuario);
+            $historial->setIa($ia);
+            $historial->setArchivo($hayArchivo ? $archivoEntity : null);
             $historial->setTextoInput($textoInputHistorial);
             $historial->setFecha(new \DateTime());
             $entityManager->persist($historial);
