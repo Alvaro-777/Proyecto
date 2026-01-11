@@ -13,16 +13,16 @@
     <div class="logo">
         <a href="{{ path('home') }}" title="Inicio"><img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Dreteam-IA"></a>
     </div>
-    <h1 class="titulo">Oretan-IA</h1>
+    <h1 class="titulo">{% block cabecera %}Oretan-IA{% endblock %}</h1>
     <div class="modo">
         <button id="modo-toggle">🌞 / 🌙</button>
         <div class="menu">
             <button class="menu-btn">☰</button>
             <div class="menu-content">
-                <a href="./registro">Registrarse</a>
-                <a href="./login">Login</a>
-                <a href="./perfil">Perfil</a>
-                <a href="./planes" class="plan">Plan $X</a>
+                <a href="{{ path('registro') }}">Registrarse</a>
+                <a href="{{ path('login') }}">Login</a>
+                <a href="perfil">Perfil</a>
+                <a href="planes" class="plan">Plan $X</a>
             </div>
         </div>
     </div>

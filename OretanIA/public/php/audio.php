@@ -32,7 +32,7 @@ function generar_nombre_unico($directorio, $nombre_original)
     return $nombre_completo;
 }
 
-$mostrar_adjunto = !empty($_SESSION['user-id']);
+$mostrar_adjunto = get('user-id');
 
 function abort_with_message($msg)
 {
@@ -149,10 +149,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="menu">
             <button class="menu-btn">☰</button>
             <div class="menu-content">
-                <a href="./registro">Registrarse</a>
-                <a href="./login">Login</a>
-                <a href="./perfil">Perfil</a>
-                <a href="./planes" class="plan">Plan $X</a>
+                <a href="/registro">Registrarse</a>
+                <a href="/login">Login</a>
+                <a href="/perfil">Perfil</a>
+                <a href="/planes" class="plan">Plan $X</a>
             </div>
         </div>
     </div>

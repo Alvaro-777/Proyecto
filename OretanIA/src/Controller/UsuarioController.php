@@ -1,32 +1,39 @@
 <?php
+
 namespace App\Controller;
 
 use App\Entity\Usuario;
+use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use App\Repository\UsuarioRepository;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioController extends AbstractController
 {
     #[Route('/usuario/new', name: 'usuario-new', methods: ['POST'])]
-    public function createUsuario(EntityManagerInterface $entityManager): RedirectResponse
-    {
-        session_name("oretan-ia");
-        session_start();
+    public function createUsuario(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        UsuarioRepository $usuarioRepository,
+        UserPasswordHasherInterface $passwordHasher
+    ): RedirectResponse {
+        $nombre = $request->request->get('signup-name');
+        $apellido = $request->request->get('signup-surname');
+        $email = $request->request->get('signup-email');
+        $password = $request->request->get('signup-pswd');
 
-        $nombre = $_POST["signup-name"];
-        $apellido = $_POST["signup-surname"];
-        $email = $_POST["signup-email"];
-        $password = $_POST["signup-pswd"];
+        // Validar campos obligatorios
+        if (!$email || !$password) {
+            $this->addFlash('error', 'Todos los campos son obligatorios.');
+            return $this->redirectToRoute('registro');
+        }
 
-        $repository = $entityManager->getRepository(Usuario::class);
-
-        //Redirige devuelta al registro, aun no se como mandar el error especifico
-        if($repository->existsByCorreo($email)){
-            $_SESSION['error'] = [3, "El correo ya se encuentra registrado"];
+        // Verificar si el correo ya existe
+        if ($usuarioRepository->existsByCorreo($email)) {
+            $this->addFlash('error', 'El correo ya está registrado.');
             return $this->redirectToRoute('registro');
         }
 
@@ -39,43 +46,43 @@ class UsuarioController extends AbstractController
         $usuario->setFechaRegistro(new \DateTime());
 
         $entityManager->persist($usuario);
-
         $entityManager->flush();
 
-        //$user = $repository->findOneBy(['correo', $email]);
+        // Guardar ID en sesión (mejor: usar Security)
+        $this->getSession()->set('user-id', $usuario->getId());
 
-        //setcookie("current_user_id", strval($user->getId()), time() + (86400 * 30));
-        $_SESSION["user-id"] = $usuario->getId();
-
+        $this->addFlash('success', '¡Registro exitoso!');
         return $this->redirectToRoute('home');
     }
 
     #[Route('/verify-login', name: 'verify-login', methods: ['POST'])]
-    public function verifyLogin(EntityManagerInterface $entityManager): RedirectResponse
+    public function verifyLogin(
+        Request $request,
+        UsuarioRepository $usuarioRepository
+    ): RedirectResponse {
+        $email = $request->request->get('login-email');
+        $password = $request->request->get('login-pswd');
+
+        $user = $usuarioRepository->findOneBy(['correo' => $email]);
+
+        if (!$user || !password_verify($password, $user->getPswd())) {
+            $this->addFlash('error', 'Correo o contraseña incorrectos.');
+            return $this->redirectToRoute('login');
+        }
+
+        $this->getSession()->set('user-id', $user->getId());
+        return $this->redirectToRoute('home');
+    }
+
+    private function getSession()
     {
-        session_name("oretan-ia");
-        session_start();
+        return $this->container->get('session');
+    }
 
-        $repository = $entityManager->getRepository(Usuario::class);
-
-        $email = $_POST["login-email"];
-        $password = $_POST["login-pswd"];
-
-        $user = $repository->findOneBy(array('correo' => $email));
-
-        if(!$user){
-            $_SESSION['error'] = [1, "El correo no esta registrado"];
-            return $this->redirectToRoute('login');
-        }
-
-        if(!password_verify($password, $user->getPswd())){
-            $_SESSION['error'] = [2, "Contraseña incorrecta"];
-            return $this->redirectToRoute('login');
-        }
-
-        //setcookie("current_user_id", strval($user->getId()), time() + (86400 * 30));
-        $_SESSION['user-id'] = $user->getId();
-
+    #[Route('/logout', name: 'logout')]
+    public function logout(SessionInterface $session): Response
+    {
+        $session->invalidate();
         return $this->redirectToRoute('home');
     }
 }
