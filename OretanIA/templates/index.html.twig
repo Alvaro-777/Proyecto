@@ -15,22 +15,43 @@
                 <a href="{{ path('audio') }}"><img src="{{ asset('imagenes/audio-ia.png') }}"></a>
                 <div class="info">
                     <h3>Audio-IA</h3>
-                    <p>Esta inteligencia artificial convierte texto en audio, permitiendo generar voces de manera automática a partir de lo que se escribe. Es útil para crear narraciones, explicaciones, audiolibros o contenido accesible de forma rápida y sencilla, sin necesidad de grabar la voz manualmente.</p>
+                    <p>Esta inteligencia artificial convierte texto en audio, permitiendo generar voces de manera
+                        automática a partir de lo que se escribe. Es útil para crear narraciones, explicaciones,
+                        audiolibros o contenido accesible de forma rápida y sencilla, sin necesidad de grabar la voz
+                        manualmente.</p>
                 </div>
             </article>
             <article class="tarjeta">
-                <img src="{{ asset('imagenes/predict-ia.png') }}">
+                <a href="
+                   {% if logado %}
+                   {{ path('predictia') }}
+                   {% else %}
+                   {{ path('login') }}
+                    {% endif %}
+                    ">
+                    <img src="{{ asset('imagenes/predict-ia.png') }}"></a>
                 <div class="info">
                     <h3>Predict-IA</h3>
-                    <p>Esta inteligencia artificial analiza datos previamente proporcionados para identificar patrones y realizar predicciones. Se utiliza para anticipar resultados, apoyar la toma de decisiones y obtener conclusiones basadas en información histórica.</p>
+                    <p>Esta inteligencia artificial analiza datos previamente proporcionados para identificar patrones y
+                        realizar predicciones. Se utiliza para anticipar resultados, apoyar la toma de decisiones y
+                        obtener conclusiones basadas en información histórica.</p>
                 </div>
             </article>
             <article class="tarjeta">
-                <img src="{{ asset('imagenes/chatbot-ia.png') }}">
+                <a href="
+                   {% if logado %}
+                   {{ path('chatbotia') }}
+                   {% else %}
+                   {{ path('login') }}
+                    {% endif %}
+                    ">
+                    <img src="{{ asset('imagenes/chatbot-ia.png') }}"></a>
                 <div class="info">
                     <h3>Chatbot-IA</h3>
-                    <p>Este chatbot es una inteligencia artificial diseñada para interactuar con personas mediante conversaciones, respondiendo preguntas, ofreciendo ayuda y proporcionando información de forma automática y en tiempo real.</p>
-                    </div>
+                    <p>Este chatbot es una inteligencia artificial diseñada para interactuar con personas mediante
+                        conversaciones, respondiendo preguntas, ofreciendo ayuda y proporcionando información de forma
+                        automática y en tiempo real.</p>
+                </div>
             </article>
         </section>
     </section>

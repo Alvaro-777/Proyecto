@@ -8,14 +8,14 @@
             <h1>Crear una cuenta</h1>
             <p>Regístrate para acceder a todas las funcionalidades de Oretan-IA</p>
         </header>
-        <form action="./usuario/new" method="post" id="signup-form">
+        <form action="{{ path('usuario-new') }}" method="post" id="signup-form">
             <p id="signup-general-error" style="color: red; display: inline">{{ error[0] }}</p><br>
 
             <label for="signup-name">Nombre</label><br>
             <input type="text" id="signup-name" name="signup-name" required placeholder="Nombre">
             <p id="signup-name-error" style="color: red; display: inline">{{ error[1] }}</p><br>
 
-            <label for="signup-surname">Nombre Completo</label><br>
+            <label for="signup-surname">Apellidos</label><br>
             <input type="text" id="signup-surname" name="signup-surname" required placeholder="Apellidos">
             <p id="signup-surname-error" style="color: red; display: inline">{{ error[2] }}</p><br>
 
@@ -31,12 +31,11 @@
             <input type="password" id="signup-confirm" name="signup-confirm" required>
             <p id="signup-confirm-error" style="color: red; display: inline">{{ error[5] }}</p><br>
 
-            <button type="submit" id="signup-submit">Entrar</button>
+            <button type="submit" id="signup-submit">Registrarse</button>
         </form>
         <section>
-            <span>¿Ya tienes cuenta?</span> <a href={{ path('login') }} class="sesion">Inicia sesión aquí</a>
+            <span>¿Ya tienes cuenta?</span> <a href="{{ path('login') }}" class="sesion">Inicia sesión aquí</a>
         </section>
         <script src="{{ asset('script/signup.js') }}"></script>
     </main>
-
 {% endblock %}

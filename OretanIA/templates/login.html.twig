@@ -1,13 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block head %}
-    <?php
-        if(isset($_POST['login-email'])){
-            $email = $_POST['login-email'];
-            $pass = $_POST['login-pswd'];
-        }
-    ?>
 {% endblock %}
 {% block title %}Iniciar Sesión - Oretan-IA{% endblock %}
+{% block cabecera %}Lógate - Oretan-IA{% endblock %}
 {% block body %}
     <main>
         <header id="login-header">
@@ -19,7 +14,7 @@
                 {{ message }}
             </div>
         {% endfor %}
-        <form action="./verify-login" method="post" id="login-form">
+        <form action="{{ path('verify-login') }}" method="post" id="login-form">
             <p id="login-general-error" style="color: red; display: inline">{{ error[0] }}</p><br>
 
             <label for="login-email">Correo electrónico</label><br>
@@ -33,11 +28,10 @@
             <button type="submit" id="login-submit">Entrar</button>
         </form>
         <section>
-            <span>¿No tienes cuenta?</span> <a href="./registro">Regístrate aquí</a>
+            <span>¿No tienes cuenta?</span> <a href="{{ path('registro') }}">Regístrate aquí</a>
             <br>
             <a href="./recover-account">¿Olvidaste tu cuenta?</a>
         </section>
         <script src="{{ asset('script/login.js') }}"></script>
     </main>
-
 {% endblock %}

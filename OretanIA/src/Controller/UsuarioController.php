@@ -59,10 +59,8 @@ class UsuarioController extends AbstractController
         $entityManager->flush();
 
         // Guardar ID en sesión (mejor: usar Security)
-        $session = $request->getSession();
-        $session->set('user-id', $usuario->getId());
-
         $request->getSession()->set('user-id', $usuario->getId());
+
         return $this->redirectToRoute('home');
     }
 
@@ -82,7 +80,6 @@ class UsuarioController extends AbstractController
         }
 
         $request->getSession()->set('user-id', $user->getId());
-
         return $this->redirectToRoute('home');
     }
 
