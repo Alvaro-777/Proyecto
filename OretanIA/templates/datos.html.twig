@@ -1,13 +1,24 @@
+{# templates/predictia/index.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block title %}Predict-IA - Oretan-IA{% endblock %}
 
 {% block body %}
     <h1>Predict-IA</h1>
-    <p>Introduce datos separados por comas (ej: edad,ingresos,etc)</p>
+    <p>Introduce datos para predecir resultados basados en patrones históricos.</p>
 
-    <form method="post" action="{{ path('predictia_procesar') }}">
-        <input type="text" name="datos" placeholder="25,50000,1,0" required>
+    <form method="post" action="{{ path('predictia_procesar') }}" enctype="multipart/form-data">
+        <!-- Opción 1: Texto directo -->
+        <label for="datos_texto">Datos (separados por comas y mínimo 2):</label><br>
+        <input type="text" id="datos_texto" name="datos_texto" placeholder="25,50000,1,0">
+
+        <!-- Opción 2: Archivo -->
+        <br><br>
+        <label for="archivo_datos">O sube un archivo (CSV JSON XLS XSLX o TXT):</label><br>
+        <input type="file" id="archivo_datos" name="archivo_datos" accept=".csv,.txt">
+
+
+        <br><br>
         <button type="submit">Predecir</button>
     </form>
 {% endblock %}
