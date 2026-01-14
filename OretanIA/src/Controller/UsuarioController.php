@@ -106,14 +106,8 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/perfil', name: 'perfil')]
-    public function perfil(
-        Request $request,
-        UsuarioRepository $usuarioRepository
-    ): Response
+    public function perfil(SessionInterface $session): Response
     {
-        $id = $request->getSession()->get('user-id');
-
-
-        return $this->render('perfil.html.twig', []);
+        return $this->redirectToRoute('home');
     }
 }
