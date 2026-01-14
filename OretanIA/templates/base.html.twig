@@ -19,9 +19,13 @@
         <div class="menu">
             <button class="menu-btn">☰</button>
             <div class="menu-content">
-                <a href="{{ path('registro') }}">Registrarse</a>
-                <a href="{{ path('login') }}">Login</a>
-                <a href="perfil">Perfil</a>
+                {% if logado %}
+                    <a href={{ path('perfil')}}>Perfil</a>
+                    <a href={{ path('logout')}}>Deslogarse</a>
+                {% else %}
+                    <a href="{{ path('registro') }}">Registrarse</a>
+                    <a href="{{ path('login') }}">Login</a>
+                {% endif %}
                 <a href="planes" class="plan">Plan $X</a>
             </div>
         </div>
