@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Predict-IA - Oretan-IA{% endblock %}
+
+{% block body %}
+    <h1>Predict-IA</h1>
+    <p>Introduce datos separados por comas (ej: edad,ingresos,etc)</p>
+
+    <form method="post" action="{{ path('predictia_procesar') }}">
+        <input type="text" name="datos" placeholder="25,50000,1,0" required>
+        <button type="submit">Predecir</button>
+    </form>
+{% endblock %}

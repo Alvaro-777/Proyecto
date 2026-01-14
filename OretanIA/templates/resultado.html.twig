@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Resultado - Predict-IA{% endblock %}
+
+{% block body %}
+    <h1>Resultado de la Predicción</h1>
+    <p><strong>Datos:</strong> {{ datos }}</p>
+    <p><strong>Resultado:</strong> {{ resultado }}</p>
+    <a href="{{ path('predictia') }}">← Nueva predicción</a>
+{% endblock %}
