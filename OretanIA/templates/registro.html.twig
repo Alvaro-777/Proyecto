@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
-{% block head %}{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('./css/registro.css') }}">
+{% endblock %}
 {% block title %}Registro - Oretan-IA{% endblock %}
 {% block cabecera %}Registro - Oretan-IA{% endblock %}
 {% block body %}
@@ -23,8 +25,8 @@
             <input type="email" id="signup-email" name="signup-email" required placeholder="correo@mail.com">
             <p id="signup-email-error" style="color: red; display: inline">{{ error[3] }}</p>
 
-            <p>La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial.</p>
             <label for="signup-pswd">Contraseña</label><br>
+            <p>La contraseña debe tener al menos 8 caracteres e incluir al menos una letra mayúscula, una minúscula, un número y un carácter especial.</p>
             <input type="password" id="signup-pswd" name="signup-pswd" required>
             <p id="signup-pswd-error" style="color: red; display: inline">{{ error[4] }}</p><br>
 

@@ -1,0 +1,159 @@
+/* css/signup.css */
+
+/* ------------------- Reset básico ------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ------------------- Modo claro por defecto ------------------- */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Centrar todo el main */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centrar verticalmente */
+    align-items: center;     /* centrar horizontalmente */
+    height: 100vh;           /* altura completa de la ventana */
+    padding: 20px;
+}
+
+/* Header del formulario */
+#signup-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#signup-header h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#signup-header p {
+    color: #666;
+}
+
+/* Formulario */
+#signup-form {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+#signup-form label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+#signup-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s, border 0.3s;
+}
+
+#signup-form input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+#signup-form button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#signup-form button:hover {
+    background-color: #45a049;
+}
+
+/* Mensajes de error */
+#signup-form p {
+    font-size: 0.9rem;
+    color: #656565;
+    margin-top: 2px;
+}
+
+/* Sección de login */
+section {
+    margin-top: 15px;
+    text-align: center;
+}
+
+section a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------- Modo oscuro ------------------- */
+body.oscuro {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.oscuro #signup-header h1,
+body.oscuro #signup-header p {
+    color: #e0e0e0;
+}
+
+body.oscuro #signup-form {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+body.oscuro #signup-form label {
+    color: #ddd;
+}
+
+body.oscuro #signup-form input {
+    background-color: #2c2c2c;
+    color: #e0e0e0;
+    border: 1px solid #555;
+}
+
+body.oscuro #signup-form input:focus {
+    border-color: #4CAF50;
+}
+
+body.oscuro #signup-form button {
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+body.oscuro #signup-form button:hover {
+    background-color: #45a049;
+}
+
+body.oscuro section a {
+    color: #81c784;
+}
