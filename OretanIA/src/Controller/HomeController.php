@@ -23,19 +23,6 @@ class HomeController extends AbstractController
         return $this->render('audio.html.twig');
     }
 
-    #[Route('/login', name: 'login')]
-    public function login(): Response
-    {
-        $error = ['', '', '', '', '', ''];
-        return $this->render('login.html.twig', ['error' => $error]);
-    }
-
-    #[Route('/registro', name: 'registro')]
-    public function registro(): Response
-    {
-        $error = ['', '', '', '', '', ''];
-        return $this->render('registro.html.twig', ['error' => $error]);
-    }
     #[Route('/chatbotia', name: 'chatbotia')]
     public function chatbot(Request $request): Response
     {
