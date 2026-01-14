@@ -1,0 +1,175 @@
+/* ------------------- Reset básico ------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* ------------------- Body ------------------- */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ------------------- Hero ------------------- */
+.hero {
+    position: relative;
+    text-align: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+}
+
+.hero-texto h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.hero-texto p {
+    font-size: 1.2rem;
+}
+
+
+
+/* ------------------- Banner informativo ------------------- */
+.banner-informativo {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #f0f0f0;
+    padding: 40px 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.banner-informativo img {
+    width: 350px;
+    max-width: 80%;
+    border-radius: 15px;
+    margin: 0 30px 20px 0;
+}
+
+.banner-informativo .banner-texto {
+    max-width: 500px;
+}
+
+.banner-informativo h2 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 2rem;
+}
+
+.banner-informativo p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* ------------------- Elementos decorativos ------------------- */
+.banner-informativo .decorativos {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.banner-informativo .decorativo {
+    position: absolute;
+    display: block;
+}
+
+.banner-informativo .circulo {
+    width: 30px;
+    height: 30px;
+    background-color: rgba(76, 175, 80, 0.3);
+    border-radius: 50%;
+    top: 10%;
+    left: 15%;
+}
+
+.banner-informativo .estrella {
+    width: 25px;
+    height: 25px;
+    background-color: rgba(255, 193, 7, 0.3);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    top: 40%;
+    left: 70%;
+}
+
+.banner-informativo .linea {
+    width: 100px;
+    height: 3px;
+    background-color: rgba(33, 150, 243, 0.3);
+    top: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ------------------- Modo oscuro ------------------- */
+body.oscuro {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+body.oscuro .hero-texto h2,
+body.oscuro .hero-texto p {
+    color: #fff;
+}
+
+body.oscuro .tarjeta {
+    background-color: #1e1e1e;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+
+body.oscuro .tarjeta h3 {
+    color: #e0e0e0;
+}
+
+body.oscuro .tarjeta p {
+    color: #ccc;
+}
+
+body.oscuro .banner-informativo {
+    background-color: #1e1e1e;
+}
+
+body.oscuro .banner-informativo h2 {
+    color: #e0e0e0;
+}
+
+body.oscuro .banner-informativo p {
+    color: #ccc;
+}
+
+body.oscuro .banner-informativo .circulo {
+    background-color: rgba(76, 175, 80, 0.5);
+}
+
+body.oscuro .banner-informativo .estrella {
+    background-color: rgba(255, 193, 7, 0.5);
+}
+
+body.oscuro .banner-informativo .linea {
+    background-color: rgba(33, 150, 243, 0.5);
+}

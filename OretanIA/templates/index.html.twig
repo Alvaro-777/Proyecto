@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+{% endblock %}
 {% block title %}Oretan-IA{% endblock %}
 {% block body %}
     <section class="hero">
@@ -15,10 +18,7 @@
                 <a href="{{ path('audio') }}"><img src="{{ asset('imagenes/audio-ia.png') }}"></a>
                 <div class="info">
                     <h3>Audio-IA</h3>
-                    <p>Esta inteligencia artificial convierte texto en audio, permitiendo generar voces de manera
-                        automática a partir de lo que se escribe. Es útil para crear narraciones, explicaciones,
-                        audiolibros o contenido accesible de forma rápida y sencilla, sin necesidad de grabar la voz
-                        manualmente.</p>
+                    <p>Esta inteligencia artificial convierte texto en audio</p>
                 </div>
             </article>
             <article class="tarjeta">
@@ -32,9 +32,7 @@
                     <img src="{{ asset('imagenes/predict-ia.png') }}"></a>
                 <div class="info">
                     <h3>Predict-IA</h3>
-                    <p>Esta inteligencia artificial analiza datos previamente proporcionados para identificar patrones y
-                        realizar predicciones. Se utiliza para anticipar resultados, apoyar la toma de decisiones y
-                        obtener conclusiones basadas en información histórica.</p>
+                    <p>Esta inteligencia artificial realiza predicciones.</p>
                 </div>
             </article>
             <article class="tarjeta">
@@ -48,11 +46,49 @@
                     <img src="{{ asset('imagenes/chatbot-ia.png') }}"></a>
                 <div class="info">
                     <h3>Chatbot-IA</h3>
-                    <p>Este chatbot es una inteligencia artificial diseñada para interactuar con personas mediante
-                        conversaciones, respondiendo preguntas, ofreciendo ayuda y proporcionando información de forma
-                        automática y en tiempo real.</p>
+                    <p>Chatbot de inteligencia artificial</p>
                 </div>
             </article>
         </section>
+    </section>
+
+    {# ------------------- Banner informativo adicional ------------------- #}
+
+    <br><br>
+
+    <section class="banner-informativo">
+        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
+        <div class="banner-texto">
+            <h2>Sobre Oretan-IA</h2>
+            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
+                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
+                es ofrecer herramientas accesibles y fáciles de usar.</p>
+            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
+                ¡Aprende, experimenta y crea con Oretan-IA!</p>
+        </div>
+    </section>
+
+    <section class="banner-informativo">
+        <div class="banner-texto">
+            <h2>Sobre Oretan-IA</h2>
+            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
+                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
+                es ofrecer herramientas accesibles y fáciles de usar.</p>
+            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
+                ¡Aprende, experimenta y crea con Oretan-IA!</p>
+        </div>
+        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
+    </section>
+
+    <section class="banner-informativo">
+        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
+        <div class="banner-texto">
+            <h2>Sobre Oretan-IA</h2>
+            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
+                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
+                es ofrecer herramientas accesibles y fáciles de usar.</p>
+            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
+                ¡Aprende, experimenta y crea con Oretan-IA!</p>
+        </div>
     </section>
 {% endblock %}
