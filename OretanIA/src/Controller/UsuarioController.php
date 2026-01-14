@@ -13,6 +13,21 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsuarioController extends AbstractController
 {
+
+    #[\Symfony\Component\Routing\Attribute\Route('/login', name: 'login')]
+    public function login(): Response
+    {
+        $error = ['', '', '', '', '', ''];
+        return $this->render('login.html.twig', ['error' => $error]);
+    }
+
+    #[Route('/registro', name: 'registro')]
+    public function registro(): Response
+    {
+        $error = ['', '', '', '', '', ''];
+        return $this->render('registro.html.twig', ['error' => $error]);
+    }
+
     #[Route('/usuario/new', name: 'usuario-new', methods: ['POST'])]
     public function createUsuario(
         Request $request,
