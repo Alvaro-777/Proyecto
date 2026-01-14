@@ -62,9 +62,17 @@ mail.addEventListener("input", (e) => {
         e.target.style.backgroundColor = "lightcoral";
     }
 });
-password.addEventListener("input", (e) => {
+/*password.addEventListener("input", (e) => {
     const valor = e.target.value;
     if (patternPwd.test(valor)) {
+        e.target.style.backgroundColor = "lightgreen";
+    } else {
+        e.target.style.backgroundColor = "lightcoral";
+    }
+});*/
+
+confirm.addEventListener("input", (e) => {
+    if (confirm.value===password.value) {
         e.target.style.backgroundColor = "lightgreen";
     } else {
         e.target.style.backgroundColor = "lightcoral";
