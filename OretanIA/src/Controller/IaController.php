@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\UsuarioRepository;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class PredictController extends AbstractController
+class IaController extends AbstractController
 {
     private const UPLOAD_DIR = __DIR__ . '/../../public/uploads/';
     private const PYTHON_SCRIPT = __DIR__ . '/../../public/py/predict_ia.py';

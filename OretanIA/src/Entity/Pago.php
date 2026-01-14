@@ -19,7 +19,7 @@ class Pago
     private ?Usuario $usuario = null;
 
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
-    private ?string $cantidad = null;
+    private ?float $cantidad = null;
 
     #[ORM\Column]
     private ?int $creditosObtenidos = null;
@@ -55,12 +55,12 @@ class Pago
         return $this;
     }
 
-    public function getCantidad(): ?string
+    public function getCantidad(): ?float
     {
         return $this->cantidad;
     }
 
-    public function setCantidad(string $cantidad): static
+    public function setCantidad(float $cantidad): static
     {
         $this->cantidad = $cantidad;
 

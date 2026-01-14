@@ -31,7 +31,7 @@ class HistorialUsoIA
     private ?\DateTime $fecha = null;
 
     #[ORM\Column(length: 45, nullable: true)]
-    private ?string $ipAnonimo = null;
+    private ?string $ip = null;
 
     public function __construct()
     {
@@ -103,14 +103,14 @@ class HistorialUsoIA
         return $this;
     }
 
-    public function getIpAnonimo(): ?string
+    public function getIp(): ?string
     {
-        return $this->ipAnonimo;
+        return $this->ip;
     }
 
-    public function setIpAnonimo(?string $ipAnonimo): static
+    public function setIp(?string $ip): static
     {
-        $this->ipAnonimo = $ipAnonimo;
+        $this->ip = $ip;
 
         return $this;
     }
