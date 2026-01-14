@@ -12,7 +12,6 @@
         "doctrine/doctrine-bundle": "^2.18",
         "doctrine/doctrine-migrations-bundle": "^3.7",
         "doctrine/orm": "^3.6",
-        "nelmio/alice": "*",
         "symfony/asset": "6.4.*",
         "symfony/console": "6.4.*",
         "symfony/dotenv": "6.4.*",
@@ -72,6 +71,7 @@
         }
     },
     "require-dev": {
+        "nelmio/alice": "*",
         "symfony/debug-bundle": "6.4.*",
         "symfony/maker-bundle": "^1.65",
         "symfony/monolog-bundle": "^3.0|^4.0",

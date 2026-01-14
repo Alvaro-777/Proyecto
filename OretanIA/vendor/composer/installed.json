@@ -5898,13 +5898,22 @@
     ],
     "dev": true,
     "dev-package-names": [
+        "fakerphp/faker",
         "monolog/monolog",
+        "myclabs/deep-copy",
+        "nelmio/alice",
         "nikic/php-parser",
+        "sebastian/comparator",
+        "sebastian/diff",
+        "sebastian/exporter",
+        "sebastian/recursion-context",
         "symfony/debug-bundle",
         "symfony/maker-bundle",
         "symfony/monolog-bridge",
         "symfony/monolog-bundle",
         "symfony/process",
+        "symfony/property-access",
+        "symfony/property-info",
         "symfony/web-profiler-bundle"
     ]
 }
