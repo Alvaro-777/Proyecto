@@ -13,7 +13,7 @@ class Usuario
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, unique: true)]
     private ?string $correo = null;
 
     #[ORM\Column(length: 100)]
