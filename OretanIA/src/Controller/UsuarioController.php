@@ -104,4 +104,16 @@ class UsuarioController extends AbstractController
         $session->invalidate();
         return $this->redirectToRoute('home');
     }
+
+    #[Route('/perfil', name: 'perfil')]
+    public function perfil(
+        Request $request,
+        UsuarioRepository $usuarioRepository
+    ): Response
+    {
+        $id = $request->getSession()->get('user-id');
+
+
+        return $this->render('perfil.html.twig', []);
+    }
 }
