@@ -104,11 +104,4 @@ class UsuarioController extends AbstractController
         $session->invalidate();
         return $this->redirectToRoute('home');
     }
-
-    #[Route('/perfil', name: 'perfil')]
-    public function perfil(SessionInterface $session): Response
-    {
-        $session->invalidate();
-        return $this->redirectToRoute('home');
-    }
 }
