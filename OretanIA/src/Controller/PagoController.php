@@ -31,10 +31,8 @@ class PagoController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response
     {
-        $session = $request->getSession();
-        $userId = $session->get('user-id');
 
-        if (empty($userId)) {
+        if (!empty($request->getSession()->get('user-id'))) {
             return $this->redirectToRoute('login');
         }
 
