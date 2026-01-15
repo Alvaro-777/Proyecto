@@ -56,7 +56,14 @@ class PagoController extends AbstractController
         $usuarioRepo = $entityManager->getRepository(Usuario::class);
         $pagoRepo = $entityManager->getRepository(Pago::class);
 
+        $usuario = $usuarioRepo->find($userId);
+        if (!$usuario) {
+            throw $this->createNotFoundException('Usuario no encontrado.');
+        }
 
+        $esPrimeraCompra = !$pagoRepo->findOneBy(['usuario' => $usuario]);
+        $precio = $esPrimeraCompra ? $plan['precio'] * 0.9 : $plan['precio'];
+        $precioFinal = number_format($precio, 2, '.', ''); // devuelve string "9.00"
 
         return $this->render('pago/checkout.html.twig', [
             'planId' => $planId,
