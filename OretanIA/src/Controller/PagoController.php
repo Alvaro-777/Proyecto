@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Pago;
+use App\Entity\Usuario;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,16 +34,29 @@ class PagoController extends AbstractController
     ): Response
     {
 
-        if (!empty($request->getSession()->get('user-id'))) {
+        if (empty($request->getSession()->get('user-id'))) {
             return $this->redirectToRoute('login');
         }
 
+        $userId = $request->getSession()->get('user-id');
         $planId = (int)$request->query->get('plan');
+
         $planes = [
             1 => ['precio' => 5.00, 'creditos' => 500],
             2 => ['precio' => 10.00, 'creditos' => 1200],
             3 => ['precio' => 15.00, 'creditos' => 2000],
         ];
+
+        if (!isset($planes[$planId])) {
+            throw $this->createNotFoundException('Plan no válido.');
+        }
+
+        $plan = $planes[$planId];
+
+        $usuarioRepo = $entityManager->getRepository(Usuario::class);
+        $pagoRepo = $entityManager->getRepository(Pago::class);
+
+
 
         return $this->render('pago/checkout.html.twig', [
             'planId' => $planId,
