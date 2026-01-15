@@ -17,6 +17,7 @@
         "symfony/dotenv": "6.4.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.4.*",
+        "symfony/http-foundation": "^7.4",
         "symfony/runtime": "*",
         "symfony/twig-bundle": "6.4.*",
         "symfony/yaml": "6.4.*"
