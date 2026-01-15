@@ -1,2 +1,22 @@
 {% extends 'base.html.twig' %}
 {% block title %}Planes de Créditos{% endblock %}
+{% block body %}
+    <h1>Elige tu plan</h1>
+
+    {% for id, plan in planes %}
+        <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
+            <h2>{{ plan.nombre }}</h2>
+            <p><strong>{{ plan.creditos }} créditos</strong></p>
+            <p>{{ plan.precio }} €</p>
+            <a href="
+                {% if logado %}
+                    {{ path('pago_checkout', {'plan': id}) }}
+                {% else %}
+                    {{ path('login') }}
+                {% endif %}
+            ">
+                Comprar
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

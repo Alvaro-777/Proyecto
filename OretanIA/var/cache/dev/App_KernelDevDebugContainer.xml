@@ -311,6 +311,13 @@
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\IaController"/>
       </call>
     </service>
+    <service id="App\Controller\PagoController" class="App\Controller\PagoController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\PagoController"/>
+      </call>
+    </service>
     <service id="App\Controller\UsuarioController" class="App\Controller\UsuarioController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -365,7 +372,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.k7aM4Ba"/>
+      <argument type="service" id=".service_locator.47Ut_Fo"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1573,7 +1580,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.k7aM4Ba"/>
+      <argument type="service" id=".service_locator.47Ut_Fo"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -3861,6 +3868,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\IaController" class="App\Controller\IaController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\IaController" class="App\Controller\IaController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\IaController" class="App\Controller\IaController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PagoController" class="App\Controller\PagoController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PagoController" class="App\Controller\PagoController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PagoController" class="App\Controller\PagoController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UsuarioController" class="App\Controller\UsuarioController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UsuarioController" class="App\Controller\UsuarioController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UsuarioController" class="App\Controller\UsuarioController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -4313,6 +4323,12 @@
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.CsMkqUa" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.Fjia12_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -4320,11 +4336,12 @@
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.k7aM4Ba" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.47Ut_Fo" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AudioController::procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\IaController::procesar" type="service_closure" id=".service_locator.1.181F_"/>
+        <argument key="App\Controller\PagoController::procesarPago" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UsuarioController::createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
         <argument key="App\Controller\UsuarioController::verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -4333,6 +4350,7 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\AudioController:procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\IaController:procesar" type="service_closure" id=".service_locator.1.181F_"/>
+        <argument key="App\Controller\PagoController:procesarPago" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\UsuarioController:createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
         <argument key="App\Controller\UsuarioController:verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -4572,6 +4590,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\PagoController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\PagoController"/>
+      <argument>App\Controller\PagoController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\UsuarioController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\UsuarioController"/>
       <argument>App\Controller\UsuarioController</argument>
@@ -4684,6 +4708,7 @@
           <argument>App\Controller\AudioController</argument>
           <argument>App\Controller\HomeController</argument>
           <argument>App\Controller\IaController</argument>
+          <argument>App\Controller\PagoController</argument>
           <argument>App\Controller\UsuarioController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
@@ -5568,7 +5593,7 @@
     <service id="nelmio_alice.property_accessor" alias="nelmio_alice.property_accessor.std"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.k7aM4Ba"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.47Ut_Fo"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id=".Psr\Log\LoggerInterface $request.logger" alias="monolog.logger.request"/>
@@ -5593,7 +5618,7 @@
     <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
     <service id=".service_locator.d_NN1dC" alias=".service_locator.K2Hsb7c"/>
-    <service id=".service_locator.WHx8Cbi" alias=".service_locator.k7aM4Ba"/>
+    <service id=".service_locator.fswtg8h" alias=".service_locator.47Ut_Fo"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
@@ -5606,6 +5631,7 @@
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
     <service id=".service_locator.pAaBFs9" alias=".service_locator.K2Hsb7c"/>
     <service id=".service_locator.VcxCm2U" alias=".service_locator.1.181F_"/>
+    <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
     <service id=".service_locator.QnKPdIE" alias=".service_locator.Fjia12_"/>
     <service id=".service_locator.YMnfGOP" alias=".service_locator.O2p6Lk7"/>
     <service id=".service_locator.3bxtozr" alias=".service_locator._ju.bgC"/>
