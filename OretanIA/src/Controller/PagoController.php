@@ -27,7 +27,7 @@ class PagoController extends AbstractController
         ]);
     }
 
-    #[Route('/pago/checkout', name: 'pago_checkout')]
+    #[Route('/pago/checkout', name: 'pago_checkout', methods: ['GET', 'POST'])]
     public function procesarPago(
         Request                $request,
         EntityManagerInterface $entityManager
@@ -63,10 +63,36 @@ class PagoController extends AbstractController
 
         $esPrimeraCompra = !$pagoRepo->findOneBy(['usuario' => $usuario]);
         $precio = $esPrimeraCompra ? $plan['precio'] * 0.9 : $plan['precio'];
-        $precioFinal = number_format($precio, 2, '.', ''); // devuelve string "9.00"
+        $precioFinal = number_format($precio, 2, '.', '');
 
-        return $this->render('pago/checkout.html.twig', [
+        if ($request->isMethod('POST')) {
+            $pago = new Pago();
+            $pago->setUsuario($usuario);
+            $pago->setCantidad($precioFinal);
+            $pago->setCreditosObtenidos($plan['creditos']);
+            $pago->setMetodo('Simulado');
+            $pago->setValido(true);
+
+            $entityManager->persist($pago);
+
+            $nuevosCreditos = $usuario->getCreditos() + $plan['creditos'];
+            $usuario->setCreditos($nuevosCreditos);
+
+            $entityManager->flush();
+
+            return $this->render('confirmacion.html.twig', [
+                'creditos' => $plan['creditos'],
+                'precio' => $precioFinal,
+                'tieneDescuento' => $esPrimeraCompra,
+                'logado' => true,
+            ]);
+        }
+
+        return $this->render('checkout.html.twig', [
+            'plan' => $plan,
             'planId' => $planId,
+            'precioFinal' => $precioFinal,
+            'aplicaDescuento' => $esPrimeraCompra,
             'logado' => true,
         ]);
     }
