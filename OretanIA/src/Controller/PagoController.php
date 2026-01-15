@@ -13,11 +13,6 @@ class PagoController extends AbstractController
     #[Route('/pago', name: 'pago_planes', methods: ['GET'])]
     public function mostrarPlanes(Request $request): Response
     {
-        // Verificar si el usuario está logueado
-//        if (empty($request->getSession()->get('user-id'))) {
-//            return $this->redirectToRoute('login');
-//        }
-
         $planes = [
             1 => ['precio' => 5.00, 'creditos' => 500, 'nombre' => 'Básico'],
             2 => ['precio' => 10.00, 'creditos' => 1200, 'nombre' => 'Pro (+200 bonus)'],
@@ -26,7 +21,7 @@ class PagoController extends AbstractController
 
         return $this->render('planes.html.twig', [
             'planes' => $planes,
-            'logado' => true,
+            'logado' => !empty($request->getSession()->get('user-id'))
         ]);
     }
 
