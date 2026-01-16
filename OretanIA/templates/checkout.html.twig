@@ -14,7 +14,7 @@
             {% endif %}
         </p>
         <p><strong>Créditos:</strong> {{ plan.creditos }}</p>
-        <p><strong>Precio original:</strong> {{ plan.precio }} €</p>
+        <p><strong>Precio:</strong> {{ plan.precio | number_format(2, '.') }} €</p>
 
         {% if aplicaDescuento %}
             <p style="color: green;"><strong>¡10% de descuento en tu primera compra!</strong></p>

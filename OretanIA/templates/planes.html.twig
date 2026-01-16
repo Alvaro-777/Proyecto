@@ -3,20 +3,46 @@
 {% block body %}
     <h1>Elige tu plan</h1>
 
-    {% for id, plan in planes %}
-        <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
-            <h2>{{ plan.nombre }}</h2>
-            <p><strong>{{ plan.creditos }} créditos</strong></p>
-            <p>{{ plan.precio }} €</p>
-            <a href="
+    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
+        <h2>Básico</h2>
+        <p><strong>500 créditos</strong></p>
+        <p>5 €</p>
+        <a href="
                 {% if logado %}
-                    {{ path('pago_checkout', {'plan': id}) }}
+                    {{ path('pago_checkout', {'plan': 1}) }}
                 {% else %}
                     {{ path('login') }}
                 {% endif %}
             ">
-                Comprar
-            </a>
-        </div>
-    {% endfor %}
+            Comprar
+        </a>
+    </div>
+    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
+        <h2>Pro</h2>
+        <p><strong>1000 + 200 créditos</strong></p>
+        <p>10 €</p>
+        <a href="
+                {% if logado %}
+                    {{ path('pago_checkout', {'plan' : 2}) }}
+                {% else %}
+                    {{ path('login') }}
+                {% endif %}
+            ">
+            Comprar
+        </a>
+    </div>
+    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
+        <h2>Pro</h2>
+        <p><strong>1500 + 500 créditos</strong></p>
+        <p>10 €</p>
+        <a href="
+                {% if logado %}
+                    {{ path('pago_checkout', {'plan' : 3}) }}
+                {% else %}
+                    {{ path('login') }}
+                {% endif %}
+            ">
+            Comprar
+        </a>
+    </div>
 {% endblock %}

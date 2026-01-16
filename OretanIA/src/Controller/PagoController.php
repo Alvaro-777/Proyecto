@@ -22,7 +22,6 @@ class PagoController extends AbstractController
         ];
 
         return $this->render('planes.html.twig', [
-            'planes' => $planes,
             'logado' => !empty($request->getSession()->get('user-id'))
         ]);
     }
@@ -57,9 +56,6 @@ class PagoController extends AbstractController
         $pagoRepo = $entityManager->getRepository(Pago::class);
 
         $usuario = $usuarioRepo->find($userId);
-        if (!$usuario) {
-            throw $this->createNotFoundException('Usuario no encontrado.');
-        }
 
         $esPrimeraCompra = !$pagoRepo->findOneBy(['usuario' => $usuario]);
         $precio = $esPrimeraCompra ? $plan['precio'] * 0.9 : $plan['precio'];
