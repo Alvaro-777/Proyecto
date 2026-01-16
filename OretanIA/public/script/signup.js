@@ -73,4 +73,7 @@ confirm.addEventListener("input", (e) => {
         e.target.style.backgroundColor = "lightcoral";
     }
 });
+confirm.addEventListener("blur", (e) => {
+    e.target.style.backgroundColor = "";
+});
 
