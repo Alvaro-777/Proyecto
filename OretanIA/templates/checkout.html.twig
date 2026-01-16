@@ -1,5 +1,30 @@
 {% extends 'base.html.twig' %}
-{% block title %}{% endblock %}
+{% block title %}Confirmar Compra{% endblock %}
 {% block body %}
+    <h1>Confirmar tu compra</h1>
 
+    <div style="border: 1px solid #ddd; padding: 20px; margin: 20px; max-width: 500px;">
+        <h2>Resumen del pedido</h2>
+        <p><strong>Plan:</strong>
+            {% if planId == 1 %}
+                Básico
+            {% elseif planId == 2 %}
+                Pro (+200 bonus)
+            {% else %}
+                Premium (+500 bonus)
+            {% endif %}
+        </p>
+        <p><strong>Créditos:</strong> {{ plan.creditos }}</p>
+        <p><strong>Precio original:</strong> {{ plan.precio }} €</p>
+
+        {% if aplicaDescuento %}
+            <p style="color: green;"><strong>¡10% de descuento en tu primera compra!</strong></p>
+        {% endif %}
+
+        <p><strong>Total a pagar:</strong> <span style="font-size: 1.2em; color: red;">{{ precioFinal }} €</span></p>
+
+        <hr>
+
+        </form>
+    </div>
 {% endblock %}
