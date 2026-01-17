@@ -9,13 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const mensaje = mensajeInput.value.trim();
         if (!mensaje) return;
 
-        // Mostrar mensaje del usuario
         agregarMensaje('user', mensaje);
         mensajeInput.value = '';
         mensajeInput.disabled = true;
         enviarBtn.disabled = true;
 
-        // Enviar a servidor
         fetch('/chatbotia/enviar', {
             method: 'POST',
             headers: {
@@ -28,13 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 if (data.error) {
                     agregarMensaje('error', data.error);
-                    // Si es error de créditos, redirigir a planes
                     if (data.error.includes('créditos')) {
                         window.location.href = '/planes';
                     }
                 } else {
                     agregarMensaje('assistant', data.respuesta);
-                    // Actualizar créditos mostrados
                     document.querySelector('.chat-info strong').textContent = data.creditos_restantes;
                 }
             })
@@ -73,16 +69,33 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.key === 'Enter') enviarMensaje();
     });
 
+    // REINICIAR - SOLO ESTE BLOQUE
     reiniciarBtn.addEventListener('click', function() {
         if (confirm('¿Estás seguro de que quieres reiniciar la conversación?')) {
+            // Limpiar interfaz
+            chatMessages.innerHTML = '';
+
+            // Notificar al servidor que se reinició
             fetch('/chatbotia/reiniciar', {
                 method: 'POST',
                 headers: {'X-Requested-With': 'XMLHttpRequest'}
-            }).then(() => {
-                chatMessages.innerHTML = '';
-                // Recargar página para limpiar historial de la vista
-                window.location.reload();
-            });
+            })
+                .then(() => {
+                    // Cargar mensaje de bienvenida
+                    return fetch('/chatbotia/inicial', {
+                        method: 'GET',
+                        headers: {'X-Requested-With': 'XMLHttpRequest'}
+                    });
+                })
+                .then(response => response.json())
+                .then(data => {
+                    data.mensajes.forEach(mensaje => {
+                        agregarMensaje(mensaje.tipo, mensaje.contenido);
+                    });
+                })
+                .catch(error => {
+                    agregarMensaje('assistant', '¡Hola! Soy tu asistente virtual. Estoy configurado para responder siempre en español. ¿En qué puedo ayudarte hoy?');
+                });
         }
     });
 });

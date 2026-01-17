@@ -4,6 +4,18 @@
 {% block title %}Predict-IA - Oretan-IA{% endblock %}
 
 {% block body %}
+    {% set userId = app.session.get('user-id') %}
+
+    {% if not userId or userId == '' %}
+    {# Usuario no logueado: redirigir #}
+    <script>
+        window.location.href = '{{ path('/')|e('js') }}';
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url={{ path('/')|e('html_attr') }}">
+        <p>Redirigiendo... <a href="{{ path('/') }}">Haz clic aquí si no se redirige automáticamente</a>.</p>
+    </noscript>
+    {% else %}
     <h1>Predict-IA</h1>
     <p>Creditos restantes: {{ creditos }}</p>
     <p>Introduce datos para predecir resultados basados en patrones históricos.</p>
@@ -22,4 +34,5 @@
         <br><br>
         <button type="submit">Predecir</button>
     </form>
+{% endif %}
 {% endblock %}

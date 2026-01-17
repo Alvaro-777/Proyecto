@@ -17,66 +17,92 @@ class ChatbotController extends AbstractController
 
     #[Route('/chatbotia', name: 'chatbotia')]
     public function index(
-        SessionInterface $session,
-        UsuarioRepository $usuarioRepository,
+        SessionInterface       $session,
+        UsuarioRepository      $usuarioRepository,
         EntityManagerInterface $entityManager
     ): Response
     {
         $userId = $session->get('user-id');
         $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
-        if (empty($userId)|| !$usuario) {
+        if (empty($userId) || !$usuario) {
             return $this->render('index.html.twig');
         }
-
-        $iaId = 3;
-        $historial = $entityManager->getRepository(\App\Entity\HistorialUsoIA::class)
-            ->createQueryBuilder('h')
-            ->where('h.usuario = :usuario')
-            ->andWhere('h.ia = :ia')
-            ->setParameter('usuario', $usuario)
-            ->setParameter('ia', $iaId)
-            ->orderBy('h.fecha', 'ASC')
-            ->getQuery()
-            ->getResult();
-
+        $chatReiniciado = $session->get('chatbot_reiniciado_' . $userId, false);
         $mensajes = [];
-        if (empty($historial)) {
-            // Primer uso: mensaje de bienvenida del sistema
+        if ($chatReiniciado) {
+            // Mostrar mensaje de bienvenida (como primera vez)
             $mensajes[] = [
                 'tipo' => 'assistant',
                 'contenido' => '¡Hola! Soy tu asistente virtual. Estoy configurado para responder siempre en español. ¿En qué puedo ayudarte hoy?',
                 'timestamp' => (new \DateTime())->format('H:i')
             ];
         } else {
-            // Cargar historial existente
-            foreach ($historial as $registro) {
+            $iaId = 3;
+            $historial = $entityManager->getRepository(\App\Entity\HistorialUsoIA::class)
+                ->createQueryBuilder('h')
+                ->where('h.usuario = :usuario')
+                ->andWhere('h.ia = :ia')
+                ->setParameter('usuario', $usuario)
+                ->setParameter('ia', $iaId)
+                ->orderBy('h.fecha', 'DESC')
+                ->setMaxResults(2)  // Solo los últimos 2 mensajes del usuario
+                ->getQuery()
+                ->getResult();
+            $historialOrdenado = array_reverse($historial);
+
+            if (empty($historial)) {
+                // Primer uso: mensaje de bienvenida del sistema
                 $mensajes[] = [
-                    'tipo' => 'user',
-                    'contenido' => $registro->getTextoInput(),
-                    'timestamp' => $registro->getFecha()->format('H:i')
+                    'tipo' => 'assistant',
+                    'contenido' => '¡Hola! Soy tu asistente virtual. Estoy configurado para responder siempre en español. ¿En qué puedo ayudarte hoy?',
+                    'timestamp' => (new \DateTime())->format('H:i')
                 ];
+            } else {
+                // Cargar historial existente
+                foreach ($historialOrdenado as $registro) {
+                    $textoCompleto = $registro->getTextoInput();
+
+                    // Extraer usuario y asistente
+                    preg_match('/\[USUARIO\]\s*(.*?)\s*\[ASISTENTE\]\s*(.*)/s', $textoCompleto, $matches);
+
+                    if (isset($matches[1]) && isset($matches[2])) {
+                        // Mensaje del usuario
+                        $mensajes[] = [
+                            'tipo' => 'user',
+                            'contenido' => trim($matches[1]),
+                            'timestamp' => $registro->getFecha()->format('H:i')
+                        ];
+
+                        // Respuesta del asistente
+                        $mensajes[] = [
+                            'tipo' => 'assistant',
+                            'contenido' => trim($matches[2]),
+                            'timestamp' => $registro->getFecha()->format('H:i')
+                        ];
+                    }
+                }
             }
         }
-            return $this->render('mensaje.html.twig', [
-                'logado' => true,
-                'creditos' => $usuario->getCreditos(),
-                'mensajes_iniciales' => $mensajes
-            ]);
+        return $this->render('mensaje.html.twig', [
+            'creditos' => $usuario->getCreditos(),
+            'mensajes_iniciales' => $mensajes
+        ]);
     }
 
     #[Route('/chatbotia/enviar', name: 'chatbotia_enviar', methods: ['POST'])]
     public function enviarMensaje(
-        Request $request,
-        SessionInterface $session,
-        UsuarioRepository $usuarioRepository,
-        IARepository $iaRepository,
+        Request                $request,
+        SessionInterface       $session,
+        UsuarioRepository      $usuarioRepository,
+        IARepository           $iaRepository,
         EntityManagerInterface $entityManager
-    ): Response {
+    ): Response
+    {
         $userId = $session->get('user-id');
         $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
-        if (empty($userId)|| !$usuario) {
+        if (empty($userId) || !$usuario) {
             return $this->render('index.html.twig');
         }
 
@@ -100,15 +126,6 @@ class ChatbotController extends AbstractController
             return $this->json(['error' => 'Servicio de IA no disponible'], 500);
         }
 
-        $historial = new \App\Entity\HistorialUsoIA();
-        $historial->setUsuario($usuario);
-        $historial->setIa($ia);
-        $historial->setArchivo(null);
-        $historial->setTextoInput($mensajeUsuario);
-        $historial->setFecha(new \DateTime());
-        $historial->setIp($request->getClientIp());
-        $entityManager->persist($historial);
-
         // Ejecutar script de Python
         $pythonBin = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'py -3' : 'python3';
         $comando = sprintf(
@@ -125,6 +142,17 @@ class ChatbotController extends AbstractController
 
         $respuestaChatbot = trim($salida);
 
+        $mensajeCombinado = "[USUARIO] " . $mensajeUsuario . "\n[ASISTENTE] " . $respuestaChatbot;
+
+        $historial = new \App\Entity\HistorialUsoIA();
+        $historial->setUsuario($usuario);
+        $historial->setIa($ia);
+        $historial->setArchivo(null);
+        $historial->setTextoInput($mensajeCombinado);
+        $historial->setFecha(new \DateTime());
+        $historial->setIp($request->getClientIp());
+        $entityManager->persist($historial);
+
         // Descontar crédito y guardar
         $usuario->setCreditos($usuario->getCreditos() - 1);
         $entityManager->persist($usuario);
@@ -138,9 +166,22 @@ class ChatbotController extends AbstractController
     }
 
     #[Route('/chatbotia/reiniciar', name: 'chatbotia_reiniciar', methods: ['POST'])]
-    public function reiniciarChat(SessionInterface $session): Response
+    public function reiniciarChat(): Response
     {
-        $session->remove('chatbot_historial');
         return $this->json(['success' => true]);
+    }
+
+    #[Route('/chatbotia/inicial', name: 'chatbotia_inicial', methods: ['GET'])]
+    public function estadoInicial(): Response
+    {
+        return $this->json([
+            'mensajes' => [
+                [
+                    'tipo' => 'assistant',
+                    'contenido' => '¡Hola! Soy tu asistente virtual. Estoy configurado para responder siempre en español. ¿En qué puedo ayudarte hoy?',
+                    'timestamp' => (new \DateTime())->format('H:i')
+                ]
+            ]
+        ]);
     }
 }
