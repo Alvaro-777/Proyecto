@@ -174,4 +174,79 @@ body.oscuro .banner-informativo .linea {
     background-color: rgba(33, 150, 243, 0.5);
 }
 
+/* ============ CONTENEDOR TARJETAS ============ */
+
+.tarjetas {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* por si en móvil baja */
+    padding: 40px 20px;
+}
+
+/* ============ TARJETA (SOLO IMAGEN) ============ */
+
+.tarjeta {
+
+    width: 220px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* sin hover ni animaciones */
+.tarjeta,
+.tarjeta:hover {
+    transform: none !important;
+    transition: none !important;
+}
+
+/* Imagen */
+.tarjeta img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============ TEXTO FUERA DE LA CAJA ============ */
+
+.tarjeta .info {
+    background: transparent;
+    box-shadow: none;
+    padding: 12px 6px 0;
+    text-align: center;
+}
+
+/* Título */
+.tarjeta .info h3 {
+    margin: 8px 0 4px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #000;
+}
+
+/* Descripción */
+.tarjeta .info p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555;
+    padding-bottom: 10px;
+}
+
+/* -------- MODO OSCURO -------- */
+
+body.oscuro .tarjeta {
+    background: #2c2c2c;
+}
+
+body.oscuro .tarjeta .info h3 {
+    color: #f1f1f1;
+}
+
+body.oscuro .tarjeta .info p {
+    color: #ccc;
+}
+
+
 
