@@ -47,10 +47,13 @@ function validarCampo(input, pattern) {
     const valor = input.value.trim();
     if (valor === "") {
         input.style.backgroundColor = "";
+        input.style.color="";
     } else if (pattern.test(valor)) {
         input.style.backgroundColor = "lightgreen";
+        input.style.color="black";
     } else {
         input.style.backgroundColor = "lightcoral";
+        input.style.color="black";
     }
 }
 
@@ -63,17 +66,21 @@ campos.forEach(({ input, pattern }) => {
 
     input.addEventListener("blur", () => {
         input.style.backgroundColor = "";
+        input.style.color="";
     });
 });
 
 confirm.addEventListener("input", (e) => {
     if (confirm.value===password.value) {
         e.target.style.backgroundColor = "lightgreen";
+        e.style.color="black";
     } else {
         e.target.style.backgroundColor = "lightcoral";
+        e.style.color="black";
     }
 });
 confirm.addEventListener("blur", (e) => {
     e.target.style.backgroundColor = "";
+    e.style.color="";
 });
 
