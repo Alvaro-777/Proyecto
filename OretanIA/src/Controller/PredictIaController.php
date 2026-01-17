@@ -134,6 +134,11 @@ class PredictIaController extends AbstractController
             $historial->setFecha(new \DateTime());
             $historial->setIp($request->getClientIp());
             $entityManager->persist($historial);
+
+            // Restar credito por utilización
+            $usuario->setCreditos($usuario->getCreditos() - 1);
+            $entityManager->persist($usuario);
+
             $entityManager->flush();
 
             $resultado = trim($salida);
