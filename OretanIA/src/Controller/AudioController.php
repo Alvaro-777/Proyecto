@@ -80,7 +80,7 @@ class AudioController extends AbstractController
 
             $nombreBase = pathinfo($archivoAdjunto->getClientOriginalName(), PATHINFO_FILENAME);
             $nombreUnico = $this->generarNombreUnico($rutaUsuario, $nombreBase, $extension);
-            $textoInputHistorial = "Información introducida por archivo ".$nombreBase;
+            $textoInputHistorial = '"Información introducida por archivo '.$nombreBase.' "';
 
             // Gestiones si el usuario está logueado
             $archivoEntity = new Archivo();
@@ -94,6 +94,8 @@ class AudioController extends AbstractController
 
             $archivoId = $archivoEntity->getId();
             $archivoAdjunto->move($rutaUsuario, $nombreUnico);
+
+            // Ejecutar Python con ruta de archivo
             $rutaProcesar = $rutaUsuario . $nombreUnico;
 
         } else {
@@ -132,7 +134,7 @@ class AudioController extends AbstractController
             $historial = new HistorialUsoIA();
             $historial->setUsuario($usuario);
             $historial->setIa($ia);
-            $historial->setArchivo($hayArchivo ? $archivoEntity : null);
+            $historial->setArchivo($archivoId);
             $historial->setTextoInput($textoInputHistorial);
             $historial->setFecha(new \DateTime());
             $entityManager->persist($historial);

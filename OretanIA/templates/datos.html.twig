@@ -5,6 +5,7 @@
 
 {% block body %}
     <h1>Predict-IA</h1>
+    <p>Creditos restantes: {{ creditos }}</p>
     <p>Introduce datos para predecir resultados basados en patrones históricos.</p>
 
     <form method="post" action="{{ path('predictia_procesar') }}" enctype="multipart/form-data">
