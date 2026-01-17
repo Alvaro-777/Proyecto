@@ -38,3 +38,31 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+// --- Formateo y validación de tarjeta ---
+document.addEventListener("DOMContentLoaded", () => {
+    const tarjetaInput = document.getElementById("tarjeta");
+    const form = tarjetaInput?.closest("form");
+
+    if (!tarjetaInput || !form) return;
+
+    tarjetaInput.addEventListener("input", function () {
+        let valor = this.value.replace(/\D/g, "");
+        if (valor.length > 16) valor = valor.slice(0, 16);
+        let grupos = [];
+        for (let i = 0; i < valor.length; i += 4) {
+            grupos.push(valor.slice(i, i + 4));
+        }
+        this.value = grupos.join(" ");
+    });
+
+    form.addEventListener("submit", function (e) {
+        const valorLimpio = tarjetaInput.value.replace(/\s/g, "");
+        if (valorLimpio.length !== 16) {
+            tarjetaInput.setCustomValidity("Debe tener exactamente 16 dígitos");
+            tarjetaInput.reportValidity();
+            e.preventDefault();
+        } else {
+            tarjetaInput.setCustomValidity("");
+        }
+    });
+});
