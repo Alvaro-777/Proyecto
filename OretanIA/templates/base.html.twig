@@ -15,7 +15,10 @@
     </div>
     <h1 class="titulo">{% block cabecera %}Oretan-IA{% endblock %}</h1>
     <div class="modo">
-        <button id="modo-toggle">🌞 / 🌙</button>
+        <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
+            <span class="icon-sun"></span>
+            <span class="icon-moon"></span>
+        </button>
         <div class="menu">
             <button class="menu-btn">☰</button>
             <div class="menu-content">
