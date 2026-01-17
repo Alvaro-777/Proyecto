@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         mensajeInput.disabled = true;
         enviarBtn.disabled = true;
 
-        fetch('/chatbotia/enviar', {
+        fetch(CHATBOT_ENVIAR_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

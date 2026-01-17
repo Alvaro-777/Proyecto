@@ -26,7 +26,7 @@ class ChatbotController extends AbstractController
         $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
         if (empty($userId) || !$usuario) {
-            return $this->render('index.html.twig');
+            return $this->redirectToRoute('inicio');
         }
         $chatReiniciado = $session->get('chatbot_reiniciado_' . $userId, false);
         $mensajes = [];
