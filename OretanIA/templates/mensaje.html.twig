@@ -1,0 +1,19 @@
+{# templates/mensajes.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Chatbot-IA - Oretan-IA{% endblock %}
+
+{% block body %}
+
+    <div class="mensaje mensaje-{{ tipo ?? 'assistant' }}" data-timestamp="{{ timestamp|default('') }}">
+        <div class="mensaje-header">
+            {% if tipo ?? 'assistant' == 'user' %}
+                Tú
+            {% else %}
+                Chatbot-IA
+            {% endif %}
+            {% if timestamp ?? null %}<small>({{ timestamp }})</small>{% endif %}
+        </div>
+        <div class="mensaje-contenido">{{ contenido ?? ''|nl2br }}</div>
+    </div>
+{% endblock %}

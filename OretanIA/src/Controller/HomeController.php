@@ -22,13 +22,4 @@ class HomeController extends AbstractController
     {
         return $this->render('audio.html.twig');
     }
-
-
-    #[Route('/chatbotia', name: 'chatbotia')]
-    public function chatbot(Request $request): Response
-    {
-        return $this->render('index.html.twig', [
-            'logado' => !empty($request->getSession()->get('user-id'))
-        ]);
-    }
 }
