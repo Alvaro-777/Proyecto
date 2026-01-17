@@ -16,15 +16,53 @@ class ChatbotController extends AbstractController
     private const PYTHON_SCRIPT = __DIR__ . '/../../public/py/chatbot_ia.py';
 
     #[Route('/chatbotia', name: 'chatbotia')]
-    public function index(SessionInterface $session, UsuarioRepository $usuarioRepository): Response
+    public function index(
+        SessionInterface $session,
+        UsuarioRepository $usuarioRepository,
+        EntityManagerInterface $entityManager
+    ): Response
     {
         $userId = $session->get('user-id');
         $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
-        return $this->render('mensaje.html.twig', [
-            'logado' => $usuario !== null,
-            'creditos' => $usuario ? $usuario->getCreditos() : 0
-        ]);
+        if (empty($userId)|| !$usuario) {
+            return $this->render('index.html.twig');
+        }
+
+        $iaId = 3;
+        $historial = $entityManager->getRepository(\App\Entity\HistorialUsoIA::class)
+            ->createQueryBuilder('h')
+            ->where('h.usuario = :usuario')
+            ->andWhere('h.ia = :ia')
+            ->setParameter('usuario', $usuario)
+            ->setParameter('ia', $iaId)
+            ->orderBy('h.fecha', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        $mensajes = [];
+        if (empty($historial)) {
+            // Primer uso: mensaje de bienvenida del sistema
+            $mensajes[] = [
+                'tipo' => 'assistant',
+                'contenido' => '¡Hola! Soy tu asistente virtual. Estoy configurado para responder siempre en español. ¿En qué puedo ayudarte hoy?',
+                'timestamp' => (new \DateTime())->format('H:i')
+            ];
+        } else {
+            // Cargar historial existente
+            foreach ($historial as $registro) {
+                $mensajes[] = [
+                    'tipo' => 'user',
+                    'contenido' => $registro->getTextoInput(),
+                    'timestamp' => $registro->getFecha()->format('H:i')
+                ];
+            }
+        }
+            return $this->render('mensaje.html.twig', [
+                'logado' => true,
+                'creditos' => $usuario->getCreditos(),
+                'mensajes_iniciales' => $mensajes
+            ]);
     }
 
     #[Route('/chatbotia/enviar', name: 'chatbotia_enviar', methods: ['POST'])]
@@ -36,9 +74,10 @@ class ChatbotController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $userId = $session->get('user-id');
+        $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
-        if (empty($userId)) {
-            return $this->json(['error' => 'Debes iniciar sesión para usar el chatbot'], 401);
+        if (empty($userId)|| !$usuario) {
+            return $this->render('index.html.twig');
         }
 
         $mensajeUsuario = trim($request->request->get('mensaje', ''));
@@ -47,12 +86,12 @@ class ChatbotController extends AbstractController
         }
 
         $usuario = $usuarioRepository->find($userId);
-        if (!$usuario) {
-            return $this->json(['error' => 'Usuario no encontrado'], 404);
-        }
 
         if ($usuario->getCreditos() <= 0) {
-            return $this->json(['error' => 'No tienes créditos suficientes'], 403);
+            $this->addFlash('error', 'No tienes créditos suficientes para usar este servicio.');
+            return $this->render('planes.html.twig', [
+                'logado' => !empty($request->getSession()->get('user-id'))
+            ]);
         }
 
         // Guardar historial en base de datos

@@ -379,7 +379,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.8LNFvY7"/>
+      <argument type="service" id=".service_locator.ZAlEdwF"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -1587,7 +1587,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.8LNFvY7"/>
+      <argument type="service" id=".service_locator.ZAlEdwF"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -4330,9 +4330,10 @@
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.1.181F_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.IHj7oA." class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
@@ -4350,23 +4351,22 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.Fjia12_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.1.181F_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="usuarioRepository" type="service_closure" id="App\Repository\UsuarioRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.8LNFvY7" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.ZAlEdwF" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AudioController::procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\ChatbotController::enviarMensaje" type="service_closure" id=".service_locator.9DiyvtE"/>
-        <argument key="App\Controller\ChatbotController::index" type="service_closure" id=".service_locator.1.181F_"/>
+        <argument key="App\Controller\ChatbotController::index" type="service_closure" id=".service_locator.IHj7oA."/>
         <argument key="App\Controller\PagoController::procesarPago" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\PredictIaController::index" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="App\Controller\PredictIaController::procesar" type="service_closure" id=".service_locator.9DiyvtE"/>
-        <argument key="App\Controller\UsuarioController::createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
+        <argument key="App\Controller\UsuarioController::createUsuario" type="service_closure" id=".service_locator.IHj7oA."/>
         <argument key="App\Controller\UsuarioController::verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -4374,11 +4374,11 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Controller\AudioController:procesar" type="service_closure" id=".service_locator.K2Hsb7c"/>
         <argument key="App\Controller\ChatbotController:enviarMensaje" type="service_closure" id=".service_locator.9DiyvtE"/>
-        <argument key="App\Controller\ChatbotController:index" type="service_closure" id=".service_locator.1.181F_"/>
+        <argument key="App\Controller\ChatbotController:index" type="service_closure" id=".service_locator.IHj7oA."/>
         <argument key="App\Controller\PagoController:procesarPago" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\PredictIaController:index" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="App\Controller\PredictIaController:procesar" type="service_closure" id=".service_locator.9DiyvtE"/>
-        <argument key="App\Controller\UsuarioController:createUsuario" type="service_closure" id=".service_locator.Fjia12_"/>
+        <argument key="App\Controller\UsuarioController:createUsuario" type="service_closure" id=".service_locator.IHj7oA."/>
         <argument key="App\Controller\UsuarioController:verifyLogin" type="service_closure" id=".service_locator.1.181F_"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
@@ -5627,7 +5627,7 @@
     <service id="nelmio_alice.property_accessor" alias="nelmio_alice.property_accessor.std"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.8LNFvY7"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.ZAlEdwF"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id=".Psr\Log\LoggerInterface $request.logger" alias="monolog.logger.request"/>
@@ -5652,7 +5652,8 @@
     <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
     <service id=".service_locator.d_NN1dC" alias=".service_locator.9DiyvtE"/>
-    <service id=".service_locator..reyGyb" alias=".service_locator.8LNFvY7"/>
+    <service id=".service_locator.Fjia12_" alias=".service_locator.IHj7oA."/>
+    <service id=".service_locator.VAwnf26" alias=".service_locator.ZAlEdwF"/>
     <service id=".service_locator.LMuqDDe" alias=".service_locator.VHsrTPK"/>
     <service id=".service_locator.jUv.zyj" alias=".service_locator.O2p6Lk7"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
@@ -5664,9 +5665,9 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
     <service id=".service_locator.pAaBFs9" alias=".service_locator.9DiyvtE"/>
-    <service id=".service_locator.VcxCm2U" alias=".service_locator.1.181F_"/>
+    <service id=".service_locator.QnKPdIE" alias=".service_locator.IHj7oA."/>
     <service id=".service_locator.9e2t_lq" alias=".service_locator.CsMkqUa"/>
-    <service id=".service_locator.QnKPdIE" alias=".service_locator.Fjia12_"/>
+    <service id=".service_locator.VcxCm2U" alias=".service_locator.1.181F_"/>
     <service id=".service_locator.YMnfGOP" alias=".service_locator.O2p6Lk7"/>
     <service id=".service_locator.3bxtozr" alias=".service_locator._ju.bgC"/>
     <service id=".service_locator._kIAbz1" alias=".service_locator.TpoC7U9"/>

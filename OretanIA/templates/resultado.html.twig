@@ -1,7 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Resultado - Predict-IA{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
+{% endblock %}
 {% block body %}
     <p>Creditos restantes: {{ creditos }}</p>
     <h1>Resultado de la Predicción</h1>
