@@ -1,0 +1,151 @@
+/* ================= LAYOUT GENERAL ================= */
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* ================= AUDIO IA ================= */
+
+.audio {
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto 80px;
+    padding: 35px 40px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    transition: background 0.3s ease, color 0.3s ease;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Título */
+.audio .titulo {
+    width: 100%;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #000;
+    text-align: left;
+}
+
+/* Textarea */
+.audio textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 16px;
+    font-size: 1.05rem;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    box-sizing: border-box;
+    transition: border 0.3s ease, background 0.3s ease;
+}
+
+.audio textarea:focus {
+    outline: none;
+    border-color: #000;
+}
+
+/* ================= ARCHIVO ADJUNTO ================= */
+
+.audio label[for="archivo_adjunto"] {
+    margin-top: 20px;
+    display: block;
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+}
+
+.audio input[type="file"] {
+    margin-top: 8px;
+    padding: 10px;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+/* ================= BOTÓN PRINCIPAL ================= */
+
+.audio input[type="submit"] {
+    margin-top: 30px;
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 14px 34px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    align-self: center;
+    transition: background 0.3s ease;
+}
+
+.audio input[type="submit"]:hover {
+    background: #333;
+}
+
+/* Nota */
+.audio .note {
+    margin-top: 16px;
+    font-size: 0.95rem;
+    color: #666;
+    text-align: center;
+    max-width: 600px;
+}
+
+/* ================= MODO OSCURO ================= */
+
+body.oscuro .audio {
+    background: #2c2c2c;
+    color: #f1f1f1;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+body.oscuro .audio .titulo {
+    color: #f1f1f1;
+}
+
+body.oscuro .audio textarea {
+    background: #1e1e1e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.oscuro .audio textarea::placeholder {
+    color: #aaa;
+}
+
+body.oscuro .audio textarea:focus {
+    border-color: #f1f1f1;
+}
+
+/* Archivo adjunto modo oscuro */
+body.oscuro .audio input[type="file"] {
+    background: #1e1e1e;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* Botón modo oscuro */
+body.oscuro .audio input[type="submit"] {
+    background: #f1f1f1;
+    color: #000;
+}
+
+body.oscuro .audio input[type="submit"]:hover {
+    background: #ddd;
+}
+
+body.oscuro .audio .note {
+    color: #bbb;
+}
