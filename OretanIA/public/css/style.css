@@ -21,25 +21,36 @@ body.oscuro {
 /* --- ENCABEZADO --- */
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: #000000;
-    color: white;
+    justify-content: space-between;
+    background: #000;
     padding: 10px 20px;
 }
 
-.logo img {
-    height: 60px;
-    width: auto;
-    border-radius: 50%;
-    object-fit: cover;
+/* Agrupa logo + título */
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* espacio entre logo y título */
 }
 
-.titulo {
-    flex: 1;
-    text-align: center;
-    font-size: 1.6em;
+/* Logo */
+.logo img {
+    height: 60px;
+    display: block;
 }
+
+/* Título */
+.titulo {
+    font-size: 1.6em;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+
 
 .modo {
     display: flex;
@@ -930,6 +941,51 @@ body.oscuro .icon-moon {
 /* Hover */
 .modo-btn:hover {
     background: rgba(255,255,255,0.15);
+}
+
+/* ================= MENÚ HORIZONTAL ================= */
+
+.menu-horizontal ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.menu-horizontal li {
+    position: relative;
+}
+
+.menu-horizontal a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Hover */
+.menu-horizontal a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* Destacar plan */
+.menu-horizontal .plan a {
+    font-weight: bold;
+    color: #ffd700;
+}
+
+/* ================= MODO OSCURO ================= */
+
+body.oscuro .menu-horizontal a {
+    color: #ffffff;
+}
+
+body.oscuro .menu-horizontal a:hover {
+    background: rgba(255,255,255,0.25);
 }
 
 

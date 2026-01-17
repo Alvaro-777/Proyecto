@@ -10,29 +10,37 @@
 </head>
 <body>
 <header class="header">
-    <div class="logo">
-        <a href="{{ path('home') }}" title="Inicio"><img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Dreteam-IA"></a>
+
+    <div class="brand">
+        <div class="logo">
+            <a href="{{ path('home') }}" title="Inicio">
+                <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Dreteam-IA">
+            </a>
+        </div>
+
+        <h1 class="titulo">{% block cabecera %}Oretan-IA{% endblock %}</h1>
     </div>
-    <h1 class="titulo">{% block cabecera %}Oretan-IA{% endblock %}</h1>
+
     <div class="modo">
         <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
             <span class="icon-sun"></span>
             <span class="icon-moon"></span>
         </button>
-        <div class="menu">
-            <button class="menu-btn">☰</button>
-            <div class="menu-content">
+
+        <nav class="menu-horizontal">
+            <ul>
                 {% if app.session.has('user-id') %}
-                    <a href={{ path('perfil')}}>Perfil</a>
-                    <a href={{ path('logout')}}>Deslogarse</a>
+                    <li><a href="{{ path('perfil') }}">Perfil</a></li>
+                    <li><a href="{{ path('logout') }}">Salir</a></li>
                 {% else %}
-                    <a href="{{ path('registro') }}">Registrarse</a>
-                    <a href="{{ path('login') }}">Login</a>
+                    <li><a href="{{ path('registro') }}">Registro</a></li>
+                    <li><a href="{{ path('login') }}">Login</a></li>
                 {% endif %}
-                <a href="{{ path('pago_planes') }}" class="plan">Plan $X</a>
-            </div>
-        </div>
+                <li class="plan"><a href="{{ path('pago_planes') }}">Plan $X</a></li>
+            </ul>
+        </nav>
     </div>
+
 </header>
 <footer>
     <p>Información básica: oretanIA@gmail.com | Tel: 953 084 245 | Redes sociales | Participantes .</p>
