@@ -1,5 +1,8 @@
-{# templates/predictia/index.html.twig #}
 {% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/predictia.css') }}">
+{% endblock %}
 
 {% block title %}Predict-IA - Oretan-IA{% endblock %}
 
@@ -7,32 +10,56 @@
     {% set userId = app.session.get('user-id') %}
 
     {% if not userId or userId == '' %}
-    {# Usuario no logueado: redirigir #}
-    <script>
-        window.location.href = '{{ path('/')|e('js') }}';
-    </script>
-    <noscript>
-        <meta http-equiv="refresh" content="0; url={{ path('/')|e('html_attr') }}">
-        <p>Redirigiendo... <a href="{{ path('/') }}">Haz clic aquí si no se redirige automáticamente</a>.</p>
-    </noscript>
+        {# Usuario no logueado: redirigir #}
+        <script>
+            window.location.href = '{{ path('/')|e('js') }}';
+        </script>
+        <noscript>
+            <meta http-equiv="refresh" content="0; url={{ path('/')|e('html_attr') }}">
+            <p>Redirigiendo... <a href="{{ path('/') }}">Haz clic aquí si no se redirige automáticamente</a>.</p>
+        </noscript>
     {% else %}
-    <h1>Predict-IA</h1>
-    <p>Creditos restantes: {{ creditos }}</p>
-    <p>Introduce datos para predecir resultados basados en patrones históricos.</p>
 
-    <form method="post" action="{{ path('predictia_procesar') }}" enctype="multipart/form-data">
-        <!-- Opción 1: Texto directo -->
-        <label for="datos_texto">Datos (separados por comas y mínimo 2):</label><br>
-        <input type="text" id="datos_texto" name="datos_texto" placeholder="25,50000,1,0">
+        <div class="predictia-container">
 
-        <!-- Opción 2: Archivo -->
-        <br><br>
-        <label for="archivo_datos">O sube un archivo (CSV JSON XLS XSLX o TXT):</label><br>
-        <input type="file" id="archivo_datos" name="archivo_datos" accept=".csv,.txt">
+            <h1>Predict-IA</h1>
 
+            <p class="creditos">Créditos restantes: {{ creditos }}</p>
 
-        <br><br>
-        <button type="submit">Predecir</button>
-    </form>
-{% endif %}
+            <p>
+                Introduce datos para predecir resultados basados en patrones históricos.
+            </p>
+
+            <form method="post"
+                  action="{{ path('predictia_procesar') }}"
+                  enctype="multipart/form-data">
+
+                <!-- Opción 1: Texto directo -->
+                <label for="datos_texto">
+                    Datos (separados por comas y mínimo 2):
+                </label>
+                <input
+                        type="text"
+                        id="datos_texto"
+                        name="datos_texto"
+                        placeholder="25,50000,1,0"
+                >
+
+                <!-- Opción 2: Archivo -->
+                <label for="archivo_datos">
+                    O sube un archivo (CSV o TXT):
+                </label>
+                <input
+                        type="file"
+                        id="archivo_datos"
+                        name="archivo_datos"
+                        accept=".csv,.txt"
+                >
+
+                <button type="submit">Predecir</button>
+            </form>
+
+        </div>
+
+    {% endif %}
 {% endblock %}
