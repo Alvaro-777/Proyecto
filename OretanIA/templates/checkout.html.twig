@@ -1,50 +1,79 @@
 {% extends 'base.html.twig' %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/checkout.css') }}">
+{% endblock %}
+
 {% block title %}Confirmar Compra{% endblock %}
+
 {% block body %}
-    <h1>Confirmar tu compra</h1>
-    <div style="border: 1px solid #ddd; padding: 20px; margin: 20px; max-width: 500px;">
-        <h2>Resumen del pedido</h2>
-        <p><strong>Plan:</strong>
-            {% if planId == 1 %}
-                Básico
-            {% elseif planId == 2 %}
-                Pro (+200 bonus)
-            {% else %}
-                Premium (+500 bonus)
+
+    <h1 class="checkout-titulo">Confirmar tu compra</h1>
+
+    <section class="checkout-container">
+
+        <div class="checkout-resumen">
+            <h2>Resumen del pedido</h2>
+
+            <p><strong>Plan:</strong>
+                {% if planId == 1 %}
+                    Básico
+                {% elseif planId == 2 %}
+                    Pro (+200 bonus)
+                {% else %}
+                    Premium (+500 bonus)
+                {% endif %}
+            </p>
+
+            <p><strong>Créditos:</strong> {{ plan.creditos }}</p>
+            <p><strong>Precio:</strong> {{ plan.precio | number_format(2, '.') }} €</p>
+
+            {% if aplicaDescuento %}
+                <p class="descuento">
+                    ¡10% de descuento en tu primera compra!
+                </p>
             {% endif %}
-        </p>
-        <p><strong>Créditos:</strong> {{ plan.creditos }}</p>
-        <p><strong>Precio:</strong> {{ plan.precio | number_format(2, '.') }} €</p>
 
-        {% if aplicaDescuento %}
-            <p style="color: green;"><strong>¡10% de descuento en tu primera compra!</strong></p>
-        {% endif %}
+            <p class="total">
+                Total a pagar: <span>{{ precioFinal }} €</span>
+            </p>
+        </div>
 
-        <p><strong>Total a pagar:</strong> <span style="font-size: 1.2em; color: red;">{{ precioFinal }} €</span></p>
-        <hr>
-        <h3>Método de pago (simulado)</h3>
-        <form method="post">
-            <p>
-                <label for="tarjeta">Número de tarjeta:</label><br>
+        <div class="checkout-pago">
+            <h3>Método de pago</h3>
+
+            <form method="post">
+                <label for="tarjeta">Número de tarjeta</label>
                 <input type="text" id="tarjeta" name="tarjeta" placeholder="1234 5678 9012 3456" required>
-            </p>
-            <p>
-                <label for="fecha">Fecha de expiración:</label><br>
-                <input type="text" id="fecha" name="fecha" placeholder="MM/AA" pattern="^(0[1-9]|1[0-2])\/\d{2}$" required>
-            </p>
-            <p>
-                <label for="cvv">CVV:</label><br>
-                <input type="text" id="cvv" name="cvv" placeholder="123" pattern="[0-9]{3}" maxlength="3" title="Ingrese un CVV válido de 3 dígitos" required>
-            </p>
 
-            <button type="submit" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; cursor: pointer;">
-                Confirmar pago
-            </button>
+                <label for="fecha">Fecha de expiración</label>
+                <input type="text" id="fecha" name="fecha" placeholder="MM/AA" required>
 
-            <a href="{{ path('pago_planes') }}">
-                Volver a planes
-            </a>
-        </form>
-    </div>
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" name="cvv" placeholder="123" required>
+
+                <button type="submit" class="btn-confirmar">
+                    Confirmar pago
+                </button>
+
+                <a class="volver" href="{{ path('pago_planes') }}">
+                    Volver a planes
+                </a>
+            </form>
+        </div>
+
+    </section>
+
+    <section class="checkout-info">
+        <p>
+            El pago es totalmente seguro y los créditos se añadirán automáticamente a tu cuenta
+            tras la confirmación. No almacenamos datos de tarjetas ni información sensible.
+            <br><br>
+            Los créditos no caducan y pueden utilizarse en cualquiera de los servicios de Oretan-IA.
+            Para cualquier duda, puedes contactar con nuestro soporte desde tu perfil.
+        </p>
+    </section>
+
     <script src="{{ asset('script/validacion-tarjeta.js') }}"></script>
+
 {% endblock %}
