@@ -1,0 +1,117 @@
+/* ================= PLANES ================= */
+
+.planes-titulo {
+    text-align: center;
+    margin: 80px 0 50px;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.planes-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 120px;
+}
+
+/* ---------- TARJETA ---------- */
+
+.plan-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 280px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    border: 2px solid transparent;
+}
+
+/* Destacado (plan recomendado) */
+.plan-card.destacado {
+    border-color: #e10600;
+    transform: scale(1.05);
+}
+
+/* ---------- TEXTO ---------- */
+
+.plan-card h2 {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+
+.plan-card .creditos {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.plan-card .precio {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e10600;
+    margin-bottom: 30px;
+}
+
+/* ---------- BOTÓN ---------- */
+
+.btn-plan {
+    display: inline-block;
+    padding: 14px 28px;
+    background: #000;
+    color: #fff;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.btn-plan:hover {
+    background: #333;
+}
+
+/* ================= MODO OSCURO ================= */
+
+body.oscuro .planes-titulo {
+    color: #ffffff;
+}
+
+body.oscuro .plan-card {
+    background: #2c2c2c;
+    color: #f1f1f1;
+    box-shadow: 0 6px 20px rgba(255,255,255,0.06);
+}
+
+body.oscuro .plan-card .precio {
+    color: #ffd700;
+}
+
+body.oscuro .btn-plan {
+    background: #f1f1f1;
+    color: #000;
+}
+
+body.oscuro .btn-plan:hover {
+    background: #ddd;
+}
+
+/* ================= TEXTO INFORMATIVO PLANES ================= */
+
+.planes-info {
+    max-width: 900px;
+    margin: 40px auto 120px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.6;
+    padding: 0 20px;
+}
+
+.planes-info p {
+    margin: 0;
+}
+
+/* ---------- MODO OSCURO ---------- */
+
+body.oscuro .planes-info {
+    color: #bbbbbb;
+}
