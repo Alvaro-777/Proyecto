@@ -92,41 +92,45 @@ class ChatbotController extends AbstractController
 
     #[Route('/chatbotia/enviar', name: 'chatbotia_enviar', methods: ['POST'])]
     public function enviarMensaje(
-        Request                $request,
-        SessionInterface       $session,
-        UsuarioRepository      $usuarioRepository,
-        IARepository           $iaRepository,
+        Request $request,
+        SessionInterface $session,
+        UsuarioRepository $usuarioRepository,
+        IARepository $iaRepository,
         EntityManagerInterface $entityManager
-    ): Response
-    {
+    ): Response {
         $userId = $session->get('user-id');
         $usuario = $userId ? $usuarioRepository->find($userId) : null;
 
         if (empty($userId) || !$usuario) {
-            return $this->render('index.html.twig');
+            return $this->redirectToRoute('inicio');
         }
 
+        header('Content-Type: application/json; charset=utf-8');
+        setlocale(LC_ALL, 'es_ES.UTF-8', 'esp.UTF-8', 'ESP.UTF-8');
         $mensajeUsuario = trim($request->request->get('mensaje', ''));
         if (empty($mensajeUsuario)) {
             return $this->json(['error' => 'El mensaje no puede estar vacío'], 400);
         }
 
-        $usuario = $usuarioRepository->find($userId);
-
         if ($usuario->getCreditos() <= 0) {
             $this->addFlash('error', 'No tienes créditos suficientes para usar este servicio.');
-            return $this->render('planes.html.twig', [
-                'logado' => !empty($request->getSession()->get('user-id'))
-            ]);
+            return $this->redirectToRoute('planes');
         }
 
-        // Guardar historial en base de datos
         $ia = $iaRepository->find(3);
         if (!$ia) {
             return $this->json(['error' => 'Servicio de IA no disponible'], 500);
         }
 
-        // Ejecutar script de Python
+        // Desmarcar reinicio al enviar mensaje
+        $session->remove('chatbot_reiniciado_' . $userId);
+
+        // Debug detallado
+        error_log("=== DEBUG CHATBOT ===");
+        error_log("Ruta del script: " . self::PYTHON_SCRIPT);
+        error_log("Archivo existe: " . (file_exists(self::PYTHON_SCRIPT) ? 'SÍ' : 'NO'));
+        error_log("Mensaje usuario: " . $mensajeUsuario);
+
         $pythonBin = strtoupper(substr(PHP_OS, 0, 3)) === 'WIN' ? 'py -3' : 'python3';
         $comando = sprintf(
             '%s %s %s 2>&1',
@@ -135,12 +139,33 @@ class ChatbotController extends AbstractController
             escapeshellarg($mensajeUsuario)
         );
 
+        error_log("Comando: " . $comando);
+
+        // Ejecutar y capturar salida y errores
         $salida = shell_exec($comando);
-        if (!$salida) {
-            return $this->json(['error' => 'Error al comunicarse con el chatbot'], 500);
+        error_log("Salida: " . ($salida ?: 'VACÍO'));
+        error_log("=== FIN DEBUG ===");
+
+        if (!$salida || trim($salida) === '') {
+            return $this->json(['error' => 'El chatbot no respondió'], 500);
         }
 
-        $respuestaChatbot = trim($salida);
+// Limpiar y convertir codificación
+        $salida = trim($salida);
+// Eliminar caracteres de control
+        $salida = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $salida);
+// Convertir a UTF-8 válido
+        if (!mb_check_encoding($salida, 'UTF-8')) {
+            $salida = mb_convert_encoding($salida, 'UTF-8', 'Windows-1252');
+        }
+        $respuestaChatbot = $salida;
+
+// Verificar que el JSON será válido
+        if (json_encode(['test' => $respuestaChatbot]) === false) {
+            error_log("Error: No se puede codificar la respuesta en JSON");
+            return $this->json(['error' => 'Error en la respuesta del chatbot'], 500);
+        }
+
 
         $mensajeCombinado = "[USUARIO] " . $mensajeUsuario . "\n[ASISTENTE] " . $respuestaChatbot;
 
@@ -153,7 +178,6 @@ class ChatbotController extends AbstractController
         $historial->setIp($request->getClientIp());
         $entityManager->persist($historial);
 
-        // Descontar crédito y guardar
         $usuario->setCreditos($usuario->getCreditos() - 1);
         $entityManager->persist($usuario);
         $entityManager->flush();

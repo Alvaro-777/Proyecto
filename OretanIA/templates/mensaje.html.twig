@@ -58,6 +58,12 @@
     {{ parent() }}
     {% set userId = app.session.get('user-id') %}
     {% if userId and userId != '' %}
+        {# Definir las rutas antes del script #}
+        <script>
+            const CHATBOT_ENVIAR_URL = '{{ path('chatbotia_enviar') }}';
+            const CHATBOT_INICIAL_URL = '{{ path('chatbotia_inicial') }}';
+            const CHATBOT_REINICIAR_URL = '{{ path('chatbotia_reiniciar') }}';
+        </script>
         <script src="{{ asset('script/chatbot.js') }}"></script>
     {% endif %}
 {% endblock %}
