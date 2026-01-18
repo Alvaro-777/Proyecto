@@ -1,48 +1,66 @@
 {% extends 'base.html.twig' %}
 {% block title %}Planes de Créditos{% endblock %}
-{% block body %}
-    <h1>Elige tu plan</h1>
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/planes.css') }}">
 
-    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
-        <h2>Básico</h2>
-        <p><strong>500 créditos</strong></p>
-        <p>5 €</p>
-        <a href="
-                {% if logado %}
-                    {{ path('pago_checkout', {'plan': 1}) }}
-                {% else %}
-                    {{ path('login') }}
-                {% endif %}
-            ">
-            Comprar
-        </a>
-    </div>
-    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
-        <h2>Pro</h2>
-        <p><strong>1000 + 200 créditos</strong></p>
-        <p>10 €</p>
-        <a href="
-                {% if logado %}
-                    {{ path('pago_checkout', {'plan' : 2}) }}
-                {% else %}
-                    {{ path('login') }}
-                {% endif %}
-            ">
-            Comprar
-        </a>
-    </div>
-    <div style="border: 1px solid #ccc; padding: 15px; margin: 10px; display: inline-block; width: 250px;">
-        <h2>Pro</h2>
-        <p><strong>1500 + 500 créditos</strong></p>
-        <p>10 €</p>
-        <a href="
-                {% if logado %}
-                    {{ path('pago_checkout', {'plan' : 3}) }}
-                {% else %}
-                    {{ path('login') }}
-                {% endif %}
-            ">
-            Comprar
-        </a>
-    </div>
+{% endblock %}
+
+{% block body %}
+
+    <h1 class="planes-titulo">Elige tu plan</h1>
+
+    <section class="planes-container">
+
+        <article class="plan-card">
+            <h2>Básico</h2>
+            <p class="creditos"><strong>500 créditos</strong></p>
+            <p class="precio">5 €</p>
+            <a class="btn-plan" href="
+            {% if logado %}
+                {{ path('pago_checkout', {'plan': 1}) }}
+            {% else %}
+                {{ path('login') }}
+            {% endif %}
+        ">Comprar</a>
+        </article>
+
+        <article class="plan-card destacado">
+            <h2>Pro</h2>
+            <p class="creditos"><strong>1000 + 200 créditos</strong></p>
+            <p class="precio">10 €</p>
+            <a class="btn-plan" href="
+            {% if logado %}
+                {{ path('pago_checkout', {'plan': 2}) }}
+            {% else %}
+                {{ path('login') }}
+            {% endif %}
+        ">Comprar</a>
+        </article>
+
+        <article class="plan-card">
+            <h2>Premium</h2>
+            <p class="creditos"><strong>1500 + 500 créditos</strong></p>
+            <p class="precio">15 €</p>
+            <a class="btn-plan" href="
+            {% if logado %}
+                {{ path('pago_checkout', {'plan': 3}) }}
+            {% else %}
+                {{ path('login') }}
+            {% endif %}
+        ">Comprar</a>
+        </article>
+
+    </section>
+
+    <section class="planes-info">
+        <p>
+            Los créditos adquiridos pueden utilizarse en cualquiera de los servicios de Oretan-IA,
+            incluyendo generación de audio, predicciones y chatbots inteligentes.
+            <br><br>
+            Los créditos no caducan y se descuentan automáticamente según el uso de cada herramienta.
+            Puedes ampliar tu plan en cualquier momento desde tu perfil.
+        </p>
+    </section>
+
+
 {% endblock %}

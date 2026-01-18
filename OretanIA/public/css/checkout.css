@@ -1,0 +1,167 @@
+/* ================= CHECKOUT ================= */
+
+.checkout-titulo {
+    text-align: center;
+    margin: 60px 0 40px;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #111;
+}
+
+/* -------- CONTENEDOR PRINCIPAL -------- */
+
+.checkout-container {
+    max-width: 1000px;            /* ⬅ MÁS ANCHO */
+    margin: 0 auto;
+    padding: 45px 70px;           /* ⬅ MÁS HORIZONTAL, MENOS VERTICAL */
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+/* -------- RESUMEN -------- */
+
+.checkout-resumen {
+    margin-bottom: 35px;          /* ⬅ menos espacio */
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.checkout-resumen h2 {
+    font-size: 1.5rem;
+    margin-bottom: 18px;
+}
+
+.checkout-resumen p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.checkout-resumen .descuento {
+    margin-top: 12px;
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.checkout-resumen .total {
+    margin-top: 18px;
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.checkout-resumen .total span {
+    color: #e10600;
+}
+
+/* -------- MÉTODO DE PAGO -------- */
+
+.checkout-pago h3 {
+    font-size: 1.4rem;
+    margin-bottom: 22px;
+}
+
+/* -------- FORMULARIO -------- */
+
+.checkout-pago form {
+    display: grid;                         /* ⬅ layout en grid */
+    grid-template-columns: 1fr 1fr;       /* ⬅ dos columnas */
+    gap: 22px 30px;
+}
+
+/* Tarjeta ocupa todo el ancho */
+.checkout-pago .campo-tarjeta {
+    grid-column: span 2;
+}
+
+.checkout-pago label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.checkout-pago input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 12px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background: #fafafa;
+}
+
+/* -------- BOTÓN -------- */
+
+.btn-confirmar {
+    grid-column: span 2;
+    margin-top: 15px;
+    padding: 16px;
+    background: linear-gradient(135deg, #000, #222);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-confirmar:hover {
+    background: linear-gradient(135deg, #111, #333);
+}
+
+/* -------- VOLVER -------- */
+
+.volver {
+    grid-column: span 2;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    text-decoration: none;
+}
+
+/* -------- TEXTO LEGAL -------- */
+
+.checkout-info {
+    max-width: 1000px;
+    margin: 40px auto 120px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ================= MODO OSCURO ================= */
+
+body.oscuro .checkout-titulo {
+    color: #ffffff;
+}
+
+body.oscuro .checkout-container {
+    background: #2b2b2b;
+    color: #f1f1f1;
+    box-shadow: 0 10px 28px rgba(255,255,255,0.05);
+}
+
+body.oscuro .checkout-resumen {
+    border-bottom: 1px solid #444;
+}
+
+body.oscuro .checkout-pago input {
+    background: #3a3a3a;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+body.oscuro .btn-confirmar {
+    background: linear-gradient(135deg, #f1f1f1, #ddd);
+    color: #000;
+}
+
+body.oscuro .btn-confirmar:hover {
+    background: #e0e0e0;
+}
+
+body.oscuro .volver,
+body.oscuro .checkout-info {
+    color: #bbb;
+}

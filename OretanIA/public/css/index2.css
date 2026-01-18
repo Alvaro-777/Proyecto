@@ -1,0 +1,115 @@
+/* ===== FOOTER COMO SECTION ===== */
+.footer-section {
+    background: #000;
+    color: #fff;
+    padding: 60px 20px 0;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-col h3,
+.footer-col h4 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.footer-col p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    background: #e10600;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+h1.titulo2 {
+    text-align: center;     /* centrado horizontal */
+    margin: 60px 0;         /* espacio arriba y abajo (normal y limpio) */
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #111;
+}
+
+body.oscuro h1.titulo2 {
+    color: #ffffff;
+}
+
+/* ===== BANNER FINAL CON IMAGEN ===== */
+.banner-final {
+    background-image: url("../imagenes/baner2.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    position: relative;
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px;
+    margin-top: 80px;
+}
+
+/* Capa oscura para que el texto se lea bien */
+.banner-final::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 0;
+}
+
+/* Texto por encima del overlay */
+.banner-final h2,
+.banner-final p {
+    position: relative;
+    z-index: 1;
+}
+
+.banner-final h2 {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.banner-final p {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}

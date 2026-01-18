@@ -1,9 +1,74 @@
 {% extends 'base.html.twig' %}
-{% block title %}Perfil{% endblock %}
-{% block cabecera %} Perfil de Usuario {% endblock %}
-{% block head %}
 
-{% endblock %}
+{% block title %}Perfil{% endblock %}
+{% block cabecera %}Perfil de Usuario{% endblock %}
+
 {% block body %}
+
+    <section class="perfil-container">
+
+        <!-- BLOQUE SUPERIOR -->
+        <section class="perfil-card">
+            <div class="perfil-header">
+                <div class="perfil-avatar">
+                    <span>{{ app.session.get('user-nombre')|default('U')|slice(0,1)|upper }}</span>
+                </div>
+
+                <div class="perfil-datos">
+                    <h2>{{ app.session.get('user-nombre')|default('Usuario') }}</h2>
+                    <p class="perfil-email">{{ app.session.get('user-email')|default('email@ejemplo.com') }}</p>
+                </div>
+            </div>
+
+            <div class="perfil-info">
+                <div class="info-item">
+                    <span>Créditos disponibles</span>
+                    <strong>{{ creditos|default(0) }}</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Plan actual</span>
+                    <strong>{{ plan|default('Gratis') }}</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Miembro desde</span>
+                    <strong>{{ fecha_registro|default('—') }}</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- ACCIONES -->
+        <section class="perfil-acciones">
+            <a href="{{ path('pago_planes') }}" class="btn-primario">
+                Comprar créditos
+            </a>
+
+            <a href="{{ path('logout') }}" class="btn-secundario">
+                Cerrar sesión
+            </a>
+        </section>
+
+        <!-- HISTORIAL (PREPARADO PARA FUTURO) -->
+        <section class="perfil-historial">
+            <h3>Actividad reciente</h3>
+
+            {% if historial is defined and historial|length > 0 %}
+                <ul class="historial-lista">
+                    {% for item in historial %}
+                        <li>
+                            <span class="historial-fecha">{{ item.fecha }}</span>
+                            <span class="historial-texto">{{ item.descripcion }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="perfil-vacio">
+                    Aún no hay actividad registrada.
+                </p>
+            {% endif %}
+        </section>
+
+    </section>
 
 {% endblock %}
