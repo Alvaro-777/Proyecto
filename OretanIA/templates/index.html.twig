@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block head %}
     <link rel="stylesheet" href="{{ asset('css/index.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/index2.css') }}">
 {% endblock %}
 {% block title %}Oretan-IA{% endblock %}
 {% block body %}
@@ -11,6 +12,8 @@
             <p>Explora el poder de la inteligencia artificial<br>para tus proyectos.</p>
         </div>
     </section>
+
+    <h1 class="titulo2">Elige entre nuestros tres servicios</h1>
 
     <section class="principal">
         <section class="tarjetas">
@@ -52,39 +55,95 @@
 
     <br><br>
 
+    <h1 class="titulo2">Informacion detallada de cada uno de nuestros servicios</h1>
+
     <section class="banner-informativo">
-        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
+        <img src="{{ asset('imagenes/audio-baner_informativo.png') }}" alt="Audio IA">
         <div class="banner-texto">
-            <h2>Sobre Oretan-IA</h2>
-            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
-                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
-                es ofrecer herramientas accesibles y fáciles de usar.</p>
-            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
-                ¡Aprende, experimenta y crea con Oretan-IA!</p>
+            <h2>Audio-IA</h2>
+            <p>Audio-IA transforma texto escrito en audio de forma automática y natural.
+                Permite generar locuciones, narraciones o contenido accesible sin necesidad
+                de grabar la voz manualmente.</p>
+            <p>Es ideal para crear audios educativos, lecturas, explicaciones o contenidos
+                multimedia de manera rápida, sencilla y eficiente.</p>
         </div>
     </section>
 
-    <section class="banner-informativo">
-        <div class="banner-texto">
-            <h2>Sobre Oretan-IA</h2>
-            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
-                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
-                es ofrecer herramientas accesibles y fáciles de usar.</p>
-            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
-                ¡Aprende, experimenta y crea con Oretan-IA!</p>
-        </div>
-        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
-    </section>
 
     <section class="banner-informativo">
-        <img src="{{ asset('imagenes/IA-2.jpg') }}" alt="Banner informativo">
         <div class="banner-texto">
-            <h2>Sobre Oretan-IA</h2>
-            <p>Oretan-IA es una plataforma diseñada para acercar la inteligencia artificial a cualquier usuario.
-                Desde generación de audio, predicciones basadas en datos hasta chatbots inteligentes, nuestra misión
-                es ofrecer herramientas accesibles y fáciles de usar.</p>
-            <p>Explora nuestras secciones y descubre cómo la IA puede mejorar tu productividad, creatividad y aprendizaje.
-                ¡Aprende, experimenta y crea con Oretan-IA!</p>
+            <h2>Predict-IA</h2>
+            <p>Predict-IA analiza datos históricos para detectar patrones y generar
+                predicciones basadas en información real.</p>
+            <p>Esta herramienta ayuda a anticipar resultados, apoyar la toma de decisiones
+                y obtener conclusiones útiles a partir de datos, de forma clara y comprensible.</p>
+        </div>
+        <img src="{{ asset('imagenes/predict-baner_informativo.png.jpg') }}" alt="Predict IA">
+    </section>
+
+
+    <section class="banner-informativo">
+        <img src="{{ asset('imagenes/chat-bot-baner_informativo.jpg') }}" alt="Chatbot IA">
+        <div class="banner-texto">
+            <h2>Chatbot-IA</h2>
+            <p>Chatbot-IA es una inteligencia artificial diseñada para interactuar con usuarios
+                mediante conversaciones en tiempo real.</p>
+            <p>Puede responder preguntas, ofrecer asistencia y proporcionar información
+                automática, mejorando la comunicación y la experiencia del usuario.</p>
         </div>
     </section>
+
+    <section class="banner-final">
+        <h2>Impulsa tus proyectos con Inteligencia Artificial</h2>
+        <p>
+            Oretan-IA reúne herramientas de audio, predicción y conversación inteligente
+            diseñadas para facilitar tu trabajo, aprendizaje y creatividad.
+        </p>
+    </section>
+
+    <section class="footer-section">
+        <div class="footer-contenido">
+
+            <div class="footer-col logo-col">
+                <h3>Oretan-IA</h3>
+                <p>
+                    Plataforma de inteligencia artificial orientada a la generación de audio,
+                    análisis de datos y chatbots inteligentes.
+                </p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Servicios</h4>
+                <ul>
+                    <li><a href="{{ path('audio') }}">Audio-IA</a></li>
+                    <li><a href="{{ path('predictia') }}">Predict-IA</a></li>
+                    <li><a href="{{ path('chatbotia') }}">Chatbot-IA</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Aviso legal</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Política de cookies</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Contacto</h4>
+                <p>Email: contacto@oretan-ia.com</p>
+                <p>España</p>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © {{ "now"|date("Y") }} Oretan-IA · Todos los derechos reservados
+        </div>
+    </section>
+
+
+
+
 {% endblock %}

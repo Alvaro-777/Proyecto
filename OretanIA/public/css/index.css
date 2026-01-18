@@ -46,8 +46,6 @@ body {
     font-size: 1.2rem;
 }
 
-
-
 /* ------------------- Banner informativo ------------------- */
 .banner-informativo {
     position: relative;
@@ -59,6 +57,8 @@ body {
     padding: 40px 20px;
     border-radius: 15px;
     overflow: hidden;
+    margin: 40px auto;
+    max-width: 1200px;
 }
 
 .banner-informativo img {
@@ -84,48 +84,6 @@ body {
     margin-bottom: 10px;
 }
 
-/* ------------------- Elementos decorativos ------------------- */
-.banner-informativo .decorativos {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-.banner-informativo .decorativo {
-    position: absolute;
-    display: block;
-}
-
-.banner-informativo .circulo {
-    width: 30px;
-    height: 30px;
-    background-color: rgba(76, 175, 80, 0.3);
-    border-radius: 50%;
-    top: 10%;
-    left: 15%;
-}
-
-.banner-informativo .estrella {
-    width: 25px;
-    height: 25px;
-    background-color: rgba(255, 193, 7, 0.3);
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    top: 40%;
-    left: 70%;
-}
-
-.banner-informativo .linea {
-    width: 100px;
-    height: 3px;
-    background-color: rgba(33, 150, 243, 0.3);
-    top: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
 /* ------------------- Modo oscuro ------------------- */
 body.oscuro {
     background-color: #121212;
@@ -135,19 +93,6 @@ body.oscuro {
 body.oscuro .hero-texto h2,
 body.oscuro .hero-texto p {
     color: #fff;
-}
-
-body.oscuro .tarjeta {
-    background-color: #1e1e1e;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-body.oscuro .tarjeta h3 {
-    color: #e0e0e0;
-}
-
-body.oscuro .tarjeta p {
-    color: #ccc;
 }
 
 body.oscuro .banner-informativo {
@@ -162,40 +107,26 @@ body.oscuro .banner-informativo p {
     color: #ccc;
 }
 
-body.oscuro .banner-informativo .circulo {
-    background-color: rgba(76, 175, 80, 0.5);
-}
-
-body.oscuro .banner-informativo .estrella {
-    background-color: rgba(255, 193, 7, 0.5);
-}
-
-body.oscuro .banner-informativo .linea {
-    background-color: rgba(33, 150, 243, 0.5);
-}
-
 /* ============ CONTENEDOR TARJETAS ============ */
 
 .tarjetas {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap; /* por si en móvil baja */
+    flex-wrap: wrap;
     padding: 40px 20px;
 }
 
-/* ============ TARJETA (SOLO IMAGEN) ============ */
+/* ============ TARJETA (IMAGEN + TEXTO FUERA) ============ */
 
 .tarjeta {
-
     width: 220px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* sin hover ni animaciones */
+/* Sin animaciones */
 .tarjeta,
 .tarjeta:hover {
     transform: none !important;
@@ -209,11 +140,8 @@ body.oscuro .banner-informativo .linea {
     display: block;
 }
 
-/* ============ TEXTO FUERA DE LA CAJA ============ */
-
+/* Texto */
 .tarjeta .info {
-    background: transparent;
-    box-shadow: none;
     padding: 12px 6px 0;
     text-align: center;
 }
@@ -234,11 +162,7 @@ body.oscuro .banner-informativo .linea {
     padding-bottom: 10px;
 }
 
-/* -------- MODO OSCURO -------- */
-
-body.oscuro .tarjeta {
-    background: #2c2c2c;
-}
+/* -------- MODO OSCURO TARJETAS -------- */
 
 body.oscuro .tarjeta .info h3 {
     color: #f1f1f1;
