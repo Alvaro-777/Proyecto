@@ -93,3 +93,9 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error al generar el audio con gTTS: {e}", file=sys.stderr)
         sys.exit(1)
+
+
+"""
+pip install gTTS PyPDF2 python-docx
+
+"""
