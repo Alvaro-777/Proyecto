@@ -1,0 +1,69 @@
+{# mensaje.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block title %}Chatbot-IA - Oretan-IA{% endblock %}
+
+{% block head  %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/chatbot.css') }}">
+{% endblock %}
+
+{% block body %}
+    {% set userId = app.session.get('user-id') %}
+
+    {% if not userId or userId == '' %}
+        {# Usuario no logueado: redirigir #}
+        <script>
+            window.location.href = '{{ path('/')|e('js') }}';
+        </script>
+        <noscript>
+            <meta http-equiv="refresh" content="0; url={{ path('/')|e('html_attr') }}">
+            <p>Redirigiendo... <a href="{{ path('/') }}">Haz clic aquí si no se redirige automáticamente</a>.</p>
+        </noscript>
+    {% else %}
+        {# Usuario logueado: mostrar chat #}
+        <div class="chat-container">
+            <h1>Chatbot-IA</h1>
+
+            <div class="chat-info">
+                <span>Créditos disponibles: <strong>{{ creditos }}</strong></span>
+                <button id="reiniciar-chat" class="btn btn-sm btn-secondary">Reiniciar chat</button>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                {% for mensaje in mensajes_iniciales %}
+                    <div class="mensaje mensaje-{{ mensaje.tipo }}" data-timestamp="{{ mensaje.timestamp }}">
+                        <div class="mensaje-header">
+                            {% if mensaje.tipo == 'user' %}
+                                Tú
+                            {% else %}
+                                Chatbot-IA
+                            {% endif %}
+                            {% if mensaje.timestamp %}<small>({{ mensaje.timestamp }})</small>{% endif %}
+                        </div>
+                        <div class="mensaje-contenido">{{ mensaje.contenido|nl2br }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="chat-input">
+                <input type="text" id="mensaje-usuario" placeholder="Escribe tu mensaje..." maxlength="500">
+                <button id="enviar-mensaje" class="btn btn-primary">Enviar</button>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% set userId = app.session.get('user-id') %}
+    {% if userId and userId != '' %}
+        {# Definir las rutas antes del script #}
+        <script>
+            const CHATBOT_ENVIAR_URL = '{{ path('chatbotia_enviar') }}';
+            const CHATBOT_INICIAL_URL = '{{ path('chatbotia_inicial') }}';
+            const CHATBOT_REINICIAR_URL = '{{ path('chatbotia_reiniciar') }}';
+        </script>
+        <script src="{{ asset('script/chatbot.js') }}"></script>
+    {% endif %}
+{% endblock %}
