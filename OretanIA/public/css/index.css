@@ -115,7 +115,7 @@ body.oscuro .banner-informativo p {
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
-    padding: 40px 20px 90px;
+    padding: 40px 20px 200px; /* espacio inferior para el texto */
 }
 
 /* ============ TARJETA ============ */
@@ -125,67 +125,76 @@ body.oscuro .banner-informativo p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: relative;
-}
-
-/* Sin animaciones en tarjeta */
-.tarjeta,
-.tarjeta:hover {
-    transform: none !important;
-    transition: none !important;
+    cursor: pointer;
 }
 
 /* Imagen */
 .tarjeta img {
     width: 100%;
-    height: auto;
     display: block;
 }
 
-/* ============ TEXTO OCULTO + ANIMACIÓN ============ */
+/* ============ TITULOS SIEMPRE VISIBLES ============ */
 
-.tarjeta .info {
-    position: absolute;
-    top: 110%;
-    left: 50%;
-    transform: translate(-50%, 20px);
-    opacity: 0;
-    pointer-events: none;
-    text-align: center;
-    width: 260px;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-/* Mostrar texto al hover */
-.tarjeta:hover .info {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-/* Título */
-.tarjeta .info h3 {
-    margin: 8px 0 4px;
-    font-size: 1.2rem;
+.tarjeta h3 {
+    margin-top: 12px;
+    font-size: 1.15rem;
     font-weight: 600;
-    color: #000;
+    text-align: center;
+    transition: color 0.25s ease, transform 0.25s ease;
 }
 
-/* Descripción */
-.tarjeta .info p {
-    margin: 0;
-    font-size: 0.95rem;
-    color: #555;
-    padding-bottom: 10px;
+/* Resalte del título en hover */
+.tarjeta:hover h3 {
+    color: #007bff;
+    transform: scale(1.05);
 }
 
-/* -------- MODO OSCURO TARJETAS -------- */
+/* -------- MODO OSCURO TITULOS -------- */
 
-body.oscuro .tarjeta .info h3 {
+body.oscuro .tarjeta h3 {
     color: #f1f1f1;
 }
 
-body.oscuro .tarjeta .info p {
-    color: #ccc;
+body.oscuro .tarjeta:hover h3 {
+    color: #66aaff;
 }
 
+/* ============ DESCRIPCION CENTRAL ============ */
+
+.descripcion-central {
+    position: absolute;
+    top: 65%; /* Ajusta este porcentaje para centrar verticalmente */
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(220px * 3 + 60px);
+    max-width: 90vw;
+    text-align: center;
+}
+
+/* Cada texto inicialmente oculto */
+.descripcion-central .texto {
+    opacity: 0;
+    transform: translateY(20px); /* empieza un poco más abajo */
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    position: absolute;
+    left: 0;
+    right: 0;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* Mostrar texto correspondiente al hacer hover */
+.tarjeta.audio:hover ~ .descripcion-central .texto.audio,
+.tarjeta.predict:hover ~ .descripcion-central .texto.predict,
+.tarjeta.chatbot:hover ~ .descripcion-central .texto.chatbot {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* -------- MODO OSCURO DESCRIPCION -------- */
+
+body.oscuro .descripcion-central .texto {
+    color: #ccc;
+}
 

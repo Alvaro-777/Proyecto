@@ -13,43 +13,62 @@
         </div>
     </section>
 
-    <h1 class="titulo2">Elige entre nuestros tres servicios</h1>
+    <h1 class="titulo3">Elige entre nuestros tres servicios</h1>
 
     <section class="principal">
         <section class="tarjetas">
 
-            <article class="tarjeta">
+            <article class="tarjeta audio">
                 <a href="{{ path('audio') }}">
                     <img src="{{ asset('imagenes/audio-ia.png') }}" alt="Audio IA">
                 </a>
                 <div class="info">
                     <h3>Audio-IA</h3>
-                    <p>Convierte texto en voz de forma automática.</p>
                 </div>
             </article>
 
-            <article class="tarjeta">
+            <article class="tarjeta predict">
                 <a href="{% if logado %}{{ path('predictia') }}{% else %}{{ path('login') }}{% endif %}">
                     <img src="{{ asset('imagenes/predict-ia.png') }}" alt="Predict IA">
                 </a>
                 <div class="info">
                     <h3>Predict-IA</h3>
-                    <p>Analiza datos y genera predicciones.</p>
                 </div>
             </article>
 
-            <article class="tarjeta">
+            <article class="tarjeta chatbot">
                 <a href="{% if logado %}{{ path('chatbotia') }}{% else %}{{ path('login') }}{% endif %}">
                     <img src="{{ asset('imagenes/chatbot-ia.png') }}" alt="Chatbot IA">
                 </a>
                 <div class="info">
                     <h3>Chatbot-IA</h3>
-                    <p>Conversaciones automáticas en tiempo real.</p>
                 </div>
             </article>
 
+            <!-- TEXTO CENTRAL -->
+            <div class="descripcion-central">
+                <p class="texto audio">
+                    Esta inteligencia artificial convierte texto en audio, permitiendo generar voces de manera
+                    automática a partir de lo que se escribe. Es útil para crear narraciones, explicaciones,
+                    audiolibros o contenido accesible de forma rápida y sencilla, sin necesidad de grabar la voz
+                    manualmente.
+                </p>
+                <p class="texto predict">
+                    Esta inteligencia artificial analiza datos previamente proporcionados para identificar patrones y
+                    realizar predicciones. Se utiliza para anticipar resultados, apoyar la toma de decisiones y
+                    obtener conclusiones basadas en información histórica.
+                </p>
+
+                <p class="texto chatbot">
+                    Este chatbot es una inteligencia artificial diseñada para interactuar con personas mediante
+                    conversaciones, respondiendo preguntas, ofreciendo ayuda y proporcionando información de forma
+                    automática y en tiempo real.
+                </p>
+            </div>
+
         </section>
     </section>
+
 
     {# ------------------- Banner informativo adicional ------------------- #}
 
