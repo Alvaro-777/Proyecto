@@ -28,7 +28,7 @@
             </article>
 
             <article class="tarjeta predict">
-                <a href="{% if logado %}{{ path('home') }}{% else %}{{ path('login') }}{% endif %}">
+                <a href="{% if logado %}{{ path('predictia') }}{% else %}{{ path('login') }}{% endif %}">
                     <img src="{{ asset('imagenes/predict-ia.png') }}" alt="Predict IA">
                 </a>
                 <div class="info">
@@ -37,7 +37,7 @@
             </article>
 
             <article class="tarjeta chatbot">
-                <a href="{% if logado %}{{ path('home') }}{% else %}{{ path('login') }}{% endif %}">
+                <a href="{% if logado %}{{ path('chatbotia') }}{% else %}{{ path('login') }}{% endif %}">
                     <img src="{{ asset('imagenes/chatbot-ia.png') }}" alt="Chatbot IA">
                 </a>
                 <div class="info">

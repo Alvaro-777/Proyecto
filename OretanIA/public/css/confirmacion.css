@@ -1,35 +1,114 @@
+/* ================= PAGO COMPLETADO ================= */
+
+.pago-exito {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
     text-align: center;
 }
 
+/* Título principal */
+.pago-exito h1 {
+    font-size: 2.6rem;
+    margin-bottom: 30px;
+    color: #1b5e20;
 }
 
+/* Caja principal */
+.pago-exito-box {
+    background: #ffffff;
+    border: 2px solid #2e7d32;
+    border-radius: 16px;
+    padding: 35px 40px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+/* Subtítulo */
+.pago-exito-box h2 {
     font-size: 1.8rem;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    color: #2e7d32;
 }
 
+/* Créditos */
+.pago-exito-box .creditos {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* Mensaje descuento */
+.pago-exito-box .descuento {
+    color: #2e7d32;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+/* Resumen */
+.pago-exito-box .resumen {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0 30px;
+}
+
+.pago-exito-box .resumen p {
+    margin: 6px 0;
     font-size: 1rem;
 }
 
+/* Botón */
+.btn-volver {
     display: inline-block;
+    padding: 12px 26px;
+    background: #3b82f6;
+    color: #ffffff;
+    text-decoration: none;
     font-weight: 600;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
+.btn-volver:hover {
+    background: #2563eb;
     transform: translateY(-2px);
 }
 
 /* ================= MODO OSCURO ================= */
 
+body.oscuro .pago-exito h1 {
+    color: #81c784;
 }
 
+body.oscuro .pago-exito-box {
+    background: #2c2c2c;
+    border-color: #66bb6a;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
 }
 
+body.oscuro .pago-exito-box h2 {
+    color: #81c784;
 }
 
+body.oscuro .pago-exito-box .creditos,
+body.oscuro .pago-exito-box .resumen p {
+    color: #e0e0e0;
 }
 
+body.oscuro .pago-exito-box .resumen {
+    background: #3a3a3a;
 }
 
+body.oscuro .btn-volver {
+    background: #60a5fa;
     color: #000;
 }
 
+body.oscuro .btn-volver:hover {
+    background: #93c5fd;
 }

@@ -30,7 +30,7 @@ class PredictIaController extends AbstractController
         $userId = $session->get('user-id');
         $usuario = $usuarioRepository->find($userId);
         if (empty($userId) || !$usuario) {
-            return $this->redirectToRoute('inicio');
+
         }
         return $this->render('datos.html.twig', [
             'creditos' => $usuario->getCreditos(),
