@@ -16,9 +16,9 @@ class PagoController extends AbstractController
     public function mostrarPlanes(Request $request): Response
     {
         $planes = [
-            1 => ['precio' => 5.00, 'creditos' => 500, 'nombre' => 'Básico'],
-            2 => ['precio' => 10.00, 'creditos' => 1200, 'nombre' => 'Pro (+200 bonus)'],
-            3 => ['precio' => 15.00, 'creditos' => 2000, 'nombre' => 'Premium (+500 bonus)'],
+            1 => ['precio' => 4.99, 'creditos' => 500, 'nombre' => 'Básico'],
+            2 => ['precio' => 9.99, 'creditos' => 1200, 'nombre' => 'Pro (+200 bonus)'],
+            3 => ['precio' => 14.99, 'creditos' => 2000, 'nombre' => 'Premium (+500 bonus)'],
         ];
 
         return $this->render('planes.html.twig', [
@@ -41,9 +41,9 @@ class PagoController extends AbstractController
         $planId = (int)$request->query->get('plan');
 
         $planes = [
-            1 => ['precio' => 5.00, 'creditos' => 500],
-            2 => ['precio' => 10.00, 'creditos' => 1200],
-            3 => ['precio' => 15.00, 'creditos' => 2000],
+            1 => ['precio' => 4.99, 'creditos' => 500],
+            2 => ['precio' => 9.99, 'creditos' => 1200],
+            3 => ['precio' => 14.99, 'creditos' => 2000],
         ];
 
         if (!isset($planes[$planId])) {
