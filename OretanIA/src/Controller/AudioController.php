@@ -134,7 +134,9 @@ class AudioController extends AbstractController
             $historial = new HistorialUsoIA();
             $historial->setUsuario($usuario);
             $historial->setIa($ia);
-            $historial->setArchivo($archivoId);
+            if ($archivoId !== null) {
+                $historial->setArchivo($archivoEntity);
+            }
             $historial->setTextoInput($textoInputHistorial);
             $historial->setFecha(new \DateTime());
             $entityManager->persist($historial);
