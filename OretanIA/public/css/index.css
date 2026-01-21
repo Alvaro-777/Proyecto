@@ -110,23 +110,25 @@ body.oscuro .banner-informativo p {
 /* ============ CONTENEDOR TARJETAS ============ */
 
 .tarjetas {
+    position: relative;
     display: flex;
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
-    padding: 40px 20px;
+    padding: 40px 20px 90px;
 }
 
-/* ============ TARJETA (IMAGEN + TEXTO FUERA) ============ */
+/* ============ TARJETA ============ */
 
 .tarjeta {
     width: 220px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
-/* Sin animaciones */
+/* Sin animaciones en tarjeta */
 .tarjeta,
 .tarjeta:hover {
     transform: none !important;
@@ -140,16 +142,30 @@ body.oscuro .banner-informativo p {
     display: block;
 }
 
-/* Texto */
+/* ============ TEXTO OCULTO + ANIMACIÓN ============ */
+
 .tarjeta .info {
-    padding: 12px 6px 0;
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
     text-align: center;
+    width: 260px;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Mostrar texto al hover */
+.tarjeta:hover .info {
+    opacity: 1;
+    transform: translate(-50%, 0);
 }
 
 /* Título */
 .tarjeta .info h3 {
     margin: 8px 0 4px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     color: #000;
 }
@@ -157,7 +173,7 @@ body.oscuro .banner-informativo p {
 /* Descripción */
 .tarjeta .info p {
     margin: 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #555;
     padding-bottom: 10px;
 }
@@ -171,6 +187,5 @@ body.oscuro .tarjeta .info h3 {
 body.oscuro .tarjeta .info p {
     color: #ccc;
 }
-
 
 
