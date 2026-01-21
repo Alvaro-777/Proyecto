@@ -25,10 +25,11 @@
     text-align: center;
     box-shadow: 0 6px 20px rgba(0,0,0,0.12);
     border: 2px solid transparent;
+    transition: transform 0.3s, border-color 0.3s;
 }
 
-/* Destacado (plan recomendado) */
-.plan-card.destacado {
+/* Hover para mostrar borde rojo y agrandar la tarjeta */
+.plan-card:hover {
     border-color: #e10600;
     transform: scale(1.05);
 }
@@ -94,6 +95,12 @@ body.oscuro .btn-plan:hover {
     background: #ddd;
 }
 
+/* Hover modo oscuro */
+body.oscuro .plan-card:hover {
+    border-color: #ffd700;
+    transform: scale(1.05);
+}
+
 /* ================= TEXTO INFORMATIVO PLANES ================= */
 
 .planes-info {
@@ -115,3 +122,4 @@ body.oscuro .btn-plan:hover {
 body.oscuro .planes-info {
     color: #bbbbbb;
 }
+

@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}Planes de Créditos{% endblock %}
+
 {% block head %}
     <link rel="stylesheet" href="{{ asset('css/planes.css') }}">
-
 {% endblock %}
 
 {% block body %}
@@ -14,7 +15,7 @@
         <article class="plan-card">
             <h2>Básico</h2>
             <p class="creditos"><strong>500 créditos</strong></p>
-            <p class="precio">5 €</p>
+            <p class="precio">4,99 €</p>
             <a class="btn-plan" href="
             {% if logado %}
                 {{ path('pago_checkout', {'plan': 1}) }}
@@ -24,10 +25,10 @@
         ">Comprar</a>
         </article>
 
-        <article class="plan-card destacado">
+        <article class="plan-card">
             <h2>Pro</h2>
             <p class="creditos"><strong>1000 + 200 créditos</strong></p>
-            <p class="precio">10 €</p>
+            <p class="precio">9,99 €</p>
             <a class="btn-plan" href="
             {% if logado %}
                 {{ path('pago_checkout', {'plan': 2}) }}
@@ -40,7 +41,7 @@
         <article class="plan-card">
             <h2>Premium</h2>
             <p class="creditos"><strong>1500 + 500 créditos</strong></p>
-            <p class="precio">15 €</p>
+            <p class="precio">14,99 €</p>
             <a class="btn-plan" href="
             {% if logado %}
                 {{ path('pago_checkout', {'plan': 3}) }}
@@ -61,6 +62,5 @@
             Puedes ampliar tu plan en cualquier momento desde tu perfil.
         </p>
     </section>
-
 
 {% endblock %}
