@@ -92,7 +92,7 @@ class PredictIaController extends AbstractController
                 if (!$usuario) {
                     throw new \RuntimeException('Usuario no encontrado.');
                 }
-                $textoInputHistorial = '"Información introducida por archivo ' . $nombreBase . ' "';
+                $textoInputHistorial = 'Información introducida por archivo ' . $nombreBase;
                 // Guardar en base de datos
                 $archivoEntity = new Archivo();
                 $archivoEntity->setUsuario($usuario);
@@ -111,7 +111,7 @@ class PredictIaController extends AbstractController
             } // Procesar texto
             else {
                 $rutaProcesar = $datosTexto;
-                $textoInputHistorial = $datosTexto;
+                $textoInputHistorial = '"'.$datosTexto.'"';
                 $archivoId = null;
             }
 

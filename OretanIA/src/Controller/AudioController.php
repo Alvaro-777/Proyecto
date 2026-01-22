@@ -80,7 +80,7 @@ class AudioController extends AbstractController
 
             $nombreBase = pathinfo($archivoAdjunto->getClientOriginalName(), PATHINFO_FILENAME);
             $nombreUnico = $this->generarNombreUnico($rutaUsuario, $nombreBase, $extension);
-            $textoInputHistorial = '"Información introducida por archivo '.$nombreBase.' "';
+            $textoInputHistorial = 'Información introducida por archivo '.$nombreBase;
 
             // Gestiones si el usuario está logueado
             $archivoEntity = new Archivo();
@@ -101,7 +101,7 @@ class AudioController extends AbstractController
         } else {
             $usuario = $usuarioRepository->find($userId);
             $rutaProcesar = $textoUsuario;
-            $textoInputHistorial=$textoUsuario;
+            $textoInputHistorial='"'.$textoUsuario.'"';
             $archivoId = null;
         }
 

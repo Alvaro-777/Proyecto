@@ -167,7 +167,7 @@ class ChatbotController extends AbstractController
         }
 
 
-        $mensajeCombinado = "[USUARIO] " . $mensajeUsuario . "\n[ASISTENTE] " . $respuestaChatbot;
+        $mensajeCombinado = '[USUARIO] "' . $mensajeUsuario . '"\n[ASISTENTE] "' . $respuestaChatbot .'"';
 
         $historial = new \App\Entity\HistorialUsoIA();
         $historial->setUsuario($usuario);
