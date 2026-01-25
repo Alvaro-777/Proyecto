@@ -106,7 +106,6 @@ def predecir_serie_temporal(datos_str):
         return (
             f"¿Es posible?: {es_posible}\n"
             f"Confianza: {confianza:.1f}%\n"
-            f"Resultado esperado: {prediccion:,.2f}"
             f"Resultado esperado: {resultado_texto}"
         )
 
