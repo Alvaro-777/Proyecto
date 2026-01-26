@@ -96,6 +96,10 @@ if __name__ == "__main__":
 
 
 """
+sudo apt install ffmpeg -y
+pip3 install pydub gTTS
 pip install gTTS PyPDF2 python-docx
 
+$pythonBin = 'python3';
+$pythonBin = '/var/www/html/OretanIA/venv/bin/python3;
 """
