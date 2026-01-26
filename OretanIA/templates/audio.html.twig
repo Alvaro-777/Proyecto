@@ -11,10 +11,12 @@
         <label class="titulo" for="texto_usuario">Escribe tu texto:</label><br>
         <textarea id="texto_usuario" name="texto_usuario"
                   placeholder="Escribe aquí el texto que deseas convertir a voz...">{{ app.request.request.get('texto_usuario') }}</textarea>
+        {% if logado %}
             <div>
                 <p><label for="archivo_adjunto">Se admiten achivos de los sigientes tipos: (.txt, .pdf, .docx):</label></p>
                 <input type="file" name="archivo_adjunto" id="archivo_adjunto" accept=".txt,.pdf,.docx">
             </div>
+        {% endif %}
         <br>
         <p><input type="submit" value="Generar y Descargar Audio"></p>
         <p class="note">Archivos grandes o textos largos pueden tardar hasta 5 minutos. No cierres la página.</p>
