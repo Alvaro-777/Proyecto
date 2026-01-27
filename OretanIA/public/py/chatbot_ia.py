@@ -59,6 +59,19 @@ if __name__ == "__main__":
 
 
     """
+    apt update
+    apt install -y python3-full python3-venv
+
+cd /var/www/html/OretanIA
+python3 -m venv venv
+
+source venv/bin/activate
+
+pip install openpyxl xlrd google-genai python-dotenv
+
+python3 -m pip install google-genai python-dotenv --break-system-packages
+
+
     # .env
     GEMINI_API_KEY=AIzaTuApiKeyRealAqui
 

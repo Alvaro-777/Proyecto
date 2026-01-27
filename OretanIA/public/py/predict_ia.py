@@ -182,4 +182,8 @@ if __name__ == "__main__":
     py -3 -m pip install openpyxl xlrd
 
     py -3 -m pip install pandas scikit-learn joblib
+
+    python3 -m pip install pandas scikit-learn joblib --break-system-packages
+python3 -m pip install openpyxl xlrd --break-system-packages
+
     """
