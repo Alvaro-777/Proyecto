@@ -11,7 +11,7 @@
         <label class="titulo" for="texto_usuario">Escribe tu texto:</label><br>
         <textarea id="texto_usuario" name="texto_usuario"
                   placeholder="Escribe aquí el texto que deseas convertir a voz...">{{ app.request.request.get('texto_usuario') }}</textarea>
-        {% if logado %}
+        {% if mostrar_adjunto %}
             <div>
                 <p><label for="archivo_adjunto">Se admiten achivos de los sigientes tipos: (.txt, .pdf, .docx):</label></p>
                 <input type="file" name="archivo_adjunto" id="archivo_adjunto" accept=".txt,.pdf,.docx">
