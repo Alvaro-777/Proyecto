@@ -99,10 +99,12 @@ class AudioController extends AbstractController
             $rutaProcesar = $rutaUsuario . $nombreUnico;
 
         } else {
-            $usuario = $usuarioRepository->find($userId);
             $rutaProcesar = $textoUsuario;
-            $textoInputHistorial='"'.$textoUsuario.'"';
-            $archivoId = null;
+            if($esUsuarioLogueado){
+                $usuario = $usuarioRepository->find($userId);
+                $textoInputHistorial='"'.$textoUsuario.'"';
+                $archivoId = null;
+            }
         }
 
         // Ejecutar script de Python
