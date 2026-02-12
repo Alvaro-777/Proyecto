@@ -125,6 +125,10 @@ class PredictIaController extends AbstractController
             );
 
             $salida = shell_exec($comando);
+            $salida = trim($salida);
+            if (!mb_check_encoding($salida, 'UTF-8')) {
+                $salida = mb_convert_encoding($salida, 'UTF-8', 'auto');
+            }
             if (!$salida) {
                 throw new \RuntimeException('Error al ejecutar el modelo de predicción.');
             }

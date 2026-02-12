@@ -3,10 +3,13 @@ import sys
 import os
 import json
 import re
+import io
 import pandas as pd
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from datetime import datetime, timedelta
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 class TipoDato:
     NUMERICO = "numerico"
@@ -171,12 +174,9 @@ if __name__ == "__main__":
 
     entrada = sys.argv[1]
 
-    if os.path.isfile(entrada):
-        resultado = procesar_archivo_series(entrada)
-    else:
-        resultado = predecir_serie_temporal(entrada)
+    resultado = procesar_archivo_series(entrada) if os.path.isfile(entrada) else predecir_serie_temporal(entrada)
 
-    print(resultado)
+    print(resultado.encode('utf-8').decode('utf-8'))
 
     """
     py -3 -m pip install openpyxl xlrd
