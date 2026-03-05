@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('./css/style.css') }}">
-    <link rel="shortcut icon" href="imagenes/logo.ico">
+    <link rel="shortcut icon" href="{{ asset("imagenes/logo.ico") }}">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -42,13 +42,13 @@
     </div>
 
 </header>
-<footer>
-    <p>Información básica: oretan-ia@gmail.com | Tel: 953 123 456 | Redes sociales | Participantes .</p>
-</footer>
 <main>
     {% block body %}
     {% endblock %}
 </main>
+<footer>
+    <p>Información básica: oretan-ia@gmail.com | Tel: 953 123 456 | Redes sociales | Participantes .</p>
+</footer>
 {% block javascripts %}{% endblock %}
 <script>
     // Toggle modo claro/oscuro

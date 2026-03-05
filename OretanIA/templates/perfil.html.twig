@@ -1,74 +1,135 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Perfil{% endblock %}
+{% block head %}
+    <!-- Programmer Art, reemplázame -->
+    <style>
+        #profile-histories>header>h2{
+            display: inline-block;
+        }
+
+        .no-data-notice{
+            font-style: italic;
+        }
+
+        table, td, th {
+            border-collapse: collapse;
+            border: black solid 1px;
+        }
+
+        table {
+            margin: 10px auto;
+            width: 80%;
+        }
+
+        th, td {
+            padding: 5px;
+        }
+
+        th {
+            text-align: center;
+            background-color: lightgray;
+            font-weight: bolder;
+        }
+    </style>
+{% endblock %}
 {% block cabecera %}Perfil de Usuario{% endblock %}
+
 
 {% block body %}
 
-    <section class="perfil-container">
-
-        <!-- BLOQUE SUPERIOR -->
-        <section class="perfil-card">
-            <div class="perfil-header">
-                <div class="perfil-avatar">
-                    <span>{{ app.session.get('user-nombre')|default('U')|slice(0,1)|upper }}</span>
-                </div>
-
-                <div class="perfil-datos">
-                    <h2>{{ app.session.get('user-nombre')|default('Usuario') }}</h2>
-                    <p class="perfil-email">{{ app.session.get('user-email')|default('email@ejemplo.com') }}</p>
-                </div>
-            </div>
-
-            <div class="perfil-info">
-                <div class="info-item">
-                    <span>Créditos disponibles</span>
-                    <strong>{{ creditos|default(0) }}</strong>
-                </div>
-
-                <div class="info-item">
-                    <span>Plan actual</span>
-                    <strong>{{ plan|default('Gratis') }}</strong>
-                </div>
-
-                <div class="info-item">
-                    <span>Miembro desde</span>
-                    <strong>{{ fecha_registro|default('—') }}</strong>
-                </div>
-            </div>
-        </section>
-
-        <!-- ACCIONES -->
-        <section class="perfil-acciones">
-            <a href="{{ path('pago_planes') }}" class="btn-primario">
-                Comprar créditos
-            </a>
-
-            <a href="{{ path('logout') }}" class="btn-secundario">
-                Cerrar sesión
-            </a>
-        </section>
-
-        <!-- HISTORIAL (PREPARADO PARA FUTURO) -->
-        <section class="perfil-historial">
-            <h3>Actividad reciente</h3>
-
-            {% if historial is defined and historial|length > 0 %}
-                <ul class="historial-lista">
-                    {% for item in historial %}
-                        <li>
-                            <span class="historial-fecha">{{ item.fecha }}</span>
-                            <span class="historial-texto">{{ item.descripcion }}</span>
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p class="perfil-vacio">
-                    Aún no hay actividad registrada.
-                </p>
-            {% endif %}
-        </section>
-
+    <section id="profile-header">
+        <!--
+            Añadir aquí Nombre, Apellidos, Correo, Id, Créditos, Fecha de registro
+                y formas de editar esos tres primeros campos. A ser posible añadir iconos.
+        -->
     </section>
-
+    <section id="profile-histories">
+        <header>
+            <!--
+                Al pulsar la cabecera de un historial se muestra ese y se esconde el otro
+            -->
+            <h2>Historial de Uso</h2>
+            <h2>Historial de Pago</h2>
+        </header>
+        <article id="profile-use-history">
+            <table id="profile-use-history-table">
+                <thead>
+                    <tr>
+                        <th>IA</th>
+                        <th>Archivo</th>
+                        <th>Texto</th>
+                        <th>Fecha</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for uso in historialUso %}
+                        <tr>
+                            <td>{{ uso.ia.nombre }}</td>
+                            <td>{{ uso.archivo.nombre ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
+                            <td>{{ uso.textoInput ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
+            <!-- El formato de fecha es el de este para que se puedan ordenar alfabeticamente y sea correcto -->
+                            <td>{{ uso.fecha | date("Y/m/d H:i")}}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4" class='no-data-notice'>No has usado ninguna IA aún.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </article>
+        <article id="profile-pay-history">
+            <table id="profile-pay-history-table">
+                <thead>
+                    <tr>
+                        <th>Valido</th>
+                        <th>Método</th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                        <th>Créditos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pago in historialPago %}
+                        <tr>
+                            {% if pago.valido %}
+                                <td>&check;</td>
+                            {% else %}
+                                <td>&cross;</td>
+                            {% endif %}
+                            <td>{{ pago.metodo }}</td>
+            <!-- El formato de fecha es el de este para que se puedan ordenar alfabeticamente y sea correcto -->
+                            <td>{{ pago.fecha | date("Y/m/d H:i")}}</td>
+                            <td>{{ pago.cantidad }}</td>
+                            <td>{{ pago.creditosObtenidos }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="5" class='no-data-notice'>No has realizado ningún pago aún.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </article>
+    </section>
+    <section id="profile-account-settings">
+        <article id="profile-change-password">
+            <!--
+                Aquí va el formulario de cambio de contraseña
+            -->
+        </article>
+        <article id="profile-delete-account">
+            <!--
+                Aquí va el formulario de borrado de cuenta.
+                Debe pedir confirmación.
+                    (Posiblemente un pop-up que esté oculto hasta
+                    que se pulsa el otro botón y contiene el auténtico
+                    botón de borrar cuenta)
+            -->
+        </article>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('script/perfil.js') }}"></script>
 {% endblock %}
