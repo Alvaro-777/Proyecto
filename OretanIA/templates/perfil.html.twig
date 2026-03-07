@@ -4,12 +4,29 @@
 {% block head %}
     <!-- Programmer Art, reemplázame -->
     <style>
-        #profile-histories>header>h2{
-            display: inline-block;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .no-data-notice{
-            font-style: italic;
+        section {
+            margin: 10px 0;
+        }
+
+        article {
+            display: flex;
+            justify-content: center;
+            padding: 20px 50px;
+            margin: 0 auto;
+            width: 80%;
+        }
+        :not(.oscuro) article {
+            background-color: #eaeaea;
+        }
+        .oscuro article {
+            transition: 750ms;
+            background-color: #2c2c2c;
         }
 
         table, td, th {
@@ -18,8 +35,7 @@
         }
 
         table {
-            margin: 10px auto;
-            width: 80%;
+            width: 100%;
         }
 
         th, td {
@@ -28,9 +44,121 @@
 
         th {
             text-align: center;
-            background-color: lightgray;
             font-weight: bolder;
         }
+        :not(.oscuro) th {
+            background-color: lightgray;
+        }
+        .oscuro th {
+            transition: 750ms;
+            background-color: #595959;
+        }
+
+        #profile-header>article {
+            justify-content: flex-start;
+        }
+
+        #profile-header-list {
+            list-style: none;
+        }
+
+        #profile-header-list>li {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding-top: 5px;
+        }
+
+        #profile-histories>header {
+            width: 80%;
+            margin: 10px auto 0;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        #profile-histories>header>h2 {
+            display: inline-block;
+            padding: 10px 17.5px;
+            border-top-right-radius: 10px;
+            border-top-left-radius: 10px;
+        }
+
+        :not(.oscuro) #profile-header-id {
+            content:url("{{ asset('./imagenes/icon-id.png') }}");
+        }
+
+        :not(.oscuro) #profile-header-mail {
+            content:url("{{ asset('./imagenes/icon-mail.png') }}");
+        }
+
+        :not(.oscuro) #profile-header-date {
+            content:url("{{ asset('./imagenes/icon-date.png') }}");
+        }
+
+        :not(.oscuro) #profile-header-credit {
+            content: url("{{ asset('./imagenes/icon-credit.png') }}");
+        }
+
+        .oscuro #profile-header-id {
+            transition: 750ms;
+            content:url("{{ asset('./imagenes/icon-id-darkmode.png') }}");
+        }
+
+        .oscuro #profile-header-mail {
+            transition: 750ms;
+            content:url("{{ asset('./imagenes/icon-mail-darkmode.png') }}");
+        }
+
+        .oscuro #profile-header-date {
+            transition: 750ms;
+            content:url("{{ asset('./imagenes/icon-date-darkmode.png') }}");
+        }
+
+        .oscuro #profile-header-credit {
+            transition: 750ms;
+            content: url("{{ asset('./imagenes/icon-credit-darkmode.png') }}");
+        }
+
+        .icono-dato {
+            width: 20px;
+        }
+
+        /* Clase de la pestaña de historial seleccionada */
+        :not(.oscuro) .active-table-tab {
+            background-color: #eaeaea;
+        }
+        .oscuro .active-table-tab {
+            transition: 750ms;
+            background-color: #2c2c2c;
+        }
+
+        /* Clase de la pestaña de historial no seleccionada */
+        :not(.oscuro) .inactive-table-tab {
+            background-color: lightgray;
+        }
+        .oscuro .inactive-table-tab {
+            transition: 750ms;
+            background-color: #595959;
+        }
+
+        /* Clase que esconde la tabla no seleccionada */
+        .inactive-table {
+            display: none;
+            visibility: hidden;
+        }
+
+        /* Clase de los textos por defecto cuando no hay información */
+        .no-data-notice {
+            font-style: italic;
+        }
+        :not(.oscuro) .no-data-notice {
+            color: gray;
+        }
+        .oscuro .no-data-notice {
+            transition: 750ms;
+            color: #aaaaaa;
+        }
+
     </style>
 {% endblock %}
 {% block cabecera %}Perfil de Usuario{% endblock %}
@@ -39,18 +167,23 @@
 {% block body %}
 
     <section id="profile-header">
-        <!--
-            Añadir aquí Nombre, Apellidos, Correo, Id, Créditos, Fecha de registro
-                y formas de editar esos tres primeros campos. A ser posible añadir iconos.
-        -->
+        <article>
+            <header>
+                <h1>{{ user.nombre }} {{ user.apellido }}</h1>
+                <ul id="profile-header-list">
+                    <li><img id="profile-header-id" class="icono-dato" alt="Id: "> <span> {{ user.id }} </span></li>
+                    <li><img id="profile-header-mail" class="icono-dato" alt="Correo: "> <span> {{ user.correo }} </span></li>
+                    <li><img id="profile-header-date" class="icono-dato" alt="Registro:"> <span> {{ user.fechaRegistro | date('d/m/Y') }} </span></li>
+                    <li><img id="profile-header-credit" class="icono-dato" alt="Creditos:"> <span> {{ user.creditos }} </span></li>
+                </ul>
+
+            </header>
+        </article>
     </section>
     <section id="profile-histories">
         <header>
-            <!--
-                Al pulsar la cabecera de un historial se muestra ese y se esconde el otro
-            -->
-            <h2>Historial de Uso</h2>
-            <h2>Historial de Pago</h2>
+            <h2 class="active-table-tab" id="tab-usos">Historial de Uso</h2>
+            <h2 class="inactive-table-tab" id="tab-pagos">Historial de Pago</h2>
         </header>
         <article id="profile-use-history">
             <table id="profile-use-history-table">
@@ -79,7 +212,7 @@
                 </tbody>
             </table>
         </article>
-        <article id="profile-pay-history">
+        <article class="inactive-table" id="profile-pay-history">
             <table id="profile-pay-history-table">
                 <thead>
                     <tr>
@@ -131,5 +264,5 @@
     </section>
 {% endblock %}
 {% block javascripts %}
-    <script src="{{ asset('script/perfil.js') }}"></script>
+    <script src="{{ asset('./script/perfil.js') }}"></script>
 {% endblock %}
