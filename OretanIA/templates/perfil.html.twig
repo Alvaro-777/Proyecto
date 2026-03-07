@@ -18,8 +18,10 @@
             display: flex;
             justify-content: center;
             padding: 20px 50px;
-            margin: 0 auto;
+            margin: 0 auto 15px;
             width: 80%;
+            border-radius: 20px;
+            box-shadow: black 0 0 20px -10px;
         }
         :not(.oscuro) article {
             background-color: #eaeaea;
@@ -41,10 +43,16 @@
         th, td {
             padding: 5px;
         }
+        th.slim, td.slim {
+            min-width: 50px;
+            width: 50px;
+            text-align: center;
+        }
 
         th {
             text-align: center;
             font-weight: bolder;
+            min-width: 150px;
         }
         :not(.oscuro) th {
             background-color: lightgray;
@@ -82,6 +90,33 @@
             border-top-right-radius: 10px;
             border-top-left-radius: 10px;
         }
+        #profile-histories>article {
+            border-top-left-radius: 0;
+        }
+
+        /* Margen para que la información básica no tape nada */
+        #profile-account-settings {
+            display:flex;
+            gap: 20px;
+            width: 80%;
+            margin: 0 auto 50px;
+        }
+
+        #profile-change-password, #profile-delete-account {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #profile-change-password>form, #profile-delete-account>form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #profile-change-password>form input, #profile-delete-account>form input {
+            width: 250px;
+        }
 
         :not(.oscuro) #profile-header-id {
             content:url("{{ asset('./imagenes/icon-id.png') }}");
@@ -97,6 +132,10 @@
 
         :not(.oscuro) #profile-header-credit {
             content: url("{{ asset('./imagenes/icon-credit.png') }}");
+        }
+
+        :not(.oscuro) .close-button-icon {
+            content: url("{{ asset('./imagenes/icon-close.png') }}");
         }
 
         .oscuro #profile-header-id {
@@ -117,6 +156,10 @@
         .oscuro #profile-header-credit {
             transition: 750ms;
             content: url("{{ asset('./imagenes/icon-credit-darkmode.png') }}");
+        }
+
+        .oscuro .close-button-icon {
+            content: url("{{ asset('./imagenes/icon-close-darkmode.png') }}");
         }
 
         .icono-dato {
@@ -159,13 +202,33 @@
             color: #aaaaaa;
         }
 
+        .disable-copy {
+            font-style: italic;
+            font-weight: bolder;
+            user-select: none;
+        }
+
+        .close-button {
+            border: none;
+            background: none;
+        }
     </style>
 {% endblock %}
 {% block cabecera %}Perfil de Usuario{% endblock %}
 
 
 {% block body %}
+    <section id="profile-error-board">
+        <!-- Aqui van los flashes de error generales -->
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div id="err-{{ loop.index0 }}" class="error-notice">{{ flashMessage }}
+                <button class="close-button" onclick="document.getElementById('err-{{ loop.index0 }}').remove();">
+                    <img class="close-button-icon" alt="X">
+                </button>
+            </div>
+        {% endfor %}
 
+    </section>
     <section id="profile-header">
         <article>
             <header>
@@ -203,8 +266,7 @@
                             <td>{{ uso.ia.nombre }}</td>
                             <td>{{ uso.archivo.nombre ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
                             <td>{{ uso.textoInput ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
-            <!-- El formato de fecha es el de este para que se puedan ordenar alfabeticamente y sea correcto -->
-                            <td>{{ uso.fecha | date("Y/m/d H:i")}}</td>
+                            <td>{{ uso.fecha | date("d/m/Y H:i")}}</td>
                         </tr>
                     {% else %}
                         <tr>
@@ -218,7 +280,7 @@
             <table id="profile-pay-history-table">
                 <thead>
                     <tr>
-                        <th>Valido</th>
+                        <th class="slim">Válido</th>
                         <th>Método</th>
                         <th>Fecha</th>
                         <th>Importe</th>
@@ -229,13 +291,12 @@
                     {% for pago in historialPago %}
                         <tr>
                             {% if pago.valido %}
-                                <td>&check;</td>
+                                <td class="slim">&check;</td>
                             {% else %}
-                                <td>&cross;</td>
+                                <td class="slim">&cross;</td>
                             {% endif %}
                             <td>{{ pago.metodo }}</td>
-            <!-- El formato de fecha es el de este para que se puedan ordenar alfabeticamente y sea correcto -->
-                            <td>{{ pago.fecha | date("Y/m/d H:i")}}</td>
+                            <td>{{ pago.fecha | date("d/m/Y H:i")}}</td>
                             <td>{{ pago.cantidad }}</td>
                             <td>{{ pago.creditosObtenidos }}</td>
                         </tr>
@@ -250,18 +311,44 @@
     </section>
     <section id="profile-account-settings">
         <article id="profile-change-password">
-            <!--
-                Aquí va el formulario de cambio de contraseña
-            -->
+            <header>
+                <h2>Cambiar Contraseña</h2>
+            </header>
+            <form id="new-password-form" action="{{ path('perfil_password_change') }}" method="post">
+                <label>
+                    Contraseña Actual: <br>
+                    <input required type="password" name="old-password"> <br>
+                </label>
+                <label>
+                    Nueva Contraseña: <br>
+                    <input required type="password" name="new-password"> <br>
+                </label>
+                <label>
+                    Confirmar Contraseña: <br>
+                    <input required type="password" name="confirm-password"> <br>
+                </label>
+                <input type="submit" value="Restablecer">
+            </form>
         </article>
         <article id="profile-delete-account">
-            <!--
-                Aquí va el formulario de borrado de cuenta.
-                Debe pedir confirmación.
-                    (Posiblemente un pop-up que esté oculto hasta
-                    que se pulsa el otro botón y contiene el auténtico
-                    botón de borrar cuenta)
-            -->
+            <header>
+                <h2>Borrar Cuenta</h2>
+            </header>
+            <form action="">
+                <label>
+                    Correo: <br>
+                    <input required type="email" name="email"> <br>
+                </label>
+                <label>
+                    Contraseña: <br>
+                    <input required type="password" name="password"> <br>
+                </label>
+                <label>
+                    Escribe <span class="disable-copy" id="captcha"></span>: <br>
+                    <input required type="text" name="captcha"> <br>
+                </label>
+                <input type="submit" value="Borrar">
+            </form>
         </article>
     </section>
 {% endblock %}

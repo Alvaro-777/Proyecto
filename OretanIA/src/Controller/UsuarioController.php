@@ -17,14 +17,20 @@ class UsuarioController extends AbstractController
     #[\Symfony\Component\Routing\Attribute\Route('/login', name: 'login')]
     public function login(): Response
     {
+
+        //Eliminar estos arrays
         $error = ['', '', '', '', '', ''];
+
         return $this->render('login.html.twig', ['error' => $error]);
     }
 
     #[Route('/registro', name: 'registro')]
     public function registro(): Response
     {
+
+        //Eliminar estos arrays
         $error = ['', '', '', '', '', ''];
+
         return $this->render('registro.html.twig', ['error' => $error]);
     }
 
@@ -42,7 +48,14 @@ class UsuarioController extends AbstractController
 
         // Validar campos obligatorios
         if (empty($email) || empty($password)) {
+
+            //Eliminar estos arrays
             $errores = [null, null, null, 'Email obligatorio.', null, 'Contraseña obligatoria.'];
+
+            if (empty($email))
+                $this->addFlash('error', 'Email obligatorio.');
+            if (empty($password))
+                $this->addFlash('error', 'Contraseña obligatoria.');
             return $this->render('registro.html.twig', [
                 'error' => $errores,
                 'form_data' => compact('nombre', 'apellido', 'email')
@@ -51,7 +64,11 @@ class UsuarioController extends AbstractController
 
         // Verificar si el correo ya existe
         if ($usuarioRepository->existsByCorreo($email)) {
+
+            //Eliminar estos arrays
             $errores = [null, null, null, 'Este email ya está registrado.', null, null];
+
+            $this->addFlash('error', 'Este email ya está registrado.');
             return $this->render('registro.html.twig', [
                 'error' => $errores,
                 'form_data' => [

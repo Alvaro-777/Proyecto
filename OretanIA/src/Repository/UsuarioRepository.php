@@ -68,4 +68,8 @@ class UsuarioRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+    public function save(): void
+    {
+        $this->getEntityManager()->flush();
+    }
 }
