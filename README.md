@@ -20,6 +20,11 @@ docker run --name oretan-ia  -e MYSQL_ROOT_PASSWORD=root  -e MYSQL_DATABASE="ore
 composer require symfony/http-foundation
 composer dump-autoload
 ```
+### Hacemos las migraciones
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
 
 ### Iniciar el servidor para visualizar la pagina
 
