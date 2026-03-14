@@ -1,4 +1,3 @@
-const patternPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
 let tablaUso = document.getElementById("profile-use-history-table"),
     tablaPago = document.getElementById("profile-pay-history-table"),
     captchaKey;
@@ -7,11 +6,10 @@ adjustHistoryContent();
 adjustPaymentContent();
 setTabActionEventListeners();
 setSortingEventListeners();
-generateCaptcha();
-attachSubmitEventListener();
 
 function adjustHistoryContent () {
     //ForEach sobre los nodos hijos del primer tbody (el único que hay)
+    if(tablaUso.tBodies[0].rows[0].cells[0].colSpan !== 4)
     for(let row of tablaUso.tBodies[0].rows){
         let texto = row.cells[2].innerText;
         texto = texto.replaceAll('\\n', ' \u2192 ');
@@ -23,6 +21,7 @@ function adjustHistoryContent () {
 
 function adjustPaymentContent () {
     //ForEach sobre los nodos hijos del primer tbody (el único que hay)
+    if(tablaPago.tBodies[0].rows[0].cells[0].colSpan !== 5)
     for(let row of tablaPago.tBodies[0].rows){
         let texto = row.cells[3].innerText;
         texto += '\u20AC' //€
@@ -40,18 +39,14 @@ function setTabActionEventListeners () {
         articleUso.classList.remove('inactive-table');
         articlePago.classList.add('inactive-table');
         tabUsos.classList.add('active-table-tab');
-        tabUsos.classList.remove('inactive-table-tab');
         tabPagos.classList.remove('active-table-tab');
-        tabPagos.classList.add('inactive-table-tab');
     });
 
     tabPagos.addEventListener('click', (evt) => {
         articleUso.classList.add('inactive-table');
         articlePago.classList.remove('inactive-table');
         tabPagos.classList.add('active-table-tab');
-        tabPagos.classList.remove('inactive-table-tab');
         tabUsos.classList.remove('active-table-tab');
-        tabUsos.classList.add('inactive-table-tab');
     });
 }
 
@@ -166,47 +161,4 @@ function parseDate (str) {
         parts[3],
         parts[4],
     );
-}
-
-function generateCaptcha () {
-    let captcha = document.getElementById('captcha'),
-        seed = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM,.-Çç ",
-        keyLength = 10;
-
-    captchaKey = '';
-    for(let i=0; i<keyLength; i++)
-        captchaKey += seed.charAt(
-            Math.floor(Math.random() * seed.length)
-        );
-
-    captcha.innerText = captchaKey;
-}
-
-function attachSubmitEventListener () {
-    document.forms.namedItem('new-password-form')
-        .addEventListener('submit', (evt) => {
-            let result = validatePasswordChange();
-
-            //Si es null, la validación no encontró problemas
-            if(result){
-                evt.preventDefault();
-
-            }
-        })
-}
-
-function validatePasswordChange () {
-    let form = document.forms.namedItem('new-password-form'),
-        oldPswd = form.elements.namedItem('old-password').value,
-        newPswd = form.elements.namedItem('new-password').value,
-        confirmPswd = form.elements.namedItem('confirm-password').value;
-
-    if (newPswd !== confirmPswd)
-        return [0, "Las contraseñas nuevas co coinciden"];
-    if (patternPwd.test(newPswd))
-        return [1, "La nueva contraseña no es valida"];
-    if (patternPwd.test(oldPswd))
-        return [2, "La contraseña actual es incorrecta"];
-
-    return null;
 }

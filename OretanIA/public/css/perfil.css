@@ -278,12 +278,12 @@ HISTORIAL
 
 }
 
-.active-table-tab{
+#profile-histories h2.active-table-tab{
     background:#ffffff;
     font-weight:600;
 }
 
-.inactive-table-tab{
+#profile-histories h2 {
     background:#eaeaea;
     opacity:.8;
 }

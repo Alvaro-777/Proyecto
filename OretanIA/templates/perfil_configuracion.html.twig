@@ -18,7 +18,7 @@
                 <h2>Cambiar contraseña</h2>
             </header>
 
-            <form action="{{ path('perfil_password_change') }}" method="post">
+            <form action="{{ path('perfil_password_change') }}" id="new-password-form" method="post">
 
                 <label>
                     Contraseña actual
@@ -48,7 +48,7 @@
                 <h2>Borrar cuenta</h2>
             </header>
 
-            <form>
+            <form id="delete-account-form">
 
                 <label>
                     Correo
@@ -61,7 +61,7 @@
                 </label>
 
                 <label>
-                    Escribe <span class="disable-copy" id="captcha"></span>
+                    <p>Escribe <span class="disable-copy" id="captcha"></span></p>
                     <input required type="text" name="captcha">
                 </label>
 
@@ -72,6 +72,12 @@
         </article>
 
     </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('script/perfil_config.js') }}"></script>
 
 {% endblock %}
 
