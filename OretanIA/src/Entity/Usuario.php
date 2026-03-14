@@ -31,6 +31,19 @@ class Usuario
     #[ORM\Column(nullable: true)]
     private ?\DateTime $fechaRegistro = null;
 
+    #[ORM\Column(length:255, nullable:true)]
+    private ?string $fotoPerfil = null;
+
+    public function getFotoPerfil(): ?string
+    {
+        return $this->fotoPerfil;
+    }
+
+    public function setFotoPerfil(?string $fotoPerfil): self
+    {
+        $this->fotoPerfil = $fotoPerfil;
+        return $this;
+    }
     public function __construct()
     {
         $this->fechaRegistro = new \DateTime();

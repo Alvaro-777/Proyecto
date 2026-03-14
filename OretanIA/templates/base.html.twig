@@ -4,24 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
+
     <link rel="stylesheet" href="{{ asset('./css/style.css') }}">
-    <link rel="shortcut icon" href="{{ asset("imagenes/logo.ico") }}">
+    <link rel="shortcut icon" href="{{ asset('imagenes/logo.ico') }}">
+
     {% block head %}{% endblock %}
 </head>
+
 <body>
+
 <header class="header">
 
     <div class="brand">
+
         <div class="logo">
             <a href="{{ path('home') }}" title="Inicio">
-                <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Dreteam-IA">
+                <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Oretan-IA">
             </a>
         </div>
 
-        <h1 class="titulo">{% block cabecera %}Oretan-IA{% endblock %}</h1>
+        <h1 class="titulo">
+            {% block cabecera %}Oretan-IA{% endblock %}
+        </h1>
+
     </div>
 
     <div class="modo">
+
         <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
             <span class="icon-sun"></span>
             <span class="icon-moon"></span>
@@ -29,6 +38,7 @@
 
         <nav class="menu-horizontal">
             <ul>
+
                 {% if app.session.has('user-id') %}
                     <li><a href="{{ path('perfil') }}">Perfil</a></li>
                     <li><a href="{{ path('logout') }}">Salir</a></li>
@@ -36,26 +46,58 @@
                     <li><a href="{{ path('registro') }}">Registro</a></li>
                     <li><a href="{{ path('login') }}">Login</a></li>
                 {% endif %}
-                <li class="plan"><a href="{{ path('pago_planes') }}">Planes</a></li>
+
+                <li class="plan">
+                    <a href="{{ path('pago_planes') }}">Planes</a>
+                </li>
+
             </ul>
         </nav>
+
     </div>
 
 </header>
+
+
 <main>
+
     {% block body %}
     {% endblock %}
+
 </main>
-<footer>
-    <p>Información básica: oretan-ia@gmail.com | Tel: 953 123 456 | Redes sociales | Participantes .</p>
+
+
+<footer class="footer">
+
+    <div class="footer-content">
+
+        <p>
+            Información básica:
+            oretan-ia@gmail.com |
+            Tel: 953 123 456 |
+            Redes sociales |
+            Participantes
+        </p>
+        <br>
+        <p>
+            © 2026 Oretan-IA · Todos los derechos reservados
+        </p>
+
+    </div>
+
+
 </footer>
+
+
 {% block javascripts %}{% endblock %}
+
 <script>
-    // Toggle modo claro/oscuro
     const toggle = document.getElementById("modo-toggle");
+
     toggle.addEventListener("click", () => {
         document.body.classList.toggle("oscuro");
     });
 </script>
+
 </body>
 </html>

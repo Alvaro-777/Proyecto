@@ -1,357 +1,282 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Perfil{% endblock %}
+
 {% block head %}
-    <!-- Programmer Art, reemplázame -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        section {
-            margin: 10px 0;
-        }
-
-        article {
-            display: flex;
-            justify-content: center;
-            padding: 20px 50px;
-            margin: 0 auto 15px;
-            width: 80%;
-            border-radius: 20px;
-            box-shadow: black 0 0 20px -10px;
-        }
-        :not(.oscuro) article {
-            background-color: #eaeaea;
-        }
-        .oscuro article {
-            transition: 750ms;
-            background-color: #2c2c2c;
-        }
-
-        table, td, th {
-            border-collapse: collapse;
-            border: black solid 1px;
-        }
-
-        table {
-            width: 100%;
-        }
-
-        th, td {
-            padding: 5px;
-        }
-        th.slim, td.slim {
-            min-width: 50px;
-            width: 50px;
-            text-align: center;
-        }
-
-        th {
-            text-align: center;
-            font-weight: bolder;
-            min-width: 150px;
-        }
-        :not(.oscuro) th {
-            background-color: lightgray;
-        }
-        .oscuro th {
-            transition: 750ms;
-            background-color: #595959;
-        }
-
-        #profile-header>article {
-            justify-content: flex-start;
-        }
-
-        #profile-header-list {
-            list-style: none;
-        }
-
-        #profile-header-list>li {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding-top: 5px;
-        }
-
-        #profile-histories>header {
-            width: 80%;
-            margin: 10px auto 0;
-            display: flex;
-            justify-content: flex-start;
-        }
-
-        #profile-histories>header>h2 {
-            display: inline-block;
-            padding: 10px 17.5px;
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
-        }
-        #profile-histories>article {
-            border-top-left-radius: 0;
-        }
-
-        /* Margen para que la información básica no tape nada */
-        #profile-account-settings {
-            display:flex;
-            gap: 20px;
-            width: 80%;
-            margin: 0 auto 50px;
-        }
-
-        #profile-change-password, #profile-delete-account {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        #profile-change-password>form, #profile-delete-account>form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        #profile-change-password>form input, #profile-delete-account>form input {
-            width: 250px;
-        }
-
-        :not(.oscuro) #profile-header-id {
-            content:url("{{ asset('./imagenes/icon-id.png') }}");
-        }
-
-        :not(.oscuro) #profile-header-mail {
-            content:url("{{ asset('./imagenes/icon-mail.png') }}");
-        }
-
-        :not(.oscuro) #profile-header-date {
-            content:url("{{ asset('./imagenes/icon-date.png') }}");
-        }
-
-        :not(.oscuro) #profile-header-credit {
-            content: url("{{ asset('./imagenes/icon-credit.png') }}");
-        }
-
-        :not(.oscuro) .close-button-icon {
-            content: url("{{ asset('./imagenes/icon-close.png') }}");
-        }
-
-        .oscuro #profile-header-id {
-            transition: 750ms;
-            content:url("{{ asset('./imagenes/icon-id-darkmode.png') }}");
-        }
-
-        .oscuro #profile-header-mail {
-            transition: 750ms;
-            content:url("{{ asset('./imagenes/icon-mail-darkmode.png') }}");
-        }
-
-        .oscuro #profile-header-date {
-            transition: 750ms;
-            content:url("{{ asset('./imagenes/icon-date-darkmode.png') }}");
-        }
-
-        .oscuro #profile-header-credit {
-            transition: 750ms;
-            content: url("{{ asset('./imagenes/icon-credit-darkmode.png') }}");
-        }
-
-        .oscuro .close-button-icon {
-            content: url("{{ asset('./imagenes/icon-close-darkmode.png') }}");
-        }
-
-        .icono-dato {
-            width: 20px;
-        }
-
-        /* Clase de la pestaña de historial seleccionada */
-        :not(.oscuro) .active-table-tab {
-            background-color: #eaeaea;
-        }
-        .oscuro .active-table-tab {
-            transition: 750ms;
-            background-color: #2c2c2c;
-        }
-
-        /* Clase de la pestaña de historial no seleccionada */
-        :not(.oscuro) .inactive-table-tab {
-            background-color: lightgray;
-        }
-        .oscuro .inactive-table-tab {
-            transition: 750ms;
-            background-color: #595959;
-        }
-
-        /* Clase que esconde la tabla no seleccionada */
-        .inactive-table {
-            display: none;
-            visibility: hidden;
-        }
-
-        /* Clase de los textos por defecto cuando no hay información */
-        .no-data-notice {
-            font-style: italic;
-        }
-        :not(.oscuro) .no-data-notice {
-            color: gray;
-        }
-        .oscuro .no-data-notice {
-            transition: 750ms;
-            color: #aaaaaa;
-        }
-
-        .disable-copy {
-            font-style: italic;
-            font-weight: bolder;
-            user-select: none;
-        }
-
-        .close-button {
-            border: none;
-            background: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
 {% endblock %}
+
 {% block cabecera %}Perfil de Usuario{% endblock %}
 
-
 {% block body %}
+
     <section id="profile-error-board">
-        <!-- Aqui van los flashes de error generales -->
+
         {% for flashMessage in app.session.flashbag.get('error') %}
-            <div id="err-{{ loop.index0 }}" class="error-notice">{{ flashMessage }}
-                <button class="close-button" onclick="document.getElementById('err-{{ loop.index0 }}').remove();">
-                    <img class="close-button-icon" alt="X">
+
+            <div id="err-{{ loop.index0 }}" class="error-notice">
+
+                {{ flashMessage }}
+
+                <button class="close-button"
+                        onclick="document.getElementById('err-{{ loop.index0 }}').remove();">
+
+                    ✕
+
                 </button>
+
             </div>
+
         {% endfor %}
 
     </section>
+
+
+
     <section id="profile-header">
-        <article>
-            <header>
-                <h1>{{ user.nombre }} {{ user.apellido }}</h1>
-                <ul id="profile-header-list">
-                    <li><img id="profile-header-id" class="icono-dato" alt="Id: "> <span> {{ user.id }} </span></li>
-                    <li><img id="profile-header-mail" class="icono-dato" alt="Correo: "> <span> {{ user.correo }} </span></li>
-                    <li><img id="profile-header-date" class="icono-dato" alt="Registro:"> <span> {{ user.fechaRegistro | date('d/m/Y') }} </span></li>
-                    <li><img id="profile-header-credit" class="icono-dato" alt="Creditos:"> <span> {{ user.creditos }} </span></li>
+
+        <article class="profile-card">
+
+
+            <div class="profile-avatar">
+
+                <div class="avatar-wrapper">
+
+                    {% if user and user.fotoPerfil %}
+                        <img
+                                class="profile-avatar-img"
+                                src="{{ asset('uploads/perfiles/' ~ user.fotoPerfil) }}"
+                                alt="Foto de perfil">
+                    {% elseif user %}
+                        <div class="avatar-circle">
+                            {{ user.nombre|first }}{{ user.apellido|first }}
+                        </div>
+                    {% endif %}
+
+                    {% if user %}
+                        <form
+                                action="{{ path('perfil_foto_upload') }}"
+                                method="post"
+                                enctype="multipart/form-data"
+                                class="avatar-upload-form">
+
+                            <label class="avatar-upload-button">
+                                Cambiar
+                                <input
+                                        type="file"
+                                        name="foto"
+                                        accept="image/png,image/jpeg,image/webp"
+                                        onchange="this.form.submit()">
+                            </label>
+
+                        </form>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+
+            <div class="profile-info">
+
+                <div class="profile-title-row">
+
+                    <h1>{{ user.nombre }} {{ user.apellido }}</h1>
+
+                    <a class="edit-profile-button"
+                       href="{{ path('perfil_configuracion') }}">
+
+                        Editar cuenta
+
+                    </a>
+
+                </div>
+
+
+
+                <ul class="profile-data">
+
+                    <li>
+                        <img src="{{ asset('imagenes/icon-id.png') }}">
+                        <span>ID</span>
+                        <strong>{{ user.id }}</strong>
+                    </li>
+
+                    <li>
+                        <img src="{{ asset('imagenes/icon-mail.png') }}">
+                        <span>Email</span>
+                        <strong>{{ user.correo }}</strong>
+                    </li>
+
+                    <li>
+                        <img src="{{ asset('imagenes/icon-date.png') }}">
+                        <span>Registro</span>
+                        <strong>{{ user.fechaRegistro | date('d/m/Y') }}</strong>
+                    </li>
+
+                    <li>
+                        <img src="{{ asset('imagenes/icon-credit.png') }}">
+                        <span>Créditos</span>
+                        <strong>{{ user.creditos }}</strong>
+                    </li>
+
                 </ul>
-                <!--
-                    ¿Añadir una opción de editar usuario?
-                -->
-            </header>
+
+            </div>
+
+
         </article>
+
     </section>
+
+
+
+
     <section id="profile-histories">
+
         <header>
-            <h2 class="active-table-tab" id="tab-usos">Historial de Uso</h2>
-            <h2 class="inactive-table-tab" id="tab-pagos">Historial de Pago</h2>
+
+            <h2 class="active-table-tab" id="tab-usos">
+                Historial de Uso
+            </h2>
+
+            <h2 class="inactive-table-tab" id="tab-pagos">
+                Historial de Pago
+            </h2>
+
         </header>
+
+
+
+
         <article id="profile-use-history">
-            <table id="profile-use-history-table">
+
+            <table>
+
                 <thead>
-                    <tr>
-                        <th>IA</th>
-                        <th>Archivo</th>
-                        <th>Texto</th>
-                        <th>Fecha</th>
-                    </tr>
+
+                <tr>
+                    <th>IA</th>
+                    <th>Archivo</th>
+                    <th>Texto</th>
+                    <th>Fecha</th>
+                </tr>
+
                 </thead>
+
                 <tbody>
-                    {% for uso in historialUso %}
-                        <tr>
-                            <td>{{ uso.ia.nombre }}</td>
-                            <td>{{ uso.archivo.nombre ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
-                            <td>{{ uso.textoInput ?? "<span class='no-data-notice'> Ninguno </span>" }}</td>
-                            <td>{{ uso.fecha | date("d/m/Y H:i")}}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="4" class='no-data-notice'>No has usado ninguna IA aún.</td>
-                        </tr>
-                    {% endfor %}
+
+                {% for uso in historialUso %}
+
+                    <tr>
+
+                        <td>{{ uso.ia.nombre }}</td>
+
+                        <td>{{ uso.archivo.nombre ?? "Ninguno" }}</td>
+
+                        <td>{{ uso.textoInput ?? "Ninguno" }}</td>
+
+                        <td>{{ uso.fecha | date("d/m/Y H:i") }}</td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="4" class="no-data-notice">
+
+                            No has usado ninguna IA aún.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
                 </tbody>
+
             </table>
+
         </article>
+
+
+
+
         <article class="inactive-table" id="profile-pay-history">
-            <table id="profile-pay-history-table">
+
+            <table>
+
                 <thead>
-                    <tr>
-                        <th class="slim">Válido</th>
-                        <th>Método</th>
-                        <th>Fecha</th>
-                        <th>Importe</th>
-                        <th>Créditos</th>
-                    </tr>
+
+                <tr>
+
+                    <th class="slim">Válido</th>
+                    <th>Método</th>
+                    <th>Fecha</th>
+                    <th>Importe</th>
+                    <th>Créditos</th>
+
+                </tr>
+
                 </thead>
+
                 <tbody>
-                    {% for pago in historialPago %}
-                        <tr>
+
+                {% for pago in historialPago %}
+
+                    <tr>
+
+                        <td class="slim">
+
                             {% if pago.valido %}
-                                <td class="slim">&check;</td>
+                                ✔
                             {% else %}
-                                <td class="slim">&cross;</td>
+                                ✘
                             {% endif %}
-                            <td>{{ pago.metodo }}</td>
-                            <td>{{ pago.fecha | date("d/m/Y H:i")}}</td>
-                            <td>{{ pago.cantidad }}</td>
-                            <td>{{ pago.creditosObtenidos }}</td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="5" class='no-data-notice'>No has realizado ningún pago aún.</td>
-                        </tr>
-                    {% endfor %}
+
+                        </td>
+
+                        <td>{{ pago.metodo }}</td>
+
+                        <td>{{ pago.fecha | date("d/m/Y H:i") }}</td>
+
+                        <td>{{ pago.cantidad }}</td>
+
+                        <td>{{ pago.creditosObtenidos }}</td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td colspan="5" class="no-data-notice">
+
+                            No has realizado ningún pago aún.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
                 </tbody>
+
             </table>
+
         </article>
+
+
     </section>
-    <section id="profile-account-settings">
-        <article id="profile-change-password">
-            <header>
-                <h2>Cambiar Contraseña</h2>
-            </header>
-            <form id="new-password-form" action="{{ path('perfil_password_change') }}" method="post">
-                <label>
-                    Contraseña Actual: <br>
-                    <input required type="password" name="old-password"> <br>
-                </label>
-                <label>
-                    Nueva Contraseña: <br>
-                    <input required type="password" name="new-password"> <br>
-                </label>
-                <label>
-                    Confirmar Contraseña: <br>
-                    <input required type="password" name="confirm-password"> <br>
-                </label>
-                <input type="submit" value="Restablecer">
-            </form>
-        </article>
-        <article id="profile-delete-account">
-            <header>
-                <h2>Borrar Cuenta</h2>
-            </header>
-            <form action="">
-                <label>
-                    Correo: <br>
-                    <input required type="email" name="email"> <br>
-                </label>
-                <label>
-                    Contraseña: <br>
-                    <input required type="password" name="password"> <br>
-                </label>
-                <label>
-                    Escribe <span class="disable-copy" id="captcha"></span>: <br>
-                    <input required type="text" name="captcha"> <br>
-                </label>
-                <input type="submit" value="Borrar">
-            </form>
-        </article>
-    </section>
+
 {% endblock %}
+
+
+
 {% block javascripts %}
-    <script src="{{ asset('./script/perfil.js') }}"></script>
+
+    <script src="{{ asset('script/perfil.js') }}"></script>
+
 {% endblock %}

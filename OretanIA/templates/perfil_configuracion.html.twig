@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Configuración de Cuenta{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('css/perfil_configuracion.css') }}">
+{% endblock %}
+
+{% block cabecera %}Configuración de Cuenta{% endblock %}
+
+{% block body %}
+
+    <section class="account-settings">
+
+        <article class="settings-card">
+
+            <header>
+                <h2>Cambiar contraseña</h2>
+            </header>
+
+            <form action="{{ path('perfil_password_change') }}" method="post">
+
+                <label>
+                    Contraseña actual
+                    <input required type="password" name="old-password">
+                </label>
+
+                <label>
+                    Nueva contraseña
+                    <input required type="password" name="new-password">
+                </label>
+
+                <label>
+                    Confirmar contraseña
+                    <input required type="password" name="confirm-password">
+                </label>
+
+                <input type="submit" value="Actualizar contraseña">
+
+            </form>
+
+        </article>
+
+
+        <article class="settings-card delete-card">
+
+            <header>
+                <h2>Borrar cuenta</h2>
+            </header>
+
+            <form>
+
+                <label>
+                    Correo
+                    <input required type="email" name="email">
+                </label>
+
+                <label>
+                    Contraseña
+                    <input required type="password" name="password">
+                </label>
+
+                <label>
+                    Escribe <span class="disable-copy" id="captcha"></span>
+                    <input required type="text" name="captcha">
+                </label>
+
+                <input class="delete-button" type="submit" value="Eliminar cuenta">
+
+            </form>
+
+        </article>
+
+    </section>
+
+{% endblock %}
+

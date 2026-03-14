@@ -1,0 +1,73 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:system-ui;
+}
+
+.account-settings{
+    width:85%;
+    margin:auto;
+    display:flex;
+    gap:30px;
+}
+
+.settings-card{
+    flex:1;
+    padding:30px;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.05);
+}
+
+.settings-card h2{
+    margin-bottom:15px;
+}
+
+form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+label{
+    display:flex;
+    flex-direction:column;
+    font-size:14px;
+    gap:4px;
+}
+
+input{
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+}
+
+input[type=submit]{
+    background:#4a6cff;
+    color:white;
+    border:none;
+    cursor:pointer;
+    font-weight:600;
+}
+
+input[type=submit]:hover{
+    background:#3a58d6;
+}
+
+.delete-card{
+    border:2px solid #ffdddd;
+}
+
+.delete-button{
+    background:#e54848;
+}
+
+.delete-button:hover{
+    background:#c93c3c;
+}
+
+.disable-copy{
+    font-weight:bold;
+    user-select:none;
+}
