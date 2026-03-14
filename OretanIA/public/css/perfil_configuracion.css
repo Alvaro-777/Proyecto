@@ -68,6 +68,16 @@ input[type=submit]:hover{
 }
 
 .disable-copy{
-    font-weight:bold;
+    display: inline-block;
+
+    padding: 0 2px;
+
     user-select:none;
+
+    font-weight:bold;
+
+    border: 1px gray solid;
+    border-radius: 3px;
+
+    background-color: lightgray;
 }

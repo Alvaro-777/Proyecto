@@ -34,14 +34,9 @@
 
 
     <section id="profile-header">
-
         <article class="profile-card">
-
-
             <div class="profile-avatar">
-
                 <div class="avatar-wrapper">
-
                     {% if user and user.fotoPerfil %}
                         <img
                                 class="profile-avatar-img"
@@ -130,145 +125,81 @@
 
     </section>
 
-
-
-
     <section id="profile-histories">
-
         <header>
-
             <h2 class="active-table-tab" id="tab-usos">
                 Historial de Uso
             </h2>
-
-            <h2 class="inactive-table-tab" id="tab-pagos">
+            <h2 id="tab-pagos">
                 Historial de Pago
             </h2>
-
         </header>
 
-
-
-
         <article id="profile-use-history">
-
-            <table>
-
+            <table id="profile-use-history-table">
                 <thead>
-
-                <tr>
-                    <th>IA</th>
-                    <th>Archivo</th>
-                    <th>Texto</th>
-                    <th>Fecha</th>
-                </tr>
-
+                    <tr>
+                        <th>IA</th>
+                        <th>Archivo</th>
+                        <th>Texto</th>
+                        <th>Fecha</th>
+                    </tr>
                 </thead>
-
                 <tbody>
-
                 {% for uso in historialUso %}
-
                     <tr>
-
                         <td>{{ uso.ia.nombre }}</td>
-
                         <td>{{ uso.archivo.nombre ?? "Ninguno" }}</td>
-
                         <td>{{ uso.textoInput ?? "Ninguno" }}</td>
-
                         <td>{{ uso.fecha | date("d/m/Y H:i") }}</td>
-
                     </tr>
-
                 {% else %}
-
                     <tr>
-
                         <td colspan="4" class="no-data-notice">
-
                             No has usado ninguna IA aún.
-
                         </td>
-
                     </tr>
-
                 {% endfor %}
-
                 </tbody>
-
             </table>
-
         </article>
 
-
-
-
         <article class="inactive-table" id="profile-pay-history">
-
-            <table>
-
+            <table id="profile-pay-history-table">
                 <thead>
-
-                <tr>
-
-                    <th class="slim">Válido</th>
-                    <th>Método</th>
-                    <th>Fecha</th>
-                    <th>Importe</th>
-                    <th>Créditos</th>
-
-                </tr>
-
-                </thead>
-
-                <tbody>
-
-                {% for pago in historialPago %}
-
                     <tr>
-
+                        <th class="slim">Válido</th>
+                        <th>Método</th>
+                        <th>Fecha</th>
+                        <th>Importe</th>
+                        <th>Créditos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for pago in historialPago %}
+                    <tr>
                         <td class="slim">
-
                             {% if pago.valido %}
                                 ✔
                             {% else %}
                                 ✘
                             {% endif %}
-
                         </td>
-
                         <td>{{ pago.metodo }}</td>
-
                         <td>{{ pago.fecha | date("d/m/Y H:i") }}</td>
-
                         <td>{{ pago.cantidad }}</td>
-
                         <td>{{ pago.creditosObtenidos }}</td>
-
                     </tr>
-
                 {% else %}
-
                     <tr>
-
                         <td colspan="5" class="no-data-notice">
-
                             No has realizado ningún pago aún.
-
                         </td>
-
                     </tr>
-
                 {% endfor %}
-
                 </tbody>
-
             </table>
-
         </article>
-
-
     </section>
 
 {% endblock %}

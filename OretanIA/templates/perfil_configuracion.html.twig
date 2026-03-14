@@ -61,7 +61,7 @@
                 </label>
 
                 <label>
-                    Escribe <span class="disable-copy" id="captcha"></span>
+                    <p>Escribe <span class="disable-copy" id="captcha"></span></p>
                     <input required type="text" name="captcha">
                 </label>
 
@@ -72,6 +72,12 @@
         </article>
 
     </section>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="{{ asset('script/perfil_config.js') }}"></script>
 
 {% endblock %}
 
