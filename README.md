@@ -1,8 +1,33 @@
-# Documentacion a Entregar
+## Pasos para la instalacion en Local
 
-- [x] 5.Planificación y gestión de la ejecución del proyecto.
-- - [x] a. Descripción de la metodología ágil o tradicional empleada (Scrum, Kanban, etc.)
-- - [x] b. Secuenciación detallada de actividades y cronograma.
-- - [x] c. Determinación de recursos materiales y humanos.
-- - [x] d. Plan de prevención de riesgos.
-- - [x] e. Requisitos previos de despliegue (hosting, dominios, licencias, etc.).
+Comandos requeridos
+
+### Crear Archivo .env
+
+```bash
+DATABASE_URL="mysql://root:root@127.0.0.1:33100/oretan-ia?serverVersion=8.0"
+```
+
+### Crear Base de datos en Doker
+
+```bash
+docker run --name oretan-ia  -e MYSQL_ROOT_PASSWORD=root  -e MYSQL_DATABASE="oretan-ia"  -p 33100:3306  -d mysql:8.0  --character-set-server=utf8  --collation-server=utf8_unicode_ci  --init-connect="SET NAMES utf8"
+```
+
+### Instalar Composer
+
+```bash
+composer require symfony/http-foundation
+composer dump-autoload
+```
+### Hacemos las migraciones
+
+```bash
+php bin/console doctrine:migrations:migrate
+```
+
+### Iniciar el servidor para visualizar la pagina
+
+```bash
+symfony local:server:start
+```
