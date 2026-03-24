@@ -208,3 +208,90 @@ body.oscuro .icon-moon {
 .modo-btn:hover {
     background:rgba(255,255,255,0.15);
 }
+
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* overlay oscuro */
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    /* animación base */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease;
+}
+
+/* estado visible */
+#cookie-banner.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* caja inferior */
+.cookie-box {
+    border: 1px solid #3D3D3D;
+    width: 1500px;
+
+    background: #303030;
+    color: #fff;
+
+    margin: 1.5rem;
+    padding: 2rem 2.5rem;
+
+    border-radius: 12px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    gap: 1rem;
+
+    /* separación visual */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+
+    /* animación */
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+
+/* animación activa */
+#cookie-banner.active .cookie-box {
+    transform: translateY(0);
+}
+
+/* texto */
+.cookie-box p {
+    font-size: 1.05rem; /* más grande */
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* botón */
+#accept-cookies {
+    background: #66aaff;
+    color: white;
+
+    border: none;
+    padding: 0.7rem 1.6rem;
+
+    border-radius: 8px;
+    cursor: pointer;
+
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+#accept-cookies:hover {
+    transform: translateY(-2px);
+}

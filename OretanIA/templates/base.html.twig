@@ -91,9 +91,17 @@
 
 {% block javascripts %}{% endblock %}
 
-<div id="cookie-banner" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;">
-    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%, -50%);">
-        <p>Informamos que este sitio web utiliza cookies técnicas y analíticas para optimizar el servicio y mejorar tu experiencia.</p>
+<div id="cookie-banner">
+    <div class="cookie-box">
+        <p>
+            Este sitio web utiliza únicamente <strong>cookies técnicas y esenciales</strong>.
+            Estas son necesarias para el funcionamiento básico de la página, como permitir la navegación,
+            garantizar la seguridad y recordar tus preferencias de sesión.
+        </p>
+        <p>
+            Al continuar navegando, aceptas el uso de estas herramientas indispensables para
+            ofrecerte una experiencia estable y segura. No se utilizan cookies de rastreo publicitario.
+        </p>
         <button id="accept-cookies">Aceptar</button>
     </div>
 </div>
@@ -101,14 +109,16 @@
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         if (!document.cookie.split(';').some(c => c.trim().startsWith('aviso='))) {
-            document.getElementById('cookie-banner').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('cookie-banner').classList.add('active');
+            }, 800); // 1 segundo
         }
 
         document.getElementById('accept-cookies')?.addEventListener('click', function () {
             const d = new Date();
             d.setTime(d.getTime() + 2 * 24 * 60 * 60 * 1000);
             document.cookie = 'aviso=1; expires=' + d.toUTCString() + '; path=/';
-            document.getElementById('cookie-banner').style.display = 'none';
+            document.getElementById('cookie-banner').classList.remove('active');
         });
     });
 </script>
