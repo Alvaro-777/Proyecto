@@ -3,7 +3,7 @@
 {% block title %}Perfil{% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/perfil.css') }}?v=1.1">
 {% endblock %}
 
 {% block cabecera %}Perfil de Usuario{% endblock %}
@@ -121,15 +121,16 @@
 
     <section id="profile-histories">
         <header>
-            <h2 class="active-table-tab" id="tab-usos">
+            {# Añadimos la clase base 'table-tab' para facilitar el estilado #}
+            <h2 class="table-tab active-table-tab" id="tab-usos">
                 Historial de Uso
             </h2>
-            <h2 id="tab-pagos">
+            <h2 class="table-tab inactive-table-tab" id="tab-pagos">
                 Historial de Pago
             </h2>
         </header>
 
-        <article id="profile-use-history">
+        <article id="profile-use-history" class="history-card">
             <table id="profile-use-history-table">
                 <thead>
                     <tr>

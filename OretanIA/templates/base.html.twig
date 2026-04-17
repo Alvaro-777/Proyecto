@@ -11,26 +11,39 @@
     {% block head %}{% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
+
+<script>
+    (function() {
+        function leerCookieRapida(nombre) {
+            const nombreEQ = nombre + "=";
+            const ca = document.cookie.split(';');
+            for(let i=0; i < ca.length; i++) {
+                let c = ca[i].trim();
+                if (c.indexOf(nombreEQ) === 0) return c.substring(nombreEQ.length, c.length);
+            }
+            return null;
+        }
+        const tema = leerCookieRapida('tema');
+        if (tema === 'oscuro') {
+            document.body.classList.add('oscuro');
+        }
+    })();
+</script>
 
 <header class="header">
-
     <div class="brand">
-
         <div class="logo">
             <a href="{{ path('home') }}" title="Inicio">
                 <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Oretan-IA">
             </a>
         </div>
-
         <h1 class="titulo">
             {% block cabecera %}Oretan-IA{% endblock %}
         </h1>
-
     </div>
 
     <div class="modo">
-
         <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
             <span class="icon-sun"></span>
             <span class="icon-moon"></span>
@@ -38,7 +51,6 @@
 
         <nav class="menu-horizontal">
             <ul>
-
                 {% if app.session.has('user-id') %}
                     <li><a href="{{ path('perfil') }}">Perfil</a></li>
                     <li><a href="{{ path('logout') }}">Salir</a></li>
@@ -46,31 +58,21 @@
                     <li><a href="{{ path('registro') }}">Registro</a></li>
                     <li><a href="{{ path('login') }}">Login</a></li>
                 {% endif %}
-
                 <li class="plan">
                     <a href="{{ path('pago_planes') }}">Planes</a>
                 </li>
-
             </ul>
         </nav>
-
     </div>
-
 </header>
 
-
 <main>
-
     {% block body %}
     {% endblock %}
-
 </main>
 
-
 <footer class="footer">
-
     <div class="footer-content">
-
         <p>
             Información básica:
             oretan-ia@gmail.com |
@@ -82,12 +84,8 @@
         <p>
             © 2026 Oretan-IA · Todos los derechos reservados
         </p>
-
     </div>
-
-
 </footer>
-
 
 {% block javascripts %}{% endblock %}
 
@@ -108,17 +106,34 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        // --- LÓGICA DEL BANNER DE COOKIES ---
         if (!document.cookie.split(';').some(c => c.trim().startsWith('aviso='))) {
             setTimeout(() => {
-                document.getElementById('cookie-banner').classList.add('active');
-            }, 800); // 1 segundo
+                const banner = document.getElementById('cookie-banner');
+                if (banner) banner.classList.add('active');
+            }, 800);
         }
 
         document.getElementById('accept-cookies')?.addEventListener('click', function () {
             const d = new Date();
             d.setTime(d.getTime() + 2 * 24 * 60 * 60 * 1000);
-            document.cookie = 'aviso=1; expires=' + d.toUTCString() + '; path=/';
+            document.cookie = "aviso=1; expires=" + d.toUTCString() + "; path=/";
             document.getElementById('cookie-banner').classList.remove('active');
+        });
+
+        // --- LÓGICA DEL BOTÓN DE MODO OSCURO ---
+        const btnModo = document.getElementById('modo-toggle');
+        const body = document.body;
+
+        btnModo?.addEventListener('click', function () {
+            body.classList.toggle('oscuro');
+            const esOscuro = body.classList.contains('oscuro');
+            const valorTema = esOscuro ? 'oscuro' : 'claro';
+
+            const d = new Date();
+            d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
+            document.cookie = "tema=" + valorTema + "; expires=" + d.toUTCString() + "; path=/";
         });
     });
 </script>

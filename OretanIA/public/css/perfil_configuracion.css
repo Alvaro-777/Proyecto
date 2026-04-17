@@ -1,3 +1,4 @@
+/* --- TU CÓDIGO ORIGINAL (SIN CAMBIOS) --- */
 *{
     margin:0;
     padding:0;
@@ -69,15 +70,57 @@ input[type=submit]:hover{
 
 .disable-copy{
     display: inline-block;
-
     padding: 0 2px;
-
     user-select:none;
-
     font-weight:bold;
-
     border: 1px gray solid;
     border-radius: 3px;
-
     background-color: lightgray;
+}
+/* ============================================================
+   MODO OSCURO (Se activa al añadir clase .oscuro al body)
+   ============================================================ */
+
+/* Fondo general y texto */
+body.oscuro {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Tarjetas (Cambiamos el fondo blanco por uno oscuro) */
+body.oscuro .settings-card {
+    background: #1e1e1e;
+    color: #e6e6e6;
+    border: 1px solid #333;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+/* Inputs (Para que no brillen en blanco) */
+body.oscuro input:not([type=submit]) {
+    background: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    color: #ffffff;
+}
+
+/* Títulos dentro de las tarjetas */
+body.oscuro .settings-card h2 {
+    color: #ffffff;
+}
+
+/* Etiquetas (Labels) */
+body.oscuro label {
+    color: #b0b0b0;
+}
+
+/* Tarjeta de borrado (ajuste de borde para que no sea tan chillón) */
+body.oscuro .delete-card {
+    border: 2px solid #442222;
+    background: #1e1e1e;
+}
+
+/* El elemento disable-copy */
+body.oscuro .disable-copy {
+    background-color: #333;
+    color: #bbb;
+    border-color: #555;
 }
