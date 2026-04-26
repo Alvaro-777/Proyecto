@@ -1,7 +1,5 @@
-const patternNombre = /^[a-zñáéíóú]+(\s[a-zñáéíóú]+)?$/i;
-const patternApellidos = /^[a-zñáéíóú]+(\s[a-zñáéíóú]+)*$/i;
-const patternMail = /^[\w.-]+@[\w.-]+\.[a-zA-Z]{2,}$/;
-const patternPwd = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{8,}$/;
+import {patternApellidos, patternPswd, patternNombre, patternMail} from "./patterns.js";
+
 const password = document.getElementById("signup-pswd");
 const confirm = document.getElementById("signup-confirm");
 
@@ -39,7 +37,7 @@ const campos = [
     { input: document.getElementById("signup-name"),pattern: patternNombre},
     { input: document.getElementById("signup-surname"),pattern: patternApellidos},
     { input: document.getElementById("signup-email"),pattern: patternMail},
-    //{ input: document.getElementById("signup-pswd"),pattern: patternPwd},
+    //{ input: document.getElementById("signup-pswd"),pattern: patternPswd},
 ];
 
 // Función genérica de validación
@@ -83,4 +81,3 @@ confirm.addEventListener("blur", (e) => {
     e.target.style.backgroundColor = "";
     e.style.color="";
 });
-

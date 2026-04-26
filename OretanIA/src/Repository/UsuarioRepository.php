@@ -72,4 +72,10 @@ class UsuarioRepository extends ServiceEntityRepository
     {
         $this->getEntityManager()->flush();
     }
+
+    public function delete(Usuario $user): void
+    {
+        $this->getEntityManager()->remove($user);
+        $this->save();
+    }
 }

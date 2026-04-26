@@ -6,6 +6,7 @@ use App\Entity\Usuario;
 use App\Repository\UsuarioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -113,6 +114,21 @@ class UsuarioController extends AbstractController
 
         $request->getSession()->set('user-id', $user->getId());
         return $this->redirectToRoute('home');
+    }
+
+    #[Route('/verify-credentials', name: 'verify-credentials', methods: ['POST'])]
+    public function verifyCredentials(
+        Request $request,
+        UsuarioRepository $usuarioRepository): Response
+    {
+        $email = $request->request->get('mail');
+        $password = $request->request->get('pswd');
+
+        $user = $usuarioRepository->findOneBy(['correo' => $email]);
+
+        if (!$user) return new Response('Email not found', Response::HTTP_NOT_FOUND);
+        if (!password_verify($password, $user->getPswd())) return new Response('Credentials dont match up', Response::HTTP_FORBIDDEN);
+        return new Response('Credentials match up', Response::HTTP_OK);
     }
 
     #[Route('/logout', name: 'logout')]

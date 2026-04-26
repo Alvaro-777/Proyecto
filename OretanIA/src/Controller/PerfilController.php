@@ -52,7 +52,7 @@ class PerfilController extends AbstractController
 
 
 
-    #[Route('/perfil/password/change', name: 'perfil_password_change')]
+    #[Route('/perfil/configuracion/cambiar-clave', name: 'perfil_password_change')]
     public function newPassword(
         SessionInterface $session,
         UsuarioRepository $userRepo,
@@ -178,4 +178,36 @@ class PerfilController extends AbstractController
         return $this->redirectToRoute('perfil');
     }
 
+    #[Route('/perfil/configuracion/borrar-cuenta', name:'perfil_delete_account', methods:['POST'])]
+    public function borrar(
+        SessionInterface $session,
+        UsuarioRepository $userRepo,
+        Request $request)
+    {
+        $email = $request->request->get('email');
+        $password = $request->request->get('password');
+
+        $user = $userRepo->findOneBy(['correo' => $email]);
+        $id = $request->getSession()->get('user-id');
+
+        if (!$user) {
+            $this->addFlash('error', 'El correo no esta registrado.');
+            return $this->redirectToRoute('perfil_configuracion');
+        }
+
+        if (!password_verify($password, $user->getPswd())) {
+            $this->addFlash('error', 'Correo o contraseña incorrectos.');
+            return $this->redirectToRoute('perfil_configuracion');
+        }
+
+        if ($user->getId() != $id) {
+            $this->addFlash('error', 'El correo no es el del usuario actual.');
+            return $this->redirectToRoute('perfil_configuracion');
+        }
+
+        $userRepo->delete($user);
+
+        $request->getSession()->set('user-id', null);
+        return $this->redirectToRoute('logout');
+    }
 }

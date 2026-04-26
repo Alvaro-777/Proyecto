@@ -15,7 +15,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Centrar todo el main */
+/* Centrar el main */
 main {
     display: flex;
     flex-direction: column;

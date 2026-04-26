@@ -44,7 +44,8 @@ input{
     border:1px solid #dcdcdc;
 }
 
-input[type=submit]{
+input[type=submit],
+input[type=button]{
     background:#4a6cff;
     color:white;
     border:none;
@@ -52,7 +53,8 @@ input[type=submit]{
     font-weight:600;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover,
+input[type=button]:hover{
     background:#3a58d6;
 }
 
@@ -96,7 +98,7 @@ body.oscuro .settings-card {
 }
 
 /* Inputs (Para que no brillen en blanco) */
-body.oscuro input:not([type=submit]) {
+body.oscuro input:not([type=submit], [type=button]) {
     background: #2a2a2a;
     border: 1px solid #3a3a3a;
     color: #ffffff;
@@ -123,4 +125,34 @@ body.oscuro .disable-copy {
     background-color: #333;
     color: #bbb;
     border-color: #555;
+}
+
+.error-notice {
+    width: 85%;
+    margin: 0 auto 10px auto;
+    padding: 12px 16px;
+    background: #ffecec;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #c0392b;
+}
+
+.close-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Errores (Dark) */
+body.oscuro .error-notice {
+    background: #3d1a1a;
+    color: #ffb3b3;
+    border: 1px solid #5e2626;
+}
+
+body.oscuro .close-button {
+    color: #ffb3b3;
 }

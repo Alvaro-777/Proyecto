@@ -1,6 +1,5 @@
 let tablaUso = document.getElementById("profile-use-history-table"),
-    tablaPago = document.getElementById("profile-pay-history-table"),
-    captchaKey;
+    tablaPago = document.getElementById("profile-pay-history-table");
 
 adjustHistoryContent();
 adjustPaymentContent();

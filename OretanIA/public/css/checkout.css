@@ -53,7 +53,7 @@
     color: #e10600;
 }
 
-/* -------- MÉTODO DE PAGO -------- */
+/* -------- METODO DE PAGO -------- */
 
 .checkout-pago h3 {
     font-size: 1.4rem;
@@ -68,7 +68,7 @@
     gap: 22px 30px;
 }
 
-/* Tarjeta ocupa todo el ancho */
+/* Tarjeta ocupa el ancho entero */
 .checkout-pago .campo-tarjeta {
     grid-column: span 2;
 }
