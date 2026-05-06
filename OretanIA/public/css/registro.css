@@ -21,8 +21,8 @@ main {
     flex-direction: column;
     justify-content: center; /* centrar verticalmente */
     align-items: center;     /* centrar horizontalmente */
-    height: 100vh;           /* altura completa de la ventana */
-    padding: 20px;
+    min-height: 110vh;       /* Cambiado a min-height para que permita scroll si el contenido crece */
+    padding: 20px;           /* Espaciado por defecto en PC */
 }
 
 /* Header del formulario */
