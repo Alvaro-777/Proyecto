@@ -1,0 +1,577 @@
+
+    /* ==========================================================================
+       MODIFICACIONES DE CABECERA, MENÚ DESPLEGABLE Y BOTÓN MODO OSCURO
+       ========================================================================== */
+
+    /* Controles de la Cabecera (Contenedor de botones) */
+.header-controls {
+     display: flex;
+     align-items: center;
+     gap: 15px;
+ }
+
+/* ESTILOS DEL BOTÓN CLARO/OSCURO (#modo-toggle) */
+.modo-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.modo-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Lógica de Iconos (Sol / Luna) */
+/* Por defecto (Modo Claro activo): Mostramos la Luna para cambiar a Oscuro */
+.modo-btn .icon-sun {
+    display: none;
+}
+.modo-btn .icon-moon {
+    display: inline-block;
+    color: #f1c40f; /* Color amarillo/dorado para la luna */
+}
+
+/* Cuando el Body es Oscuro: Mostramos el Sol para cambiar a Claro */
+body.oscuro .modo-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+body.oscuro .modo-btn .icon-sun {
+    display: inline-block;
+    color: #f39c12; /* Color naranja/sol */
+}
+body.oscuro .modo-btn .icon-moon {
+    display: none;
+}
+
+
+/* ESTILOS DEL BOTÓN HAMBURGUESA (.menu-toggle-btn) */
+.menu-toggle-btn {
+    display: none; /* Oculto en PC */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.menu-toggle-btn .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN (ESTILOS PARA MÓVIL ACTUALIZADOS)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Mostrar botón hamburguesa en formato flex */
+    .menu-toggle-btn {
+        display: flex;
+    }
+
+    /* Menú Horizontal convertido en Desplegable Absoluto */
+    .menu-horizontal {
+        display: none; /* Oculto por defecto */
+        position: absolute;
+        top: 100%; /* Se despliega justo debajo del header */
+        left: 0;
+        width: 100%;
+        background: #111; /* Fondo oscuro elegante */
+        padding: 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Clase activa que añade el JS */
+    .menu-horizontal.active {
+        display: block;
+    }
+
+    /* Estructura de la lista en vertical */
+    .menu-horizontal ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0; /* Quitamos el gap horizontal */
+        padding: 10px 0;
+    }
+
+    .menu-horizontal ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Enlaces del menú adaptados para click táctil fácil */
+    .menu-horizontal a {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 1.1rem;
+    }
+
+    /* Quitar el borde al último elemento */
+    .menu-horizontal ul li:last-child a {
+        border-bottom: none;
+    }
+
+    .menu-horizontal a:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #007bff;
+    }
+
+    /* Estilos para el botón activo (Animación opcional de hamburguesa a X) */
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Ajustes Hero y Títulos */
+    .hero {
+        height: 250px;
+    }
+
+    .hero-texto h2 {
+        font-size: 1.6rem;
+    }
+
+    .titulo-seccion {
+        font-size: 1.5rem;
+    }
+
+    /* Los banners se apilan verticalmente */
+    .banner-informativo {
+        margin: 20px 15px;
+        flex-direction: column !important;
+    }
+
+    /* Ocultamos descripción hover en móvil */
+    .descripcion-central {
+        display: none;
+    }
+}
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Gemini es una IA y puede cometer errores, incluso con información sobre personas. Tu privacidad y GeminiSe abrirá en una ventana nueva
+
+    /* ==========================================================================
+       ORETAN-IA: ESTILOS INTEGRADOS Y RESPONSIVOS (TODO-EN-UNO)
+       ========================================================================== */
+
+    /* 1. CONFIGURACIÓN GLOBAL Y RESET */
+* {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        margin: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding: 0;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        box-sizing: border-box;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        font-family: 'Poppins', sans-serif;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* MODO OSCURO GLOBAL */
+body.oscuro {
+    background: #121212;
+    color: #f8f8f8;
+}
+
+/* 2. CABECERA Y NAVEGACIÓN (Header) */
+.header {
+    background: #000;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.titulo {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Controles de la Cabecera (Botones de Modo y Menú) */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ESTILOS DEL BOTÓN CLARO/OSCURO (#modo-toggle) */
+.modo-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.modo-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Alternancia de Iconos (Sol / Luna) según el modo */
+.modo-btn .icon-sun {
+    display: none;
+}
+.modo-btn .icon-moon {
+    display: inline-block;
+    color: #f1c40f; /* Color dorado para la luna */
+}
+
+/* Modificaciones del botón cuando se activa el Body en modo oscuro */
+body.oscuro .modo-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+body.oscuro .modo-btn .icon-sun {
+    display: inline-block;
+    color: #f39c12; /* Color naranja/sol */
+}
+body.oscuro .modo-btn .icon-moon {
+    display: none;
+}
+
+/* Menú Horizontal (Vistas de Escritorio) */
+.menu-horizontal ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.menu-horizontal a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.menu-horizontal a:hover {
+    color: #007bff;
+}
+
+/* Botón Hamburguesa (.menu-toggle-btn) */
+.menu-toggle-btn {
+    display: none; /* Oculto por defecto en PC */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.menu-toggle-btn .bar {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+/* 3. HERO SECTION */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-texto {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    width: 90%;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.2);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero-texto h2 { font-size: 2.2rem; margin-bottom: 10px; }
+
+/* 4. SECCIÓN DE SERVICIOS (TARJETAS) */
+.titulo-seccion {
+    text-align: center;
+    padding: 40px 20px 20px;
+    font-size: 2rem;
+}
+
+.tarjetas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.tarjeta {
+    width: 250px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s;
+}
+
+.tarjeta:hover { transform: translateY(-10px); }
+
+.tarjeta img {
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.tarjeta h3 { margin-top: 15px; font-size: 1.2rem; }
+
+/* Descripción que solo sale en PC al pasar el ratón */
+.descripcion-central {
+    text-align: center;
+    max-width: 800px;
+    margin: 20px auto;
+    min-height: 60px;
+    padding: 0 20px;
+}
+
+.descripcion-central .texto {
+    display: none;
+    font-size: 1.1rem;
+    color: #666;
+}
+
+body.oscuro .descripcion-central .texto { color: #ccc; }
+
+/* 5. BANNERS INFORMATIVOS */
+.banner-informativo {
+    display: flex;
+    flex-direction: column; /* Móvil por defecto */
+    align-items: center;
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 20px;
+    gap: 30px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+body.oscuro .banner-informativo { background: #1e1e1e; }
+
+.banner-informativo img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+}
+
+.banner-texto { text-align: center; flex: 1; }
+
+/* 6. BANNER FINAL Y PIE DE PÁGINA */
+.banner-final {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("../imagenes/baner2.jpg");
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    padding: 80px 20px;
+    margin-top: 40px;
+}
+
+.footer-section {
+    background: #000;
+    color: #fff;
+    padding: 50px 20px 20px;
+    margin-top: auto;
+}
+
+.footer-contenido {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+}
+
+.footer-col h3, .footer-col h4 { margin-bottom: 15px; color: #fff; }
+.footer-col ul { list-style: none; }
+.footer-col a { color: #ccc; text-decoration: none; }
+.footer-col a:hover { color: #fff; }
+
+/* ==========================================================================
+   7. RESPONSIVE DESIGN (ESTILOS PARA MÓVIL OPTIMIZADOS)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Activar el botón hamburguesa */
+    .menu-toggle-btn {
+        display: flex;
+    }
+
+    /* Menú Desplegable Absoluto en Móvil */
+    .menu-horizontal {
+        display: none; /* Oculto hasta que se active */
+        position: absolute;
+        top: 100%; /* Justo debajo del header */
+        left: 0;
+        width: 100%;
+        background: #111; /* Fondo oscuro sólido */
+        padding: 0;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.3s ease-in-out;
+    }
+
+    /* Clase que se activa mediante JavaScript en el toggle */
+    .menu-horizontal.active {
+        display: block;
+    }
+
+    /* Modificación de la lista para distribución vertical */
+    .menu-horizontal ul {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+        padding: 10px 0;
+    }
+
+    .menu-horizontal ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Enlaces adaptados para facilidad táctil móvil */
+    .menu-horizontal a {
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-size: 1.1rem;
+    }
+
+    /* Remover el borde inferior del último elemento */
+    .menu-horizontal ul li:last-child a {
+        border-bottom: none;
+    }
+
+    .menu-horizontal a:hover {
+        background: rgba(255, 255, 255, 0.05);
+        color: #007bff;
+    }
+
+    /* Animación visual opcional del botón hamburguesa transformándose en una 'X' */
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(2) {
+        opacity: 0;
+    }
+    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+
+    /* Ajustes Hero y Títulos */
+    .hero { height: 250px; }
+    .hero-texto h2 { font-size: 1.6rem; }
+    .titulo-seccion { font-size: 1.5rem; }
+
+    /* Los banners se apilan verticalmente */
+    .banner-informativo {
+        margin: 20px 15px;
+        flex-direction: column !important; /* Fuerza orden vertical */
+    }
+
+    /* Ocultamos descripción hover en móvil (no hay mouse) */
+    .descripcion-central { display: none; }
+}
+
+/* Estilos para Pantallas Grandes */
+@media (min-width: 769px) {
+    .banner-informativo { flex-direction: row; text-align: left; }
+    .banner-informativo:nth-child(even) { flex-direction: row-reverse; }
+    .banner-texto { text-align: left; }
+
+    /* Mostrar texto de tarjeta en hover */
+    .tarjeta.audio:hover ~ .descripcion-central .texto.audio,
+    .tarjeta.predict:hover ~ .descripcion-central .texto.predict,
+    .tarjeta.chatbot:hover ~ .descripcion-central .texto.chatbot {
+        display: block;
+    }
+}
