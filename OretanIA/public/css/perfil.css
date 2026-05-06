@@ -51,7 +51,6 @@ article:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 30px;
 }
 
 .avatar-wrapper {
@@ -381,4 +380,90 @@ body.oscuro .close-button {
 /* Textos vacíos */
 body.oscuro .no-data-notice {
     color: #888;
+}
+
+
+/* ============================================================
+   RESPONSIVE (VISTA MÓVIL)
+   ============================================================ */
+
+@media (max-width: 768px) {
+    /* Ajustes generales de las tarjetas */
+    article,
+    #profile-histories header,
+    #profile-histories article,
+    .error-notice {
+        width: 92%; /* Aprovecha más espacio en las pantallas de móvil */
+    }
+
+    #profile-histories article {
+        padding: 15px; /* Reducimos padding lateral de las tablas */
+    }
+
+    /* Redireccionamiento del Header del perfil a vertical */
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+
+    /* Centrado del avatar */
+    .profile-avatar {
+        margin-right: 0;
+    }
+
+    /* Fila de título y botón de edición */
+    .profile-info {
+        width: 100%;
+    }
+
+    .profile-title-row {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .profile-title-row h1 {
+        font-size: 22px;
+    }
+
+    .edit-profile-button {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
+
+    /* La cuadrícula de datos pasa a ser 1 sola columna en móvil */
+    .profile-data {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .profile-data li {
+        padding: 12px;
+    }
+
+    /* Pestañas de historial */
+    #profile-histories header {
+        gap: 4px;
+    }
+
+    #profile-histories header h2 {
+        font-size: 13px;
+        padding: 8px 12px;
+        flex: 1; /* Hace que las pestañas ocupen el mismo ancho */
+        text-align: center;
+    }
+
+    /* Solución al desbordamiento de las tablas en pantallas pequeñas:
+       Convertimos el contenedor del historial en scrollable horizontalmente */
+    #profile-use-history,
+    #profile-pay-history {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Desplazamiento táctil fluido en iOS */
+    }
+
+    #profile-histories table {
+        min-width: 500px; /* Asegura que la tabla no se aplaste y conserve un ancho mínimo legible */
+    }
 }

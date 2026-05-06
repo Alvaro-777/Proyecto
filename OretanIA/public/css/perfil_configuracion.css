@@ -1,4 +1,13 @@
-/* --- TU CÓDIGO ORIGINAL (SIN CAMBIOS) --- */
+/* --- TU CÓDIGO ORIGINAL OPTIMIZADO PARA MÓVIL --- */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* centrar verticalmente */
+    align-items: center;     /* centrar horizontalmente */
+    min-height: 100vh;       /* Cambiado a min-height para que permita scroll si el contenido crece */
+    padding: 20px;           /* Espaciado por defecto en PC */
+}
+
 *{
     margin:0;
     padding:0;
@@ -7,15 +16,16 @@
 }
 
 .account-settings{
-    width:85%;
+    width:90%; /* Un poco más ancho en móviles para aprovechar el espacio */
     margin:auto;
     display:flex;
-    gap:30px;
+    flex-direction:column; /* En móvil se apilan verticalmente */
+    gap:20px; /* Menor separación en móvil */
 }
 
 .settings-card{
-    flex:1;
-    padding:30px;
+    width: 100%;
+    padding:20px; /* Menor padding interno en pantallas pequeñas */
     background:white;
     border-radius:12px;
     box-shadow:0 8px 25px rgba(0,0,0,0.05);
@@ -23,6 +33,7 @@
 
 .settings-card h2{
     margin-bottom:15px;
+    font-size: 1.4rem; /* Tamaño de letra más adaptado a móviles */
 }
 
 form{
@@ -39,9 +50,10 @@ label{
 }
 
 input{
-    padding:10px;
+    padding:12px; /* Un pelín más de padding para que sea más fácil pulsar en móvil */
     border-radius:6px;
     border:1px solid #dcdcdc;
+    font-size: 16px; /* Evita que iOS haga zoom automático al hacer focus en el input */
 }
 
 input[type=submit],
@@ -51,6 +63,7 @@ input[type=button]{
     border:none;
     cursor:pointer;
     font-weight:600;
+    padding: 14px; /* Botones más táctiles */
 }
 
 input[type=submit]:hover,
@@ -72,13 +85,55 @@ input[type=button]:hover{
 
 .disable-copy{
     display: inline-block;
-    padding: 0 2px;
+    padding: 2px 6px;
     user-select:none;
     font-weight:bold;
     border: 1px gray solid;
     border-radius: 3px;
     background-color: lightgray;
 }
+
+.error-notice {
+    width: 90%; /* Ajustado al mismo ancho que .account-settings */
+    margin: 0 auto 15px auto;
+    padding: 12px 16px;
+    background: #ffecec;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #c0392b;
+    font-size: 14px;
+}
+
+.close-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 5px;
+}
+
+/* ============================================================
+   MEDIA QUERY: PANTALLAS GRANDES (Ordenadores/Tabletas)
+   ============================================================ */
+@media (min-width: 768px) {
+    .account-settings {
+        width: 85%;
+        flex-direction: row; /* Vuelve a ponerse en horizontal en escritorio */
+        gap: 30px;
+    }
+
+    .settings-card {
+        flex: 1;
+        padding: 30px;
+    }
+
+    .error-notice {
+        width: 85%;
+    }
+}
+
 /* ============================================================
    MODO OSCURO (Se activa al añadir clase .oscuro al body)
    ============================================================ */
@@ -114,7 +169,7 @@ body.oscuro label {
     color: #b0b0b0;
 }
 
-/* Tarjeta de borrado (ajuste de borde para que no sea tan chillón) */
+/* Tarjeta de borrado */
 body.oscuro .delete-card {
     border: 2px solid #442222;
     background: #1e1e1e;
@@ -125,25 +180,6 @@ body.oscuro .disable-copy {
     background-color: #333;
     color: #bbb;
     border-color: #555;
-}
-
-.error-notice {
-    width: 85%;
-    margin: 0 auto 10px auto;
-    padding: 12px 16px;
-    background: #ffecec;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #c0392b;
-}
-
-.close-button {
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 16px;
 }
 
 /* Errores (Dark) */
