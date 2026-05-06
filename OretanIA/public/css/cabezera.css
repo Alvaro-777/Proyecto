@@ -1,197 +1,14 @@
-
-    /* ==========================================================================
-       MODIFICACIONES DE CABECERA, MENÚ DESPLEGABLE Y BOTÓN MODO OSCURO
-       ========================================================================== */
-
-    /* Controles de la Cabecera (Contenedor de botones) */
-.header-controls {
-     display: flex;
-     align-items: center;
-     gap: 15px;
- }
-
-/* ESTILOS DEL BOTÓN CLARO/OSCURO (#modo-toggle) */
-.modo-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.modo-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.05);
-}
-
-/* Lógica de Iconos (Sol / Luna) */
-/* Por defecto (Modo Claro activo): Mostramos la Luna para cambiar a Oscuro */
-.modo-btn .icon-sun {
-    display: none;
-}
-.modo-btn .icon-moon {
-    display: inline-block;
-    color: #f1c40f; /* Color amarillo/dorado para la luna */
-}
-
-/* Cuando el Body es Oscuro: Mostramos el Sol para cambiar a Claro */
-body.oscuro .modo-btn {
-    background: rgba(0, 0, 0, 0.3);
-    border-color: rgba(255, 255, 255, 0.1);
-}
-body.oscuro .modo-btn .icon-sun {
-    display: inline-block;
-    color: #f39c12; /* Color naranja/sol */
-}
-body.oscuro .modo-btn .icon-moon {
-    display: none;
-}
-
-
-/* ESTILOS DEL BOTÓN HAMBURGUESA (.menu-toggle-btn) */
-.menu-toggle-btn {
-    display: none; /* Oculto en PC */
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 1001;
-}
-
-.menu-toggle-btn .bar {
-    width: 100%;
-    height: 3px;
-    background-color: #fff;
-    border-radius: 5px;
-    transition: all 0.3s ease;
-}
-
-
 /* ==========================================================================
-   7. RESPONSIVE DESIGN (ESTILOS PARA MÓVIL ACTUALIZADOS)
+   ORETAN-IA: ESTILOS INTEGRADOS Y RESPONSIVOS (TODO-EN-UNO)
    ========================================================================== */
 
-@media (max-width: 768px) {
-    /* Mostrar botón hamburguesa en formato flex */
-    .menu-toggle-btn {
-        display: flex;
-    }
-
-    /* Menú Horizontal convertido en Desplegable Absoluto */
-    .menu-horizontal {
-        display: none; /* Oculto por defecto */
-        position: absolute;
-        top: 100%; /* Se despliega justo debajo del header */
-        left: 0;
-        width: 100%;
-        background: #111; /* Fondo oscuro elegante */
-        padding: 0;
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        transition: all 0.3s ease-in-out;
-    }
-
-    /* Clase activa que añade el JS */
-    .menu-horizontal.active {
-        display: block;
-    }
-
-    /* Estructura de la lista en vertical */
-    .menu-horizontal ul {
-        flex-direction: column;
-        width: 100%;
-        gap: 0; /* Quitamos el gap horizontal */
-        padding: 10px 0;
-    }
-
-    .menu-horizontal ul li {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Enlaces del menú adaptados para click táctil fácil */
-    .menu-horizontal a {
-        display: block;
-        padding: 15px 20px;
-        width: 100%;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        font-size: 1.1rem;
-    }
-
-    /* Quitar el borde al último elemento */
-    .menu-horizontal ul li:last-child a {
-        border-bottom: none;
-    }
-
-    .menu-horizontal a:hover {
-        background: rgba(255, 255, 255, 0.05);
-        color: #007bff;
-    }
-
-    /* Estilos para el botón activo (Animación opcional de hamburguesa a X) */
-    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(1) {
-        transform: translateY(9px) rotate(45deg);
-    }
-
-    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(3) {
-        transform: translateY(-9px) rotate(-45deg);
-    }
-
-    /* Ajustes Hero y Títulos */
-    .hero {
-        height: 250px;
-    }
-
-    .hero-texto h2 {
-        font-size: 1.6rem;
-    }
-
-    .titulo-seccion {
-        font-size: 1.5rem;
-    }
-
-    /* Los banners se apilan verticalmente */
-    .banner-informativo {
-        margin: 20px 15px;
-        flex-direction: column !important;
-    }
-
-    /* Ocultamos descripción hover en móvil */
-    .descripcion-central {
-        display: none;
-    }
-}
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Gemini es una IA y puede cometer errores, incluso con información sobre personas. Tu privacidad y GeminiSe abrirá en una ventana nueva
-
-    /* ==========================================================================
-       ORETAN-IA: ESTILOS INTEGRADOS Y RESPONSIVOS (TODO-EN-UNO)
-       ========================================================================== */
-
-    /* 1. CONFIGURACIÓN GLOBAL Y RESET */
+/* 1. CONFIGURACIÓN GLOBAL Y RESET */
 * {
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        margin: 0;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        padding: 0;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        box-sizing: border-box;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        font-family: 'Poppins', sans-serif;
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    }
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
 html, body {
     height: 100%;
@@ -245,56 +62,11 @@ body.oscuro {
     color: #fff;
 }
 
-/* Controles de la Cabecera (Botones de Modo y Menú) */
+/* Controles de la Cabecera (Botón de Menú en Móvil) */
 .header-controls {
     display: flex;
     align-items: center;
     gap: 15px;
-}
-
-/* ESTILOS DEL BOTÓN CLARO/OSCURO (#modo-toggle) */
-.modo-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.modo-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    transform: scale(1.05);
-}
-
-/* Alternancia de Iconos (Sol / Luna) según el modo */
-.modo-btn .icon-sun {
-    display: none;
-}
-.modo-btn .icon-moon {
-    display: inline-block;
-    color: #f1c40f; /* Color dorado para la luna */
-}
-
-/* Modificaciones del botón cuando se activa el Body en modo oscuro */
-body.oscuro .modo-btn {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
-}
-body.oscuro .modo-btn .icon-sun {
-    display: inline-block;
-    color: #f39c12; /* Color naranja/sol */
-}
-body.oscuro .modo-btn .icon-moon {
-    display: none;
 }
 
 /* Menú Horizontal (Vistas de Escritorio) */
@@ -314,6 +86,56 @@ body.oscuro .modo-btn .icon-moon {
 
 .menu-horizontal a:hover {
     color: #007bff;
+}
+
+/* ESTILOS DEL BOTÓN CLARO/OSCURO (Único y optimizado sin espacio lateral extra) */
+.modo-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    width: 36px;  /* Reducido ligeramente de 42px a 36px */
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+
+    /* Previene espaciados extraños a la derecha */
+    margin: 0 !important;
+    padding: 0 !important;
+    flex-shrink: 0;
+}
+
+.modo-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.05);
+}
+
+/* Lógica de Iconos (Sol / Luna) */
+.modo-btn .icon-sun {
+    display: none;
+}
+.modo-btn .icon-moon {
+    display: inline-block;
+    color: #f1c40f; /* Color dorado para la luna */
+}
+
+/* Modificaciones del botón cuando se activa el Body en modo oscuro */
+body.oscuro .modo-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+body.oscuro .modo-btn .icon-sun {
+    display: inline-block;
+    color: #f39c12; /* Color naranja/sol */
+}
+body.oscuro .modo-btn .icon-moon {
+    display: none;
 }
 
 /* Botón Hamburguesa (.menu-toggle-btn) */
@@ -480,31 +302,27 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
    ========================================================================== */
 
 @media (max-width: 768px) {
-    /* Activar el botón hamburguesa */
     .menu-toggle-btn {
         display: flex;
     }
 
-    /* Menú Desplegable Absoluto en Móvil */
     .menu-horizontal {
-        display: none; /* Oculto hasta que se active */
+        display: none;
         position: absolute;
-        top: 100%; /* Justo debajo del header */
+        top: 100%;
         left: 0;
         width: 100%;
-        background: #111; /* Fondo oscuro sólido */
+        background: #111;
         padding: 0;
         box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4);
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         transition: all 0.3s ease-in-out;
     }
 
-    /* Clase que se activa mediante JavaScript en el toggle */
     .menu-horizontal.active {
         display: block;
     }
 
-    /* Modificación de la lista para distribución vertical */
     .menu-horizontal ul {
         flex-direction: column;
         width: 100%;
@@ -515,9 +333,11 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
     .menu-horizontal ul li {
         width: 100%;
         text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    /* Enlaces adaptados para facilidad táctil móvil */
     .menu-horizontal a {
         display: block;
         padding: 15px 20px;
@@ -526,7 +346,11 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
         font-size: 1.1rem;
     }
 
-    /* Remover el borde inferior del último elemento */
+    /* En móvil le damos margen superior al botón para separarlo del texto */
+    .menu-horizontal .modo-btn {
+        margin: 15px 0 !important;
+    }
+
     .menu-horizontal ul li:last-child a {
         border-bottom: none;
     }
@@ -536,7 +360,6 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
         color: #007bff;
     }
 
-    /* Animación visual opcional del botón hamburguesa transformándose en una 'X' */
     .menu-horizontal.active ~ .header-controls .menu-toggle-btn .bar:nth-child(1) {
         transform: translateY(9px) rotate(45deg);
     }
@@ -547,18 +370,15 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
         transform: translateY(-9px) rotate(-45deg);
     }
 
-    /* Ajustes Hero y Títulos */
     .hero { height: 250px; }
     .hero-texto h2 { font-size: 1.6rem; }
     .titulo-seccion { font-size: 1.5rem; }
 
-    /* Los banners se apilan verticalmente */
     .banner-informativo {
         margin: 20px 15px;
-        flex-direction: column !important; /* Fuerza orden vertical */
+        flex-direction: column !important;
     }
 
-    /* Ocultamos descripción hover en móvil (no hay mouse) */
     .descripcion-central { display: none; }
 }
 
@@ -568,7 +388,6 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
     .banner-informativo:nth-child(even) { flex-direction: row-reverse; }
     .banner-texto { text-align: left; }
 
-    /* Mostrar texto de tarjeta en hover */
     .tarjeta.audio:hover ~ .descripcion-central .texto.audio,
     .tarjeta.predict:hover ~ .descripcion-central .texto.predict,
     .tarjeta.chatbot:hover ~ .descripcion-central .texto.chatbot {
@@ -576,118 +395,104 @@ body.oscuro .banner-informativo { background: #1e1e1e; }
     }
 }
 
-    /* ==========================================================================
-   8. VENTANA EMERGETE / BANNER DE COOKIES (SÓLO COOKIES ESENCIALES)
+/* ==========================================================================
+   8. VENTANA EMERGENTE / BANNER DE COOKIES
    ========================================================================== */
+#cookie-banner {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
+    padding: 20px;
+    transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+}
 
+#cookie-banner.active {
+    bottom: 0;
+    pointer-events: auto;
+}
+
+.cookie-box {
+    background: #ffffff;
+    color: #333333;
+    max-width: 650px;
+    width: 100%;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cookie-box p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.cookie-box p strong {
+    color: #007bff;
+}
+
+#accept-cookies {
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    align-self: flex-end;
+    margin-top: 5px;
+}
+
+#accept-cookies:hover {
+    background: #222222;
+    transform: scale(1.02);
+}
+
+#accept-cookies:active {
+    transform: scale(0.98);
+}
+
+body.oscuro .cookie-box {
+    background: #1e1e1e;
+    color: #f8f8f8;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+body.oscuro #accept-cookies {
+    background: #ffffff;
+    color: #000000;
+}
+
+body.oscuro #accept-cookies:hover {
+    background: #e0e0e0;
+}
+
+@media (max-width: 768px) {
     #cookie-banner {
-        position: fixed;
-        bottom: -100%; /* Oculto completamente por debajo de la pantalla al cargar */
-        left: 0;
-        width: 100%;
-        z-index: 2000; /* Por encima de la cabecera (z-index: 1000) y de todo el contenido */
-        padding: 20px;
-        transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1); /* Desplazamiento suave hacia arriba */
-        pointer-events: none; /* Evita bloquear clics mientras está oculto */
-        display: flex;
-        justify-content: center;
+        padding: 10px;
     }
-
-    /* Clase que se activa con JavaScript si no existe la cookie 'aviso' */
-    #cookie-banner.active {
-        bottom: 0; /* Sube y se posiciona en la parte inferior visible */
-        pointer-events: auto; /* Reactiva la interacción */
-    }
-
-    /* Caja contenedora del mensaje */
     .cookie-box {
-        background: #ffffff;
-        color: #333333;
-        max-width: 650px;
-        width: 100%;
-        padding: 25px;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), 0 1px 3px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(0, 0, 0, 0.05);
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+        padding: 20px;
+        border-radius: 12px;
     }
-
-    /* Estilos de los textos internos */
     .cookie-box p {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        margin: 0;
+        font-size: 0.85rem;
     }
-
-    .cookie-box p strong {
-        color: #007bff; /* Resalta "cookies técnicas y esenciales" con tu azul de acento */
-    }
-
-    /* Botón de Aceptación */
     #accept-cookies {
-        background: #000000; /* Botón negro a juego con la cabecera */
-        color: #ffffff;
-        border: none;
-        padding: 12px 24px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background 0.2s, transform 0.1s;
-        align-self: flex-end; /* Alinea el botón a la derecha */
-        margin-top: 5px;
+        width: 100%;
+        text-align: center;
+        align-self: center;
     }
-
-    #accept-cookies:hover {
-        background: #222222;
-        transform: scale(1.02);
-    }
-
-    #accept-cookies:active {
-        transform: scale(0.98);
-    }
-
-    /* --------------------------------------------------------------------------
-       ADAPTACIÓN PARA MODO OSCURO (Respeta tu variable global 'body.oscuro')
-       -------------------------------------------------------------------------- */
-    body.oscuro .cookie-box {
-        background: #1e1e1e; /* Fondo oscuro elegante */
-        color: #f8f8f8;
-        border-color: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-
-    body.oscuro #accept-cookies {
-        background: #ffffff; /* Botón blanco en modo oscuro para contraste */
-        color: #000000;
-    }
-
-    body.oscuro #accept-cookies:hover {
-        background: #e0e0e0;
-    }
-
-    /* --------------------------------------------------------------------------
-       RESPONSIVE: Ajustes para pantallas pequeñas (Móvil)
-       -------------------------------------------------------------------------- */
-    @media (max-width: 768px) {
-        #cookie-banner {
-            padding: 10px; /* Menos espacio alrededor del banner en móviles */
-        }
-
-        .cookie-box {
-            padding: 20px;
-            border-radius: 12px;
-        }
-
-        .cookie-box p {
-            font-size: 0.85rem; /* Letra un poco más pequeña en móvil */
-        }
-
-        #accept-cookies {
-            width: 100%; /* Botón ancho completo para facilitar la pulsación táctil */
-            text-align: center;
-            align-self: center;
-        }
-    }
+}
