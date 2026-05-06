@@ -1,13 +1,29 @@
+/* ================= RESETEO DE SEGURIDAD Y ANTI-DESBORDAMIENTO ================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Corta de raíz cualquier desbordamiento lateral */
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit; /* Asegura que paddings y borders no rompan el ancho de pantalla */
+}
+
 /* ================== CONTENEDOR GENERAL ================== */
 
 .predictia-container {
-    max-width: 1000px;              /* ⬅ más ancho */
+    max-width: 1000px;
+    width: 100%;              /* Asegura que sea responsivo */
     margin: 80px auto;
-    padding: 50px 60px;             /* ⬅ más aire lateral */
+    padding: 50px 60px;
     background: #ffffff;
     border-radius: 18px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     color: #333;
+    box-sizing: border-box;  /* Evita que el padding sume ancho extra */
 }
 
 /* ================== TÍTULOS Y TEXTO ================== */
@@ -48,17 +64,22 @@
 /* Campo de texto */
 .predictia-container input[type="text"] {
     width: 100%;
-    padding: 14px 16px;             /* ⬅ más cómodo */
+    padding: 14px 16px;
     border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 1.05rem;
     margin-bottom: 30px;
+    box-sizing: border-box; /* Evita que el padding rompa la caja del input */
 }
 
 /* Campo archivo */
 .predictia-container input[type="file"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
     margin-bottom: 35px;
     font-size: 0.95rem;
+    box-sizing: border-box;
 }
 
 /* ================== BOTÓN ================== */
@@ -73,6 +94,7 @@
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .predictia-container button:hover {
@@ -112,4 +134,50 @@ body.oscuro .predictia-container button {
 
 body.oscuro .predictia-container button:hover {
     background: #dddddd;
+}
+
+/* ================== VISTA MÓVIL (MEDIA QUERIES) ================== */
+
+@media (max-width: 768px) {
+    /* Ajustes generales del contenedor */
+    .predictia-container {
+        margin: 20px auto 40px;
+        padding: 30px 20px; /* Menor padding para ganar pantalla real */
+        border-radius: 14px;
+        width: 92%; /* Margen sutil a los lados para que respire en pantallas pequeñas */
+    }
+
+    .predictia-container h1 {
+        font-size: 1.8rem;
+    }
+
+    .predictia-container p {
+        font-size: 0.95rem;
+    }
+
+    .predictia-container .creditos {
+        margin-bottom: 20px;
+    }
+
+    .predictia-container form {
+        margin-top: 25px;
+    }
+
+    /* Campos de entrada en móvil */
+    .predictia-container input[type="text"] {
+        padding: 12px;
+        font-size: 0.95rem;
+        margin-bottom: 20px;
+    }
+
+    .predictia-container input[type="file"] {
+        font-size: 0.85rem;
+        margin-bottom: 25px;
+    }
+
+    /* Botón adaptable */
+    .predictia-container button {
+        padding: 14px;
+        font-size: 1rem;
+    }
 }

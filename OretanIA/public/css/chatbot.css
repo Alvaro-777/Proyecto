@@ -1,7 +1,27 @@
+/* ================= RESETEO PARA ELIMINAR BORDES BLANCOS ================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Evita el scroll horizontal y bordes blancos fantasmales */
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+/* ================== CONTENEDOR DEL CHAT ================== */
+
 .chat-container {
     max-width: 800px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 20px auto;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /*  */
 }
 
 .chat-info {
@@ -9,70 +29,123 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
+    flex-wrap: wrap; /* Permite que el botón baje si no hay espacio */
+    gap: 10px; /* [cite: 16] */
 }
 
+/* ================== ÁREA DE MENSAJES ================== */
+
 .chat-messages {
-    height: 400px;
+    height: 500px; /* Un poco más alto para escritorio */
+    max-height: 70vh; /* Se adapta a la altura de la pantalla del móvil */
     border: 1px solid #ddd;
-    border-radius: 8px;
+    border-radius: 12px;
     padding: 15px;
     overflow-y: auto;
     background: #f9f9f9;
     margin-bottom: 15px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /*  */
 }
 
 .mensaje {
     margin-bottom: 15px;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    max-width: 85%; /* Más ancho para aprovechar el espacio */
+    position: relative;
+    font-size: 0.95rem;
+    line-height: 1.4; /*  */
 }
 
 .mensaje-user {
-    background: #e3f2fd;
-    margin-left: 20%;
-    text-align: right;
+    background: #007bff;
+    color: #fff;
+    align-self: flex-end; /* Alineación nativa de flex */
+    margin-left: auto; /* Empuja el mensaje a la derecha */
+    border-bottom-right-radius: 2px;
 }
 
 .mensaje-assistant {
-    background: #f1f8e9;
-    margin-right: 20%;
+    background: #e9e9eb;
+    color: #333;
+    align-self: flex-start;
+    margin-right: auto; /* Empuja el mensaje a la izquierda */
+    border-bottom-left-radius: 2px;
 }
 
 .mensaje-header {
+    font-size: 0.75rem;
     font-weight: bold;
-    margin-bottom: 5px;
-    color: #333;
+    margin-bottom: 4px;
     display: flex;
     justify-content: space-between;
+    opacity: 0.8; /* [cite: 18, 19] */
 }
 
-.mensaje-header small {
-    font-weight: normal;
-    color: #666;
+.mensaje-user .mensaje-header {
+    color: #e0e0e0;
 }
 
 .mensaje-contenido {
     word-wrap: break-word;
-    white-space: pre-wrap;
+    white-space: pre-wrap; /* [cite: 20] */
 }
 
-.mensaje-error {
-    background: #ffebee;
-    color: #c62828;
-}
+/* ================== INPUT Y BOTÓN ================== */
 
 .chat-input {
     display: flex;
     gap: 10px;
+    background: #fff;
+    padding: 5px 0; /*  */
 }
 
 .chat-input input {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    padding: 12px 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px; /* Bordes redondeados modernos */
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.chat-input input:focus {
+    border-color: #007bff;
 }
 
 .chat-input button {
-    padding: 10px 20px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 600;
+}
+
+/* ================== VISTA MÓVIL (MEDIA QUERIES) ================== */
+
+@media (max-width: 600px) {
+    .chat-container {
+        margin: 0;
+        padding: 10px;
+        height: 100vh; /* Intenta ocupar el alto de pantalla */
+    }
+
+    .chat-messages {
+        height: auto;
+        flex: 1; /* El chat crece para ocupar el espacio sobrante */
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    .mensaje {
+        max-width: 90%; /* En móviles, los mensajes pueden ser casi de ancho completo */
+        font-size: 0.9rem;
+    }
+
+    .chat-info span {
+        font-size: 0.85rem; /* [cite: 16] */
+    }
+
+    .chat-input {
+        padding-bottom: 20px; /* Espacio para el teclado/gestos de navegación */
+    }
 }

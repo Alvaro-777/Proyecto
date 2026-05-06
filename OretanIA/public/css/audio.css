@@ -1,9 +1,25 @@
 /* ================= LAYOUT GENERAL ================= */
+/* ================= RESETEO GLOBAL Y ANTI-DESBORDAMIENTO ================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden; /* Corta cualquier elemento que intente salirse por los lados */
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit; /* Aplica border-box a absolutamente todo de forma heredada */
+}
+
 main {
     flex: 1;
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    padding: 0 15px; /* Evita que el contenedor toque los bordes de la pantalla en móviles */
+    box-sizing: border-box;
 }
 
 /* ================= AUDIO IA ================= */
@@ -21,6 +37,7 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box; /* Crucial para evitar que el padding desborde el ancho en móviles */
 }
 
 /* Título */
@@ -53,6 +70,14 @@ main {
 
 /* ================= ARCHIVO ADJUNTO ================= */
 
+/* Envoltura para controlar el ancho del adjunto */
+.audio div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .audio label[for="archivo_adjunto"] {
     margin-top: 20px;
     display: block;
@@ -65,15 +90,24 @@ main {
     margin-top: 8px;
     padding: 10px;
     width: 100%;
-    max-width: 420px;
+    max-width: 100%; /* Corregido: ya no se desborda en pantallas muy pequeñas */
     border-radius: 10px;
     border: 1px solid #ccc;
     background: #f8f8f8;
     cursor: pointer;
     font-size: 0.95rem;
+    box-sizing: border-box; /* Asegura que el padding interno no sume al ancho total */
 }
 
 /* ================= BOTÓN PRINCIPAL ================= */
+
+/* Aseguramos que el párrafo del botón no herede márgenes raros */
+.audio p {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+}
 
 .audio input[type="submit"] {
     margin-top: 30px;
@@ -87,6 +121,8 @@ main {
     cursor: pointer;
     align-self: center;
     transition: background 0.3s ease;
+    width: auto;
+    max-width: 100%;
 }
 
 .audio input[type="submit"]:hover {
@@ -100,6 +136,7 @@ main {
     color: #666;
     text-align: center;
     max-width: 600px;
+    width: 100%;
 }
 
 /* ================= MODO OSCURO ================= */
@@ -147,4 +184,46 @@ body.oscuro .audio input[type="submit"]:hover {
 
 body.oscuro .audio .note {
     color: #bbb;
+}
+
+
+/* ================= MEDIA QUERIES (MÓVIL) ================= */
+@media (max-width: 600px) {
+    /* Ajustamos el contenedor del formulario para pantallas pequeñas */
+    .audio {
+        margin: 20px auto 40px;
+        padding: 20px 20px; /* Reducimos padding para ganar espacio en pantalla */
+        border-radius: 12px;
+    }
+
+    /* Ajustamos tamaños de fuente para que no se vea gigante en móviles */
+    .audio .titulo {
+        font-size: 1.2rem;
+    }
+
+    .audio textarea {
+        min-height: 180px;
+        font-size: 0.95rem;
+        padding: 12px;
+    }
+
+    .audio label[for="archivo_adjunto"] {
+        font-size: 0.95rem;
+    }
+
+    .audio input[type="file"] {
+        font-size: 0.85rem;
+        padding: 8px;
+    }
+
+    /* Botón a ancho completo en móviles para mejorar la usabilidad */
+    .audio input[type="submit"] {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .audio .note {
+        font-size: 0.85rem;
+    }
 }
