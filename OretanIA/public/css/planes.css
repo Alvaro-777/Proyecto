@@ -1,69 +1,83 @@
 /* ================= PLANES ================= */
 
+body {
+    margin: 0;
+    padding: 0;
+}
+
 .planes-titulo {
     text-align: center;
-    margin: 80px 0 50px;
-    font-size: 2.6rem;
+    margin: 60px 0 40px;
+    font-size: 2.4rem;
     font-weight: 700;
     color: #111;
+    padding: 0 15px;
 }
 
 .planes-container {
     display: flex;
     justify-content: center;
-    gap: 40px;
-    margin-bottom: 120px;
+    gap: 30px;
+    margin-bottom: 100px;
+    flex-wrap: wrap;
+    padding: 0 15px;
 }
 
 /* ---------- TARJETA ---------- */
 
 .plan-card {
     background: #ffffff;
-    border-radius: 20px;
-    padding: 40px 30px;
+    border-radius: 18px;
+    padding: 35px 25px;
     width: 280px;
     text-align: center;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     border: 2px solid transparent;
-    transition: transform 0.3s, border-color 0.3s;
+    transition: all 0.25s ease;
+    box-sizing: border-box;
 }
 
-/* Hover para mostrar borde rojo y agrandar la tarjeta */
-.plan-card:hover {
-    border-color: #e10600;
-    transform: scale(1.05);
+/* Hover solo para escritorio */
+@media (hover: hover) {
+    .plan-card:hover {
+        border-color: #e10600;
+        transform: scale(1.05);
+    }
 }
 
 /* ---------- TEXTO ---------- */
 
 .plan-card h2 {
-    font-size: 1.6rem;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
 }
 
 .plan-card .creditos {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    margin-bottom: 8px;
 }
 
 .plan-card .precio {
-    font-size: 2rem;
+    font-size: 1.9rem;
     font-weight: 700;
     color: #e10600;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 /* ---------- BOTÓN ---------- */
 
 .btn-plan {
-    display: inline-block;
-    padding: 14px 28px;
+    display: block;
+    width: 100%;
+    padding: 14px;
+    box-sizing: border-box; /* 👈 CLAVE */
     background: #000;
     color: #fff;
     border-radius: 12px;
     font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
+    text-align: center;
 }
 
 .btn-plan:hover {
@@ -79,7 +93,7 @@ body.oscuro .planes-titulo {
 body.oscuro .plan-card {
     background: #2c2c2c;
     color: #f1f1f1;
-    box-shadow: 0 6px 20px rgba(255,255,255,0.06);
+    box-shadow: 0 6px 18px rgba(255,255,255,0.05);
 }
 
 body.oscuro .plan-card .precio {
@@ -95,17 +109,18 @@ body.oscuro .btn-plan:hover {
     background: #ddd;
 }
 
-/* Hover modo oscuro */
-body.oscuro .plan-card:hover {
-    border-color: #ffd700;
-    transform: scale(1.05);
+@media (hover: hover) {
+    body.oscuro .plan-card:hover {
+        border-color: #ffd700;
+        transform: scale(1.05);
+    }
 }
 
-/* ================= TEXTO INFORMATIVO PLANES ================= */
+/* ================= TEXTO INFORMATIVO ================= */
 
 .planes-info {
-    max-width: 900px;
-    margin: 40px auto 120px;
+    max-width: 800px;
+    margin: 30px auto 100px;
     text-align: center;
     font-size: 0.95rem;
     color: #666;
@@ -113,13 +128,87 @@ body.oscuro .plan-card:hover {
     padding: 0 20px;
 }
 
-.planes-info p {
-    margin: 0;
-}
-
-/* ---------- MODO OSCURO ---------- */
-
 body.oscuro .planes-info {
     color: #bbbbbb;
 }
 
+/* ================= TABLET ================= */
+
+@media (max-width: 992px) {
+    .planes-container {
+        gap: 20px;
+    }
+
+    .plan-card {
+        width: 260px;
+        padding: 30px 20px;
+    }
+}
+
+/* ================= MÓVIL ================= */
+
+@media (max-width: 768px) {
+
+    .planes-titulo {
+        font-size: 2rem;
+        margin: 40px 0 25px;
+    }
+
+    .planes-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 60px;
+    }
+
+    .plan-card {
+        width: 100%;
+        max-width: 340px;
+        padding: 28px 20px;
+    }
+
+    .btn-plan {
+        width: 100%;
+    }
+
+    .planes-info {
+        margin-bottom: 60px;
+    }
+}
+
+/* ================= MÓVIL PEQUEÑO ================= */
+
+@media (max-width: 480px) {
+
+    .planes-titulo {
+        font-size: 1.6rem;
+    }
+
+    .plan-card {
+        max-width: 100%;
+        padding: 25px 15px;
+    }
+
+    .plan-card h2 {
+        font-size: 1.3rem;
+    }
+
+    .plan-card .precio {
+        font-size: 1.6rem;
+    }
+
+    .btn-plan {
+        font-size: 0.9rem;
+        padding: 12px;
+    }
+
+    .planes-info {
+        font-size: 0.85rem;
+    }
+
+    /* eliminar hover en móvil */
+    .plan-card:hover {
+        transform: none;
+        border-color: transparent;
+    }
+}
