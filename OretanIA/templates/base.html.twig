@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
 
-    <link rel="stylesheet" href="{{ asset('./css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('./css/cabezera.css') }}">
     <link rel="shortcut icon" href="{{ asset('imagenes/logo.ico') }}">
 
     {% block head %}{% endblock %}
@@ -32,24 +32,32 @@
 </script>
 
 <header class="header">
-    <div class="brand">
-        <div class="logo">
-            <a href="{{ path('home') }}" title="Inicio">
-                <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Oretan-IA">
-            </a>
+    <div class="header-container">
+        <div class="brand">
+            <div class="logo">
+                <a href="{{ path('home') }}" title="Inicio">
+                    <img src="{{ asset('./imagenes/Logo.png') }}" alt="Logo Oretan-IA">
+                </a>
+            </div>
+            <h1 class="titulo">
+                {% block cabecera %}Oretan-IA{% endblock %}
+            </h1>
         </div>
-        <h1 class="titulo">
-            {% block cabecera %}Oretan-IA{% endblock %}
-        </h1>
-    </div>
 
-    <div class="modo">
-        <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
-            <span class="icon-sun"></span>
-            <span class="icon-moon"></span>
-        </button>
+        <div class="header-controls">
+            <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
+                <span class="icon-sun"></span>
+                <span class="icon-moon"></span>
+            </button>
 
-        <nav class="menu-horizontal">
+            <button id="menu-toggle" class="menu-toggle-btn" aria-label="Abrir menú">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+
+        <nav class="menu-horizontal" id="navigation-menu">
             <ul>
                 {% if app.session.has('user-id') %}
                     <li><a href="{{ path('perfil') }}">Perfil</a></li>
@@ -70,22 +78,6 @@
     {% block body %}
     {% endblock %}
 </main>
-
-<footer class="footer">
-    <div class="footer-content">
-        <p>
-            Información básica:
-            oretan-ia@gmail.com |
-            Tel: 953 123 456 |
-            Redes sociales |
-            Participantes
-        </p>
-        <br>
-        <p>
-            © 2026 Oretan-IA · Todos los derechos reservados
-        </p>
-    </div>
-</footer>
 
 {% block javascripts %}{% endblock %}
 
@@ -135,6 +127,15 @@
             d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));
             document.cookie = "tema=" + valorTema + "; expires=" + d.toUTCString() + "; path=/";
         });
+    });
+
+    // --- LÓGICA DEL MENÚ DESPLEGABLE HAMPURGUESA ---
+    // Asegúrate de que tu script sea algo así:
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuHorizontal = document.querySelector('.menu-horizontal');
+
+    menuToggle?.addEventListener('click', function() {
+        menuHorizontal.classList.toggle('active'); // Esto activa el CSS anterior
     });
 </script>
 
