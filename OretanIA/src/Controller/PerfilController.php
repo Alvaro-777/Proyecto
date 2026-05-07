@@ -148,8 +148,9 @@ class PerfilController extends AbstractController
             return $this->redirectToRoute('perfil');
         }
 
-        if ($file->getSize() > 2000000) {
-            $this->addFlash('error','La imagen es demasiado grande');
+        // Tamaño máximo: 2 MB (2 * 1024 * 1024 = 2,097,152 bytes)
+        if ($file->getSize() > 2 * 1024 * 1024) {
+            $this->addFlash('error', 'El archivo debe pesar menos de 2 MB.');
             return $this->redirectToRoute('perfil');
         }
 

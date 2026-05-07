@@ -161,3 +161,13 @@ function parseDate (str) {
         parts[4],
     );
 }
+
+function validarYEnviar(event) {
+    const file = event.target.files[0];
+    if (file && file.size > 2 * 1024 * 1024) { // 2 MB en bytes
+        alert('El archivo debe pesar menos de 2 MB.');
+        event.target.value = ''; // limpia el input
+        return false;
+    }
+    event.target.form.submit();
+}

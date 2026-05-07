@@ -37,7 +37,7 @@ const campos = [
     { input: document.getElementById("signup-name"),pattern: patternNombre},
     { input: document.getElementById("signup-surname"),pattern: patternApellidos},
     { input: document.getElementById("signup-email"),pattern: patternMail},
-    //{ input: document.getElementById("signup-pswd"),pattern: patternPswd},
+    { input: document.getElementById("signup-pswd"),pattern: patternPswd},
 ];
 
 // Función genérica de validación
