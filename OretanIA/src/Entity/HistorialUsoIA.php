@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\HistorialUsoIARepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\DBAL\Types\Types;
 
 #[ORM\Entity(repositoryClass: HistorialUsoIARepository::class)]
 class HistorialUsoIA
@@ -24,7 +25,7 @@ class HistorialUsoIA
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?Archivo $archivo = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $textoInput = null;
 
     #[ORM\Column]
