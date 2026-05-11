@@ -1,14 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Resultado - Predict-IA{% endblock %}
-{% block head %}
-    <link rel="stylesheet" href="{{ asset('css/cabezera.css') }}">
 
+{% block head %}
+    <link rel="stylesheet" href="{{ asset('./css/resultado.css') }}">
 {% endblock %}
+
 {% block body %}
-    <p>Creditos restantes: {{ creditos }}</p>
-    <h1>Resultado de la Predicción</h1>
-    <p><strong>Datos:</strong> {{ datos }}</p>
-    <p><strong>Resultado:</strong> {{ resultado }}</p>
-    <a href="{{ path('predictia') }}">← Nueva predicción</a>
+    <div class="resultado-container">
+    <span class="creditos-badge">
+        <i class="fas fa-coins"></i> Creditos restantes: {{ creditos }}
+    </span>
+
+        <h1>Resultado de la Predicción</h1>
+
+        <div class="info-box">
+            <p><strong>Datos de entrada:</strong> {{ datos }}</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Resultado obtenido:</strong> {{ resultado }}</p>
+        </div>
+
+        <a href="{{ path('predictia') }}" class="btn-volver">← Nueva predicción</a>
+    </div>
 {% endblock %}
