@@ -6,7 +6,7 @@
     <title>{% block title %}{% endblock %}</title>
 
     <link rel="stylesheet" href="{{ asset('./css/cabezera.css') }}">
-    <link rel="shortcut icon" href="{{ asset('imagenes/logo.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('imagenes/logo.ico') }}">
 
     {% block head %}{% endblock %}
 </head>
@@ -66,8 +66,8 @@
                 </li>
                 <li>
                     <button id="modo-toggle" class="modo-btn" aria-label="Cambiar modo">
-                        <span class="icon-sun"></span>
-                        <span class="icon-moon"></span>
+                        <span class="icon-sun">☀️</span>
+                        <span class="icon-moon">🌙</span>
                     </button>
                 </li>
             </ul>
