@@ -117,6 +117,12 @@ body.oscuro {
 }
 
 /* Lógica de Iconos (Sol / Luna) */
+i{
+    position: relative;
+    top: 1px;
+    color: white;
+}
+
 .modo-btn .icon-sun {
     display: none;
 }
